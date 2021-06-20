@@ -6,7 +6,7 @@ public class CMenuMain : CMenu
 {
     void Start()
     {
-        InitMenu(40);
+        InitMenu();
         AddButton("Save").onClick.AddListener(SaveGame);
         AddButton("Settings");
         AddButton("Main menu").onClick.AddListener(GoMainMenu);

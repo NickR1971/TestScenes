@@ -6,7 +6,7 @@ public class CMenuLogo : CMenu
 {
     void Start()
     {
-        InitMenu(40);
+        InitMenu();
         AddButton("New").onClick.AddListener(NewGame);
         if (appManager.GetGameID() > 0)
         {
