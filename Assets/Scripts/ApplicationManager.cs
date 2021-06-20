@@ -6,12 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[Serializable]
-class SaveData
-{
-	public uint id;
-}
-
 public class ApplicationManager : MonoBehaviour
 {
 	private static uint gameID;
@@ -21,6 +15,7 @@ public class ApplicationManager : MonoBehaviour
 	private CMenu menu;
 	private bool isActiveMenu;
 	private string saveFileName;
+	private CSaveFile saveFile;
 
 
     private void Awake()
@@ -28,6 +23,8 @@ public class ApplicationManager : MonoBehaviour
 		isActiveMenu = imageMenu.gameObject.activeSelf;
 		menu = imageMenu.GetComponent<CMenu>();
 		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
+		saveFile = new CSaveFile();
+		saveFile.Init(saveFileName);
     }
 
 	private void Start()
@@ -68,6 +65,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void GoToMainScene()
     {
+		Debug.Log($"Game ID = {gameID}");
 		SceneManager.LoadScene("MainScene");
 	}
 
@@ -89,25 +87,17 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Save()
 	{
-		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(saveFileName);
 		SaveData data = new SaveData();
-	
 		data.id = gameID;
-		
-		bf.Serialize(file, data);
-		file.Close();
+		saveFile.Save(data);
 	}
 
 	public void Load()
 	{
 		if (File.Exists(saveFileName))
 		{
-			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(saveFileName, FileMode.Open);
-			SaveData data = (SaveData)bf.Deserialize(file);
-			file.Close();
-			
+			SaveData data = new SaveData();
+			saveFile.Load(ref data);
 			gameID = data.id;
 
 			Debug.Log("Game data loaded!");
@@ -119,13 +109,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void ResetData()
 	{
-		if (File.Exists(saveFileName))
-		{
-			File.Delete(saveFileName);
-			Debug.Log("Data reset complete!");
-		}
-		else
-			Debug.LogError("No save data to delete.");
+		saveFile.ResetData();
 	}
 
 	public void Quit () 
