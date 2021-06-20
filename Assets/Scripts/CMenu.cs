@@ -7,7 +7,6 @@ public class CMenu : MonoBehaviour
 {
     protected ApplicationManager appManager;
     protected int sceneID;
-    //protected Button[] buttons = new Button[maxButtons];
     protected List<Button> buttons = new List<Button>();
     
     [SerializeField] private Button btnPrefab;

@@ -8,10 +8,8 @@ public class CMenuLogo : CMenu
     {
         InitMenu();
         AddButton("New").onClick.AddListener(NewGame);
-        if (appManager.GetGameID() > 0)
-        {
+        if (appManager.IsGameExist())
             AddButton("Continue").onClick.AddListener(ContinueGame);
-        }
         AddButton("Load").onClick.AddListener(LoadGame);
         LastButton().interactable = appManager.IsSavedGameExist();
         AddButton("Settings").onClick.AddListener(SetSettings);

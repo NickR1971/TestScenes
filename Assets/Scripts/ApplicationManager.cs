@@ -32,12 +32,13 @@ public class ApplicationManager : MonoBehaviour
 
 	private void Start()
     {
-		Debug.Log($"Game ID is {gameID}");
     }
 
-	public int GetSceneID() { return sceneID; }
+	public int GetSceneID() => sceneID;
 
-	public uint GetGameID() { return gameID; }
+	public uint GetGameID() => gameID;
+
+	public bool IsGameExist() => gameID > 0;
 
 	public void HideMenu()
     {
