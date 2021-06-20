@@ -13,7 +13,7 @@ public class CMenuLogo : CMenu
             AddButton("Continue").onClick.AddListener(ContinueGame);
         }
         AddButton("Load").onClick.AddListener(LoadGame);
-        buttons[LastButtonIndex()].interactable = appManager.IsSavedGameExist();
+        LastButton().interactable = appManager.IsSavedGameExist();
         AddButton("Settings").onClick.AddListener(SetSettings);
         AddButton("Quit").onClick.AddListener(ExitGame);
     }
