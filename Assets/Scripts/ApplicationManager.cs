@@ -1,36 +1,43 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System;
+﻿using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 class SaveData
 {
-	public int[] map = new int[81];
+	public uint id;
 }
 
 public class ApplicationManager : MonoBehaviour
 {
+	private static uint gameID;
+
 	[SerializeField] private int sceneID;
 	[SerializeField] private Image imageMenu;
 	private CMenu menu;
 	private bool isActiveMenu;
+	private string saveFileName;
 
 
     private void Awake()
     {
 		isActiveMenu = imageMenu.gameObject.activeSelf;
 		menu = imageMenu.GetComponent<CMenu>();
+		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
     }
 
 	private void Start()
     {
+		Debug.Log($"Game ID is {gameID}");
     }
 
 	public int GetSceneID() { return sceneID; }
+
+	public uint GetGameID() { return gameID; }
 
 	public void HideMenu()
     {
@@ -58,9 +65,15 @@ public class ApplicationManager : MonoBehaviour
 		else ShowMenu();
     }
 
-	public void NewGame()
+	public void GoToMainScene()
     {
 		SceneManager.LoadScene("MainScene");
+	}
+
+	public void NewGame()
+    {
+		gameID = (uint)UnityEngine.Random.Range(100, 10000000);
+		GoToMainScene();
     }
 
 	public void MainMenuScene()
@@ -68,65 +81,51 @@ public class ApplicationManager : MonoBehaviour
 		SceneManager.LoadScene("LogoScene");
 	}
 
-	/**********************
-		public void Save()
-		{
-		 int i;
+	public bool IsSavedGameExist()
+    {
+		return File.Exists(saveFileName);
+    }
 
+	public void Save()
+	{
+		BinaryFormatter bf = new BinaryFormatter();
+		FileStream file = File.Create(saveFileName);
+		SaveData data = new SaveData();
+	
+		data.id = gameID;
+		
+		bf.Serialize(file, data);
+		file.Close();
+	}
+
+	public void Load()
+	{
+		if (File.Exists(saveFileName))
+		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Create(Application.persistentDataPath
-						 + "/MySaveData.dat");
-			SaveData data = new SaveData();
-			for (i = 0; i < 81; i++)
-			{
-				data.map[i] = map[i];
-			}
-			bf.Serialize(file, data);
+			FileStream file = File.Open(saveFileName, FileMode.Open);
+			SaveData data = (SaveData)bf.Deserialize(file);
 			file.Close();
-			Debug.Log("Save to " + Application.persistentDataPath + "/MySaveData.dat");
-		}
+			
+			gameID = data.id;
 
-		public void Load()
+			Debug.Log("Game data loaded!");
+			GoToMainScene();
+		}
+		else
+			Debug.LogError("There is no save data!");
+	}
+
+	public void ResetData()
+	{
+		if (File.Exists(saveFileName))
 		{
-		 int i;
-
-			if (File.Exists(Application.persistentDataPath
-						   + "/MySaveData.dat"))
-			{
-				BinaryFormatter bf = new BinaryFormatter();
-				FileStream file =
-						   File.Open(Application.persistentDataPath
-						   + "/MySaveData.dat", FileMode.Open);
-				SaveData data = (SaveData)bf.Deserialize(file);
-				for (i = 0; i < 81; i++)
-				{
-					if (cellList[i].SetValue(data.map[i]))
-					{
-						map[i] = data.map[i];
-					}
-				}
-				file.Close();
-				refresh?.Invoke();
-				Debug.Log("Game data loaded!");
-			}
-			else
-				Debug.LogError("There is no save data!");
+			File.Delete(saveFileName);
+			Debug.Log("Data reset complete!");
 		}
-
-		public void ResetData()
-		{
-			if (File.Exists(Application.persistentDataPath
-				  + "/MySaveData.dat"))
-			{
-				File.Delete(Application.persistentDataPath
-								  + "/MySaveData.dat");
-				Debug.Log("Data reset complete!");
-			}
-			else
-				Debug.LogError("No save data to delete.");
-
-		}
-	**************************/
+		else
+			Debug.LogError("No save data to delete.");
+	}
 
 	public void Quit () 
 	{

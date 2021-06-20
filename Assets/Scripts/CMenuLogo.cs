@@ -8,7 +8,12 @@ public class CMenuLogo : CMenu
     {
         InitMenu(40);
         AddButton("New").onClick.AddListener(NewGame);
+        if (appManager.GetGameID() > 0)
+        {
+            AddButton("Continue").onClick.AddListener(ContinueGame);
+        }
         AddButton("Load").onClick.AddListener(LoadGame);
+        buttons[LastButtonIndex()].interactable = appManager.IsSavedGameExist();
         AddButton("Settings").onClick.AddListener(SetSettings);
         AddButton("Quit").onClick.AddListener(ExitGame);
     }
@@ -18,14 +23,19 @@ public class CMenuLogo : CMenu
         appManager.NewGame();
     }
 
+    public void ContinueGame()
+    {
+        appManager.GoToMainScene();
+    }
+
     public void LoadGame()
     {
-        Debug.Log("Load Game");
+        appManager.Load();
     }
 
     public void SetSettings()
     {
-        Debug.Log("Settings");
+        appManager.ResetData();
     }
 
     public void ExitGame()

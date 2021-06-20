@@ -63,6 +63,8 @@ public class CMenu : MonoBehaviour
 
         return btn;
     }
+
+    protected int LastButtonIndex() { return numButtons - 1; }
     
     public void Hide()
     {
