@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CMenuLogo : CMenu
 {
+    private bool f = true;
     void Start()
     {
         InitMenu();
-        AddButton("New").onClick.AddListener(NewGame);
+        AddButton("ui_new").onClick.AddListener(NewGame);
         if (appManager.IsGameExist())
-            AddButton("Continue").onClick.AddListener(ContinueGame);
-        AddButton("Load").onClick.AddListener(LoadGame);
+            AddButton("ui_continue").onClick.AddListener(ContinueGame);
+        AddButton("ui_load").onClick.AddListener(LoadGame);
         LastButton().interactable = appManager.IsSavedGameExist();
-        AddButton("Settings").onClick.AddListener(SetSettings);
-        AddButton("Quit").onClick.AddListener(ExitGame);
+        AddButton("ui_settings").onClick.AddListener(SetSettings);
+        AddButton("ui_quit").onClick.AddListener(ExitGame);
     }
 
     public void NewGame()
@@ -33,7 +34,11 @@ public class CMenuLogo : CMenu
 
     public void SetSettings()
     {
-        appManager.ResetData();
+        //appManager.ResetData();
+        if(f) local.LoadLocal(UsedLocal.ukrainian);
+        else local.LoadLocal(UsedLocal.english);
+        f = !f;
+        RefreshText();
     }
 
     public void ExitGame()

@@ -1,0 +1,13 @@
+{
+  "loc": [
+    {      "key": "ui_yes",      "value": "Так"    },
+    {      "key": "ui_no",       "value": "Ні"    },
+    {      "key": "ui_new",      "value": "Нова гра"    },
+    {      "key": "ui_continue", "value": "Продовжити"    },
+    {      "key": "ui_load",     "value": "Загрузити"    },
+    {      "key": "ui_settings", "value": "Налаштування"    },
+    {      "key": "ui_quit",     "value": "Вихід"    },
+    {      "key": "ui_save",     "value": "Зберегти"    },
+    {      "key": "ui_mainmenu", "value": "Головне меню"    }
+  ]
+}

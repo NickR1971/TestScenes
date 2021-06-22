@@ -804,6 +804,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 6896513561778335512, guid: 129e9005ebc5a4543b72f08c678a1601,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
       propertyPath: m_Pivot.x
@@ -822,7 +827,7 @@ PrefabInstance:
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0.48471975
       objectReference: {fileID: 0}
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
@@ -832,7 +837,7 @@ PrefabInstance:
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0.48471975
       objectReference: {fileID: 0}
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
@@ -887,7 +892,7 @@ PrefabInstance:
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 257
+      value: 273
       objectReference: {fileID: 0}
     - target: {fileID: 6896513561778335513, guid: 129e9005ebc5a4543b72f08c678a1601,
         type: 3}
@@ -918,6 +923,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1531477726070596949, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: text_ui
+      value: 
+      objectReference: {fileID: 4900000, guid: 6227e7de6a291294880ed4256ef5f15c, type: 3}
+    - target: {fileID: 1531477726070596949, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: localPrefab
+      value: 
+      objectReference: {fileID: 2083960237438644689, guid: a2ceba3948902cd48b880e0b74c36f67,
+        type: 3}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
       propertyPath: imageMenu

@@ -7,30 +7,52 @@ public class CMenu : MonoBehaviour
 {
     protected ApplicationManager appManager;
     protected int sceneID;
-    protected List<Button> buttons = new List<Button>();
+    protected SortedList<string,Button> buttons = new SortedList<string,Button>();
+    protected CLocalisation local;
     
     [SerializeField] private Button btnPrefab;
+    private Button lastButton;
 
     protected void InitMenu()
     {
+        local = FindObjectOfType<CLocalisation>();
+        if (local == null) Debug.Log("Localisation not found");
         appManager = FindObjectOfType<ApplicationManager>();
         if (appManager == null) Debug.Log("ApplicationManager not found");
         sceneID = appManager.GetSceneID();
+        lastButton = null;
     }
 
     public int GetNumButtons() => buttons.Count;
 
+    private void SetLastButtonText(string _name)
+    {
+        lastButton.transform.GetChild(0).GetComponent<Text>().text = local.GetString(_name);
+    }
     protected Button AddButton(string _name)
     {
-        Button btn = Instantiate(btnPrefab, Vector3.zero, Quaternion.identity, transform);
-        btn.transform.GetChild(0).GetComponent<Text>().text = _name;
-        buttons.Add(btn);
+        lastButton = Instantiate(btnPrefab, Vector3.zero, Quaternion.identity, transform);
+        buttons.Add(_name,lastButton);
+        SetLastButtonText(_name);
 
-        return btn;
+        return lastButton;
     }
 
-    protected int LastButtonIndex() => GetNumButtons() - 1;
-    protected Button LastButton() => buttons[GetNumButtons() - 1];
+    public void RefreshText()
+    {
+        int i;
+
+        for(i=0;i<buttons.Count;i++)
+        {
+            foreach (KeyValuePair<string, Button> kvp in buttons)
+            {
+                lastButton = kvp.Value;
+                SetLastButtonText(kvp.Key);
+            }
+        }
+    }
+
+    protected Button LastButton() => lastButton;
    
     public void Hide() =>
        gameObject.SetActive(false);

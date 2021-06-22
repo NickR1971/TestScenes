@@ -1,0 +1,13 @@
+{
+  "loc": [
+    {      "key": "ui_yes",      "value": "Yes"    },
+    {      "key": "ui_no",       "value": "No"    },
+    {      "key": "ui_new",      "value": "New game"    },
+    {      "key": "ui_continue", "value": "Continue"    },
+    {      "key": "ui_load",     "value": "Load game"    },
+    {      "key": "ui_settings", "value": "Settings"    },
+    {      "key": "ui_quit",     "value": "Quit"    },
+    {      "key": "ui_save",     "value": "Save game"    },
+    {      "key": "ui_mainmenu", "value": "Main menu"    }
+  ]
+}
