@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CMenuLogo : CMenu
 {
-    private bool f = true;
     void Start()
     {
         InitMenu();
@@ -15,6 +14,7 @@ public class CMenuLogo : CMenu
         LastButton().interactable = appManager.IsSavedGameExist();
         AddButton("ui_settings").onClick.AddListener(SetSettings);
         AddButton("ui_quit").onClick.AddListener(ExitGame);
+
     }
 
     public void NewGame()
@@ -35,10 +35,7 @@ public class CMenuLogo : CMenu
     public void SetSettings()
     {
         //appManager.ResetData();
-        if(f) local.LoadLocal(UsedLocal.ukrainian);
-        else local.LoadLocal(UsedLocal.english);
-        f = !f;
-        RefreshText();
+        appManager.OpenSettings();
     }
 
     public void ExitGame()

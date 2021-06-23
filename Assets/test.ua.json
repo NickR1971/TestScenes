@@ -1,5 +1,6 @@
 {
   "loc": [
+    {      "key": "language",      "value": "українська"    },
     {      "key": "ui_yes",      "value": "Так"    },
     {      "key": "ui_no",       "value": "Ні"    },
     {      "key": "ui_new",      "value": "Нова гра"    },

@@ -8,10 +8,14 @@ using UnityEngine.SceneManagement;
 
 public class ApplicationManager : MonoBehaviour
 {
+	public event Action reloadText;
+
 	private static uint gameID;
 
 	[SerializeField] private int sceneID;
-	[SerializeField] private Image imageMenu;
+	[SerializeField] private Image mainMenu;
+	[SerializeField] private Image settingsMenu;
+	private CLocalisation local;
 	private CMenu menu;
 	private bool isActiveMenu;
 	private string saveFileName;
@@ -20,8 +24,9 @@ public class ApplicationManager : MonoBehaviour
 
     private void Awake()
     {
-		isActiveMenu = imageMenu.gameObject.activeSelf;
-		menu = imageMenu.GetComponent<CMenu>();
+		isActiveMenu = mainMenu.gameObject.activeSelf;
+		local = GetComponent<CLocalisation>();
+		menu = mainMenu.GetComponent<CMenu>();
 		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
 		saveFile = new CSaveFile();
 		saveFile.Init(saveFileName);
@@ -42,7 +47,7 @@ public class ApplicationManager : MonoBehaviour
 		if(isActiveMenu)
         {
 			isActiveMenu = false;
-			imageMenu.gameObject.SetActive(isActiveMenu);
+			mainMenu.gameObject.SetActive(isActiveMenu);
         }
     }
 
@@ -51,8 +56,8 @@ public class ApplicationManager : MonoBehaviour
 		if (!isActiveMenu)
         {
 			isActiveMenu = true;
-			imageMenu.gameObject.SetActive(isActiveMenu);
-			menu = imageMenu.GetComponent<CMenu>();
+			mainMenu.gameObject.SetActive(isActiveMenu);
+			menu = mainMenu.GetComponent<CMenu>();
 			if (menu == null) Debug.Log("Menu access disabled");
         }
     }
@@ -111,6 +116,23 @@ public class ApplicationManager : MonoBehaviour
 	{
 		saveFile.ResetData();
 	}
+	public void SetLanguage(UsedLocal _language)
+    {
+		local.LoadLocal(_language);
+		reloadText?.Invoke();
+    }
+
+	public void OpenSettings()
+    {
+		HideMenu();
+		settingsMenu.gameObject.SetActive(true);
+    }
+
+	public void CloseSettings()
+    {
+		ShowMenu();
+		settingsMenu.gameObject.SetActive(false);
+    }
 
 	public void Quit () 
 	{

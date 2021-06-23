@@ -13,6 +13,11 @@ public class CMenu : MonoBehaviour
     [SerializeField] private Button btnPrefab;
     private Button lastButton;
 
+    private void OnDestroy()
+    {
+        appManager.reloadText -= RefreshText;
+    }
+
     protected void InitMenu()
     {
         local = FindObjectOfType<CLocalisation>();
@@ -21,6 +26,7 @@ public class CMenu : MonoBehaviour
         if (appManager == null) Debug.Log("ApplicationManager not found");
         sceneID = appManager.GetSceneID();
         lastButton = null;
+        appManager.reloadText += RefreshText;
     }
 
     public int GetNumButtons() => buttons.Count;

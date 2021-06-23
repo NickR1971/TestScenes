@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CMenuMain : CMenu
 {
-    private bool f = true;
     void Start()
     {
         InitMenu();
@@ -25,11 +24,7 @@ public class CMenuMain : CMenu
     }
     public void SetSettings()
     {
-        //appManager.ResetData();
-        if (f) local.LoadLocal(UsedLocal.ukrainian);
-        else local.LoadLocal(UsedLocal.english);
-        f = !f;
-        RefreshText();
+        appManager.OpenSettings();
     }
 
     public void ExitGame()
