@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UsedLocal { english, ukrainian }
+public enum UsedLocal { english = 0, ukrainian = 1 }
 
 public class CLocalisation : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class CLocalisation : MonoBehaviour
         else if (_selectedLocal == UsedLocal.ukrainian) LoadLocalPrefab(localPrefab_ua);
         else Debug.Log("No realized localisation!");
     }
-    public string GetString(string _key) 
+    public string GetString(string _key)
     {
         string value;
 

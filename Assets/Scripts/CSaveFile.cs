@@ -30,7 +30,6 @@ public class CSaveFile
 			FileStream file = File.Open(saveFileName, FileMode.Open);
 			data = (SaveData)bf.Deserialize(file);
 			file.Close();
-			Debug.Log("Game data loaded!");
 		}
 		else
 			Debug.LogError("There is no save data!");
@@ -41,7 +40,6 @@ public class CSaveFile
 		if (File.Exists(saveFileName))
 		{
 			File.Delete(saveFileName);
-			Debug.Log("Data reset complete!");
 		}
 		else
 			Debug.LogError("No save data to delete.");

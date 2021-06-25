@@ -1,5 +1,6 @@
 {
   "loc": [
+    {      "key": "current_language",      "value": "current language"    },
     {      "key": "language",      "value": "english"    },
     {      "key": "ui_yes",      "value": "Yes"    },
     {      "key": "ui_no",       "value": "No"    },

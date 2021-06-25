@@ -105,7 +105,6 @@ public class ApplicationManager : MonoBehaviour
 			saveFile.Load(ref data);
 			gameID = data.id;
 
-			Debug.Log("Game data loaded!");
 			GoToMainScene();
 		}
 		else
