@@ -7,7 +7,7 @@ public class CMenu : MonoBehaviour
 {
     protected ApplicationManager appManager;
     protected int sceneID;
-    protected SortedList<string,Button> buttons = new SortedList<string,Button>();
+    protected SortedList<EnumStringID,Button> buttons = new SortedList<EnumStringID,Button>();
     protected CLocalisation local;
     
     [SerializeField] private Button btnPrefab;
@@ -31,15 +31,16 @@ public class CMenu : MonoBehaviour
 
     public int GetNumButtons() => buttons.Count;
 
-    private void SetLastButtonText(string _name)
+    private void SetLastButtonText(EnumStringID _id)
     {
-        lastButton.transform.GetChild(0).GetComponent<Text>().text = local.GetString(_name);
+        lastButton.transform.GetChild(0).GetComponent<Text>().text = local.GetString(_id);
     }
-    protected Button AddButton(string _name)
+
+    protected Button AddButton(EnumStringID _id)
     {
         lastButton = Instantiate(btnPrefab, Vector3.zero, Quaternion.identity, transform);
-        buttons.Add(_name,lastButton);
-        SetLastButtonText(_name);
+        buttons.Add(_id,lastButton);
+        SetLastButtonText(_id);
 
         return lastButton;
     }
@@ -50,7 +51,7 @@ public class CMenu : MonoBehaviour
 
         for(i=0;i<buttons.Count;i++)
         {
-            foreach (KeyValuePair<string, Button> kvp in buttons)
+            foreach (KeyValuePair<EnumStringID, Button> kvp in buttons)
             {
                 lastButton = kvp.Value;
                 SetLastButtonText(kvp.Key);

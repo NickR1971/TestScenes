@@ -10,6 +10,7 @@
     {      "key": "ui_settings", "value": "Settings"    },
     {      "key": "ui_quit",     "value": "Quit"    },
     {      "key": "ui_save",     "value": "Save game"    },
-    {      "key": "ui_mainmenu", "value": "Main menu"    }
+    {      "key": "ui_mainmenu", "value": "Main menu"    },
+    {      "key": "temp_hint", "value": "press ESC to menu"    }
   ]
 }

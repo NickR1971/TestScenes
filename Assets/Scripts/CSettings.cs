@@ -36,7 +36,7 @@ public class CSettings : MonoBehaviour
 
     public void ReloadTxt()
     {
-        language_field.text = local.GetString("current_language") + " " + local.GetString("language");
+        language_field.text = local.GetString(EnumStringID.current_language) + " " + local.GetString(EnumStringID.language);
     }
 
     public void SetLanguageUA()

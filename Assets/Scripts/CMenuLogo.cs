@@ -7,13 +7,13 @@ public class CMenuLogo : CMenu
     void Start()
     {
         InitMenu();
-        AddButton("ui_new").onClick.AddListener(NewGame);
+        AddButton(EnumStringID.ui_new).onClick.AddListener(NewGame);
         if (appManager.IsGameExist())
-            AddButton("ui_continue").onClick.AddListener(ContinueGame);
-        AddButton("ui_load").onClick.AddListener(LoadGame);
+            AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
+        AddButton(EnumStringID.ui_load).onClick.AddListener(LoadGame);
         LastButton().interactable = appManager.IsSavedGameExist();
-        AddButton("ui_settings").onClick.AddListener(SetSettings);
-        AddButton("ui_quit").onClick.AddListener(ExitGame);
+        AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
+        AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
 
     }
 
