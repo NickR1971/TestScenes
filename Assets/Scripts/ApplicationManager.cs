@@ -12,6 +12,8 @@ public class ApplicationManager : MonoBehaviour
 
 	private static uint gameID;
 
+	private static ApplicationManager thisExemplar;
+
 	[SerializeField] private int sceneID;
 	[SerializeField] private Image mainMenu;
 	[SerializeField] private Image settingsMenu;
@@ -24,8 +26,11 @@ public class ApplicationManager : MonoBehaviour
 
     private void Awake()
     {
+		thisExemplar = this;
+
 		isActiveMenu = mainMenu.gameObject.activeSelf;
 		local = GetComponent<CLocalisation>();
+		if (local == null) Debug.LogError("No localisation component found!");
 		menu = mainMenu.GetComponent<CMenu>();
 		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
 		saveFile = new CSaveFile();
@@ -36,6 +41,17 @@ public class ApplicationManager : MonoBehaviour
     {
     }
 
+    private void OnDestroy()
+    {
+		thisExemplar = null;
+    }
+
+	public static ApplicationManager GetLink() 
+	{
+		if (thisExemplar == null) Debug.LogError("No created application manager!");
+
+		return thisExemplar;
+	}
 	public int GetSceneID() => sceneID;
 
 	public uint GetGameID() => gameID;

@@ -8,7 +8,6 @@ public class CMenu : MonoBehaviour
     protected ApplicationManager appManager;
     protected int sceneID;
     protected SortedList<EnumStringID,Button> buttons = new SortedList<EnumStringID,Button>();
-    protected CLocalisation local;
     
     [SerializeField] private Button btnPrefab;
     private Button lastButton;
@@ -20,9 +19,7 @@ public class CMenu : MonoBehaviour
 
     protected void InitMenu()
     {
-        local = FindObjectOfType<CLocalisation>();
-        if (local == null) Debug.Log("Localisation not found");
-        appManager = FindObjectOfType<ApplicationManager>();
+        appManager = ApplicationManager.GetLink();
         if (appManager == null) Debug.Log("ApplicationManager not found");
         sceneID = appManager.GetSceneID();
         lastButton = null;
@@ -33,7 +30,7 @@ public class CMenu : MonoBehaviour
 
     private void SetLastButtonText(EnumStringID _id)
     {
-        lastButton.transform.GetChild(0).GetComponent<Text>().text = local.GetString(_id);
+        lastButton.transform.GetChild(0).GetComponent<Text>().text = CLocalisation.GetString(_id);
     }
 
     protected Button AddButton(EnumStringID _id)

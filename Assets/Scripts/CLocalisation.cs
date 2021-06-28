@@ -34,7 +34,7 @@ public class CLocalisation : MonoBehaviour
         else if (_selectedLocal == UsedLocal.ukrainian) LoadLocalPrefab(localPrefab_ua);
         else Debug.Log("No realized localisation!");
     }
-    private string GetString(string _key)
+    private static string GetString(string _key)
     {
         string value;
 
@@ -42,7 +42,7 @@ public class CLocalisation : MonoBehaviour
             return $"<<empty key[{_key}]>>";
         return value;
     }
-    public string GetString(EnumStringID _id)
+    public static string GetString(EnumStringID _id)
     {
         return GetString(_id.ToString());
     }

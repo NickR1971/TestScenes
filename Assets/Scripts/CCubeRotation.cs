@@ -5,13 +5,12 @@ using UnityEngine;
 public class CCubeRotation : MonoBehaviour
 {
     private int angle;
-    private CMenuMain mainMenu;
     private ApplicationManager appManager;
 
     void Start()
     {
         angle = 0;
-        appManager = FindObjectOfType<ApplicationManager>();
+        appManager = ApplicationManager.GetLink();
         if (appManager == null) Debug.Log("Application manager not found");
     }
 

@@ -5,17 +5,13 @@ using UnityEngine.UI;
 
 public class CSettings : MonoBehaviour
 {
-    private CLocalisation local;
     private ApplicationManager appManager;
     [SerializeField] private Text language_field;
 
     private void Awake()
     {
-        appManager = FindObjectOfType<ApplicationManager>();
+        appManager = ApplicationManager.GetLink();
         if (appManager == null) Debug.Log("ApplicationManager not found");
-        local = FindObjectOfType<CLocalisation>();
-        if (local == null) Debug.Log("Localisation not found");
-
     }
     void Start()
     {
@@ -24,19 +20,17 @@ public class CSettings : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("OnEnabled Window");
         appManager.reloadText += ReloadTxt;
     }
 
     private void OnDisable()
     {
-        Debug.Log("OnDisabled window");
         appManager.reloadText -= ReloadTxt;
     }
 
     public void ReloadTxt()
     {
-        language_field.text = local.GetString(EnumStringID.current_language) + " " + local.GetString(EnumStringID.language);
+        language_field.text = CLocalisation.GetString(EnumStringID.current_language) + " " + CLocalisation.GetString(EnumStringID.language);
     }
 
     public void SetLanguageUA()
