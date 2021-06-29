@@ -9,10 +9,12 @@ public class CSaveFile
 {
 	private string saveFileName;
 
-	public void Init(string _filename)
+	public CSaveFile()
     {
-		saveFileName = _filename;
-    }
+		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
+	}
+
+	public bool IsSavedFileExist() => File.Exists(saveFileName);
 
 	public void Save(SaveData data)
 	{
@@ -24,7 +26,7 @@ public class CSaveFile
 
 	public void Load(ref SaveData data)
 	{
-		if (File.Exists(saveFileName))
+		if (IsSavedFileExist())
 		{
 			BinaryFormatter bf = new BinaryFormatter();
 			FileStream file = File.Open(saveFileName, FileMode.Open);

@@ -19,8 +19,6 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private Image settingsMenu;
 	private CLocalisation local;
 	private CMenu menu;
-	private bool isActiveMenu;
-	private string saveFileName;
 	private CSaveFile saveFile;
 
 
@@ -28,13 +26,10 @@ public class ApplicationManager : MonoBehaviour
     {
 		thisExemplar = this;
 
-		isActiveMenu = mainMenu.gameObject.activeSelf;
 		local = GetComponent<CLocalisation>();
 		if (local == null) Debug.LogError("No localisation component found!");
 		menu = mainMenu.GetComponent<CMenu>();
-		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
 		saveFile = new CSaveFile();
-		saveFile.Init(saveFileName);
     }
 
 	private void Start()
@@ -60,27 +55,23 @@ public class ApplicationManager : MonoBehaviour
 
 	public void HideMenu()
     {
-		if(isActiveMenu)
+		if(menu.IsActive())
         {
-			isActiveMenu = false;
-			mainMenu.gameObject.SetActive(isActiveMenu);
+			menu.Hide();
         }
     }
 
 	public void ShowMenu()
     {
-		if (!isActiveMenu)
+		if (!menu.IsActive())
         {
-			isActiveMenu = true;
-			mainMenu.gameObject.SetActive(isActiveMenu);
-			menu = mainMenu.GetComponent<CMenu>();
-			if (menu == null) Debug.Log("Menu access disabled");
+			menu.Show();
         }
     }
 
 	public void InvertMenu()
     {
-		if (isActiveMenu) HideMenu();
+		if (menu.IsActive()) HideMenu();
 		else ShowMenu();
     }
 
@@ -101,10 +92,7 @@ public class ApplicationManager : MonoBehaviour
 		SceneManager.LoadScene("LogoScene");
 	}
 
-	public bool IsSavedGameExist()
-    {
-		return File.Exists(saveFileName);
-    }
+	public bool IsSavedGameExist() => saveFile.IsSavedFileExist();
 
 	public void Save()
 	{
@@ -115,7 +103,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Load()
 	{
-		if (File.Exists(saveFileName))
+		if (IsSavedGameExist())
 		{
 			SaveData data = new SaveData();
 			saveFile.Load(ref data);

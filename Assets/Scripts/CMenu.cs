@@ -20,7 +20,6 @@ public class CMenu : MonoBehaviour
     protected void InitMenu()
     {
         appManager = ApplicationManager.GetLink();
-        if (appManager == null) Debug.Log("ApplicationManager not found");
         sceneID = appManager.GetSceneID();
         lastButton = null;
         appManager.reloadText += RefreshText;
@@ -63,4 +62,5 @@ public class CMenu : MonoBehaviour
 
     public void Show() =>
         gameObject.SetActive(true);
+    public bool IsActive() => gameObject.activeSelf;
 }
