@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7220392528734542227}
   - component: {fileID: 7220392528734542224}
-  - component: {fileID: 3245523297057389803}
   m_Layer: 0
   m_Name: ApplicationManager
   m_TagString: Untagged
@@ -51,15 +50,3 @@ MonoBehaviour:
     type: 3}
   localPrefab_ua: {fileID: 262507705027455733, guid: 2a6c62f4843cd4545a6829fb1306a78f,
     type: 3}
---- !u!114 &3245523297057389803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7220392528734542225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ca25223f5cd994ca9bb12f7aae177d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

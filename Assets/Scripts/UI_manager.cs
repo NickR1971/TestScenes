@@ -2,50 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_manager : MonoBehaviour
+public static class UI_manager
 {
-    private Stack<CUI> activeUI = new Stack<CUI>();
-    private CUI currentUI;
-    private static UI_manager thisExemplar = null;
+    private static Stack<CUI> activeUI = new Stack<CUI>();
+    private static CUI currentUI=null;
 
-    private void Awake()
+    public static void Init()
     {
-        thisExemplar = this;
+        activeUI.Clear();
         currentUI = null;
     }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && currentUI.IsHideOnESC())
-        {
-            if (currentUI.IsActive()) currentUI.Hide();
-            else currentUI.Show();
-        }
-    }
 
-    private void OnDestroy()
-    {
-        thisExemplar = null;
-    }
-
-    public static UI_manager GetLink()
-    {
-        if (thisExemplar == null) Debug.LogError("No created UI manager!");
-
-        return thisExemplar;
-    }
-
-
-    public void SetActiveUI(CUI _ui)
+    public static void OpenUI(CUI _ui)
     {
         if (currentUI != null) currentUI.Hide();
         activeUI.Push(currentUI);
         currentUI = _ui;
-        if (!currentUI.IsHideOnESC())
-            currentUI.Show();
+        currentUI.Show();
     }
 
-    public void CloseUI()
+    public static void CloseUI()
     {
         if (currentUI == null) return;
 

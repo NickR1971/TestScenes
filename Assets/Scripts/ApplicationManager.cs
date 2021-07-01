@@ -19,7 +19,6 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private GameObject localPrefab_en;
 	[SerializeField] private GameObject localPrefab_ua;
-	private UI_manager uiManager;
 	private CMenu menu;
 	private CSaveFile saveFile;
 
@@ -27,9 +26,11 @@ public class ApplicationManager : MonoBehaviour
     private void Awake()
     {
 		thisExemplar = this;
-
+		
 		if (CLocalisation.Init())
 			CLocalisation.LoadLocalPrefab(localPrefab_en);
+
+		UI_manager.Init();
 		menu = mainMenu.GetComponent<CMenu>();
 		saveFile = new CSaveFile();
     }
@@ -41,8 +42,7 @@ public class ApplicationManager : MonoBehaviour
 
     private void Start()
     {
-		uiManager = UI_manager.GetLink();
-		uiManager.SetActiveUI(menu);
+		UI_manager.OpenUI(menu);
     }
 
     public static ApplicationManager GetLink()
@@ -112,12 +112,12 @@ public class ApplicationManager : MonoBehaviour
 
 	public void OpenSettings()
     {
-		uiManager.SetActiveUI(settingsMenu.GetComponent<CUI>());
+		UI_manager.OpenUI(settingsMenu.GetComponent<CUI>());
     }
 
 	public void CloseSettings()
     {
-		uiManager.CloseUI();
+		UI_manager.CloseUI();
     }
 
 	public void Quit () 
