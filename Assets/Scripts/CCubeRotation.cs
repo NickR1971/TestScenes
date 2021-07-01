@@ -5,12 +5,10 @@ using UnityEngine;
 public class CCubeRotation : MonoBehaviour
 {
     private int angle;
-    private ApplicationManager appManager;
 
     void Start()
     {
         angle = 0;
-        appManager = ApplicationManager.GetLink();
     }
 
     private void FixedUpdate()
@@ -20,10 +18,6 @@ public class CCubeRotation : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            appManager.InvertMenu();
-        }
         transform.rotation = Quaternion.Euler(angle, angle, 0);
     }
 }

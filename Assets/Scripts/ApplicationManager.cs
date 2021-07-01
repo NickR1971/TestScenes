@@ -15,10 +15,11 @@ public class ApplicationManager : MonoBehaviour
 	private static ApplicationManager thisExemplar;
 
 	[SerializeField] private int sceneID;
-	[SerializeField] private Image mainMenu;
-	[SerializeField] private Image settingsMenu;
+	[SerializeField] private GameObject mainMenu;
+	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private GameObject localPrefab_en;
 	[SerializeField] private GameObject localPrefab_ua;
+	private UI_manager uiManager;
 	private CMenu menu;
 	private CSaveFile saveFile;
 
@@ -38,7 +39,13 @@ public class ApplicationManager : MonoBehaviour
 		thisExemplar = null;
     }
 
-	public static ApplicationManager GetLink() 
+    private void Start()
+    {
+		uiManager = UI_manager.GetLink();
+		uiManager.SetActiveUI(menu);
+    }
+
+    public static ApplicationManager GetLink()
 	{
 		if (thisExemplar == null) Debug.LogError("No created application manager!");
 
@@ -50,28 +57,6 @@ public class ApplicationManager : MonoBehaviour
 	public uint GetGameID() => gameID;
 
 	public bool IsGameExist() => gameID > 0;
-
-	public void HideMenu()
-    {
-		if(menu.IsActive())
-        {
-			menu.Hide();
-        }
-    }
-
-	public void ShowMenu()
-    {
-		if (!menu.IsActive())
-        {
-			menu.Show();
-        }
-    }
-
-	public void InvertMenu()
-    {
-		if (menu.IsActive()) HideMenu();
-		else ShowMenu();
-    }
 
 	public void GoToMainScene()
     {
@@ -127,14 +112,12 @@ public class ApplicationManager : MonoBehaviour
 
 	public void OpenSettings()
     {
-		HideMenu();
-		settingsMenu.gameObject.SetActive(true);
+		uiManager.SetActiveUI(settingsMenu.GetComponent<CUI>());
     }
 
 	public void CloseSettings()
     {
-		ShowMenu();
-		settingsMenu.gameObject.SetActive(false);
+		uiManager.CloseUI();
     }
 
 	public void Quit () 

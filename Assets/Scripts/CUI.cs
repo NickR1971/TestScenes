@@ -5,6 +5,9 @@ using UnityEngine;
 public class CUI : MonoBehaviour
 {
     protected ApplicationManager appManager;
+    protected bool isHideOnESC = false;
+
+    public bool IsHideOnESC() => isHideOnESC;
 
     public void Hide() => gameObject.SetActive(false);
 

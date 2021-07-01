@@ -18,6 +18,7 @@ public class CMenu : CUI
 
     protected void InitMenu()
     {
+        isHideOnESC = true;
         appManager = ApplicationManager.GetLink();
         sceneID = appManager.GetSceneID();
         lastButton = null;
