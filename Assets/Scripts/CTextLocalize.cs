@@ -12,7 +12,6 @@ public class CTextLocalize : MonoBehaviour
     private void Start()
     {
         appManager = ApplicationManager.GetLink();
-        if(appManager==null) Debug.Log("Application manager not found in text_field");
         textField = GetComponent<Text>();
         RefreshText();
         appManager.reloadText += RefreshText;
@@ -22,6 +21,7 @@ public class CTextLocalize : MonoBehaviour
     {
         appManager.reloadText -= RefreshText;
     }
+
     public void RefreshText()
     {
         textField.text = CLocalisation.GetString(strID);

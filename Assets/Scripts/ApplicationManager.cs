@@ -17,7 +17,8 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private int sceneID;
 	[SerializeField] private Image mainMenu;
 	[SerializeField] private Image settingsMenu;
-	private CLocalisation local;
+	[SerializeField] private GameObject localPrefab_en;
+	[SerializeField] private GameObject localPrefab_ua;
 	private CMenu menu;
 	private CSaveFile saveFile;
 
@@ -26,14 +27,10 @@ public class ApplicationManager : MonoBehaviour
     {
 		thisExemplar = this;
 
-		local = GetComponent<CLocalisation>();
-		if (local == null) Debug.LogError("No localisation component found!");
+		if (CLocalisation.Init())
+			CLocalisation.LoadLocalPrefab(localPrefab_en);
 		menu = mainMenu.GetComponent<CMenu>();
 		saveFile = new CSaveFile();
-    }
-
-	private void Start()
-    {
     }
 
     private void OnDestroy()
@@ -47,6 +44,7 @@ public class ApplicationManager : MonoBehaviour
 
 		return thisExemplar;
 	}
+
 	public int GetSceneID() => sceneID;
 
 	public uint GetGameID() => gameID;
@@ -77,7 +75,6 @@ public class ApplicationManager : MonoBehaviour
 
 	public void GoToMainScene()
     {
-		Debug.Log($"Game ID = {gameID}");
 		SceneManager.LoadScene("MainScene");
 	}
 
@@ -119,9 +116,12 @@ public class ApplicationManager : MonoBehaviour
 	{
 		saveFile.ResetData();
 	}
+
 	public void SetLanguage(UsedLocal _language)
     {
-		local.LoadLocal(_language);
+		if (_language == UsedLocal.english) CLocalisation.LoadLocalPrefab(localPrefab_en);
+		else if (_language == UsedLocal.ukrainian) CLocalisation.LoadLocalPrefab(localPrefab_ua);
+		else Debug.Log("No realized localisation!");
 		reloadText?.Invoke();
     }
 

@@ -11,7 +11,6 @@ public class CCubeRotation : MonoBehaviour
     {
         angle = 0;
         appManager = ApplicationManager.GetLink();
-        if (appManager == null) Debug.Log("Application manager not found");
     }
 
     private void FixedUpdate()

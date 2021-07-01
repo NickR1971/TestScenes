@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CMenu : MonoBehaviour
+public class CMenu : CUI
 {
-    protected ApplicationManager appManager;
     protected int sceneID;
     protected SortedList<EnumStringID,Button> buttons = new SortedList<EnumStringID,Button>();
     
@@ -56,11 +55,4 @@ public class CMenu : MonoBehaviour
     }
 
     protected Button LastButton() => lastButton;
-   
-    public void Hide() =>
-       gameObject.SetActive(false);
-
-    public void Show() =>
-        gameObject.SetActive(true);
-    public bool IsActive() => gameObject.activeSelf;
 }
