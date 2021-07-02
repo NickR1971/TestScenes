@@ -19,7 +19,7 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private GameObject localPrefab_en;
 	[SerializeField] private GameObject localPrefab_ua;
-	private CMenu menu;
+	private CUI menu;
 	private CSaveFile saveFile;
 
 
@@ -31,12 +31,13 @@ public class ApplicationManager : MonoBehaviour
 			CLocalisation.LoadLocalPrefab(localPrefab_en);
 
 		UI_manager.Init();
-		menu = mainMenu.GetComponent<CMenu>();
+		menu = mainMenu.GetComponent<CUI>();
 		saveFile = new CSaveFile();
     }
 
     private void OnDestroy()
     {
+		UI_manager.CloseUI();
 		thisExemplar = null;
     }
 
@@ -104,9 +105,22 @@ public class ApplicationManager : MonoBehaviour
 
 	public void SetLanguage(UsedLocal _language)
     {
-		if (_language == UsedLocal.english) CLocalisation.LoadLocalPrefab(localPrefab_en);
-		else if (_language == UsedLocal.ukrainian) CLocalisation.LoadLocalPrefab(localPrefab_ua);
-		else Debug.Log("No realized localisation!");
+		// test goto
+		if (_language == UsedLocal.english) goto l_english;
+		if (_language == UsedLocal.ukrainian) goto l_ukrainian;
+		goto l_noLocalisation;
+
+		l_english: 
+			CLocalisation.LoadLocalPrefab(localPrefab_en);
+			goto l_end;
+		l_ukrainian:
+			CLocalisation.LoadLocalPrefab(localPrefab_ua);
+			goto l_end;
+		l_noLocalisation:
+			Debug.Log("No realized localisation!");
+		l_end:
+		// goto is work! I'm happy!
+
 		reloadText?.Invoke();
     }
 

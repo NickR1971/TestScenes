@@ -11,6 +11,9 @@
     {      "key": "ui_quit",     "value": "Вихід"    },
     {      "key": "ui_save",     "value": "Зберегти"    },
     {      "key": "ui_mainmenu", "value": "Головне меню"    },
-    {      "key": "temp_hint",   "value": "натиснить ESC для меню" }
+    {      "key": "ui_red", "value": "Червоний"    },
+    {      "key": "ui_green", "value": "Зелений"    },
+    {      "key": "ui_blue", "value": "Блакитний"    },
+    {      "key": "temp_hint",   "value": "Натиснить ESC для меню" }
   ]
 }

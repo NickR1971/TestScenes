@@ -11,5 +11,8 @@ ui_settings,
 ui_quit,
 ui_save,
 ui_mainmenu,
+ui_red,
+ui_green,
+ui_blue,
 temp_hint 
 }

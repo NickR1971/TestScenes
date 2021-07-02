@@ -7,6 +7,7 @@ public class CMenuMain : CMenu
     void Start()
     {
         InitMenu();
+        AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
         AddButton(EnumStringID.ui_save).onClick.AddListener(SaveGame);
         AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
         AddButton(EnumStringID.ui_mainmenu).onClick.AddListener(GoMainMenu);
@@ -16,6 +17,11 @@ public class CMenuMain : CMenu
     public void SaveGame()
     {
         appManager.Save();
+    }
+
+    public void ContinueGame()
+    {
+        UI_manager.CloseUI();
     }
 
     public void GoMainMenu()

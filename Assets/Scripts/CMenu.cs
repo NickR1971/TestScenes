@@ -44,7 +44,7 @@ public class CMenu : CUI
     {
         int i;
 
-        for(i=0;i<buttons.Count;i++)
+        for (i = 0; i < buttons.Count; i++)
         {
             foreach (KeyValuePair<EnumStringID, Button> kvp in buttons)
             {
