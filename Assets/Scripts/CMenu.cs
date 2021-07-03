@@ -18,7 +18,7 @@ public class CMenu : CUI
 
     protected void InitMenu()
     {
-        appManager = ApplicationManager.GetLink();
+        InitUI();
         sceneID = appManager.GetSceneID();
         lastButton = null;
         appManager.reloadText += RefreshText;

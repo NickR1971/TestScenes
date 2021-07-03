@@ -9,7 +9,7 @@ public class CSettings : CUI
 
     void Start()
     {
-        appManager = ApplicationManager.GetLink();
+        InitUI();
         ReloadTxt();
     }
 

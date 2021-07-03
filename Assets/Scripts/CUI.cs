@@ -5,6 +5,11 @@ using UnityEngine;
 public class CUI : MonoBehaviour
 {
     protected ApplicationManager appManager;
+ 
+    protected void InitUI()
+    {
+        appManager = ApplicationManager.GetLink();
+    }
 
     public void Hide() => gameObject.SetActive(false);
 

@@ -8,7 +8,7 @@ public class CGamePanel : CUI
 
     void Start()
     {
-        appManager = ApplicationManager.GetLink();
+        InitUI();
     }
 
     void Update()
@@ -16,7 +16,6 @@ public class CGamePanel : CUI
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (IsActive()) UI_manager.OpenUI(mainMenu.GetComponent<CUI>());
-            else UI_manager.CloseUI();
         }
     }
 }

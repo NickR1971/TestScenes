@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Text))]
+
 public class CTextLocalize : MonoBehaviour
 {
     private Text textField;
     private ApplicationManager appManager;
-    [SerializeField] private EnumStringID strID;
+    [SerializeField] public string strID;
 
     private void Start()
     {

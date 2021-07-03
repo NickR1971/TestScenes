@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum UsedLocal { english = 0, ukrainian = 1 }
 
-public class CLocalisation : MonoBehaviour
+public static class CLocalisation
 {
     private static SortedList<string, string> ui_string;
 
@@ -20,20 +20,19 @@ public class CLocalisation : MonoBehaviour
     public static void LoadLocalPrefab(GameObject _localPrefab)
     {
         CLocal local;
-        GameObject loc = Instantiate(_localPrefab);
+        GameObject loc = MonoBehaviour.Instantiate(_localPrefab);
         ui_string.Clear();
         local = loc.GetComponent<CLocal>();
         local.Init(ui_string);
-        Destroy(loc);
+        MonoBehaviour.Destroy(loc);
     }
 
-    private static string GetString(string _key)
+    public static string GetString(string _key)
     {
-        string value;
-
-        if (!ui_string.TryGetValue(_key, out value))
-            return $"<<empty key[{_key}]>>";
-        return value;
+        if (ui_string.TryGetValue(_key, out string value))
+            return value;
+            
+        return $"<<empty key[{_key}]>>";
     }
     public static string GetString(EnumStringID _id)
     {
