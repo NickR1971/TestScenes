@@ -25,8 +25,16 @@ public class ApplicationManager : MonoBehaviour
 
     private void Awake()
     {
+		SaveData data = CGameManager.GetData();
+		
 		thisExemplar = this;
 		
+		if (data == null)
+		{
+			data = new SaveData();
+			CGameManager.Init(data);
+		}
+
 		if (CLocalisation.Init())
 			CLocalisation.LoadLocalPrefab(localPrefab_en);
 
@@ -66,7 +74,16 @@ public class ApplicationManager : MonoBehaviour
 
 	public void NewGame()
     {
+		SaveData data = CGameManager.GetData();
 		gameID = (uint)UnityEngine.Random.Range(100, 10000000);
+		if(data==null)
+        {
+			data = new SaveData();
+			CGameManager.Init(data);
+        }
+
+		data.id = gameID;
+        data.SetColor(Color.gray);
 		GoToMainScene();
     }
 
@@ -79,18 +96,18 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Save()
 	{
-		SaveData data = new SaveData();
-		data.id = gameID;
-		saveFile.Save(data);
+		CGameManager.OnSave();
+		saveFile.Save(CGameManager.GetData());
 	}
 
 	public void Load()
 	{
 		if (IsSavedGameExist())
 		{
-			SaveData data = new SaveData();
-			saveFile.Load(ref data);
+			SaveData data = CGameManager.GetData();
+			saveFile.Load(out data);
 			gameID = data.id;
+			CGameManager.Init(data);
 
 			GoToMainScene();
 		}

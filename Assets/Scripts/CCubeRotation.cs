@@ -9,8 +9,16 @@ public class CCubeRotation : MonoBehaviour
 
     void Start()
     {
+        SaveData data = CGameManager.GetData();
         angle = 0;
         mtrl = GetComponent<Renderer>().material;
+        mtrl.color = data.GetColor();
+        CGameManager.onSave += OnSave;
+    }
+
+    private void OnDestroy()
+    {
+        CGameManager.onSave -= OnSave;
     }
 
     private void FixedUpdate()
@@ -36,5 +44,12 @@ public class CCubeRotation : MonoBehaviour
     public void OnBlue()
     {
         mtrl.color = Color.blue;
+    }
+
+    public void OnSave()
+    {
+        SaveData data = CGameManager.GetData();
+
+        data.SetColor(mtrl.color);
     }
 }

@@ -16,25 +16,40 @@ public class CSaveFile
 
 	public bool IsSavedFileExist() => File.Exists(saveFileName);
 
+	private void SaveFile<T>(T _data, string _name)
+    {
+		BinaryFormatter bf = new BinaryFormatter();
+		FileStream file = File.Create(_name);
+		bf.Serialize(file, _data);
+		file.Close();
+    }
+
 	public void Save(SaveData data)
 	{
-		BinaryFormatter bf = new BinaryFormatter();
-		FileStream file = File.Create(saveFileName);
-		bf.Serialize(file, data);
-		file.Close();
+		SaveFile<SaveData>(data, saveFileName);
 	}
 
-	public void Load(ref SaveData data)
-	{
-		if (IsSavedFileExist())
+	private void LoadFile<T>(out T _data, string _name)
+    {
+		if (File.Exists(_name))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
 			FileStream file = File.Open(saveFileName, FileMode.Open);
-			data = (SaveData)bf.Deserialize(file);
+			_data = (T)bf.Deserialize(file);
 			file.Close();
 		}
-		else
+		else _data = default(T);
+    }
+
+	public void Load(out SaveData _data)
+	{
+		SaveData data = new SaveData();
+		LoadFile<SaveData>(out data, saveFileName);
+		_data = data;
+		if (_data==null)
+		{
 			Debug.LogError("There is no save data!");
+		}
 	}
 
 	public void ResetData()
