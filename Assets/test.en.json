@@ -1,7 +1,7 @@
 {
   "loc": [
-    {      "key": "current_language",      "value": "current language"    },
-    {      "key": "language",      "value": "english"    },
+    {      "key": "txt_currentLanguage",      "value": "current language"    },
+    {      "key": "txt_language",      "value": "english"    },
     {      "key": "ui_yes",      "value": "Yes"    },
     {      "key": "ui_no",       "value": "No"    },
     {      "key": "ui_new",      "value": "New game"    },
@@ -14,6 +14,7 @@
     {      "key": "ui_red", "value": "Red"    },
     {      "key": "ui_green", "value": "Green"    },
     {      "key": "ui_blue", "value": "Blue"    },
-    {      "key": "temp_hint", "value": "press ESC for menu"    }
+    {      "key": "txt_myGeniusGame", "value": "My Genius game"    },
+    {      "key": "txt_tempHint", "value": "press ESC for menu"    }
   ]
 }

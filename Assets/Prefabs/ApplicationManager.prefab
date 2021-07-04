@@ -46,7 +46,6 @@ MonoBehaviour:
   sceneID: 0
   mainMenu: {fileID: 0}
   settingsMenu: {fileID: 0}
-  localPrefab_en: {fileID: 2083960237438644689, guid: a2ceba3948902cd48b880e0b74c36f67,
-    type: 3}
-  localPrefab_ua: {fileID: 262507705027455733, guid: 2a6c62f4843cd4545a6829fb1306a78f,
-    type: 3}
+  localData:
+  - {fileID: 2083960237438644689, guid: a2ceba3948902cd48b880e0b74c36f67, type: 3}
+  - {fileID: 262507705027455733, guid: 2a6c62f4843cd4545a6829fb1306a78f, type: 3}

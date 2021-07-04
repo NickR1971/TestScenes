@@ -1,7 +1,7 @@
 public enum EnumStringID 
 { 
-current_language,
-language,
+txt_currentLanguage,
+txt_language,
 ui_yes,
 ui_no,
 ui_new,
@@ -14,5 +14,6 @@ ui_mainmenu,
 ui_red,
 ui_green,
 ui_blue,
-temp_hint 
+txt_myGeniusGame,
+txt_tempHint 
 }

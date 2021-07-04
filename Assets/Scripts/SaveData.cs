@@ -30,3 +30,10 @@ public class SaveData
         return color;
     }
 }
+
+[Serializable]
+public class SettingsData
+{
+    string profileName;
+    UsedLocal selected;
+}

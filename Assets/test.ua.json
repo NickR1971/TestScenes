@@ -1,7 +1,7 @@
 {
   "loc": [
-    {      "key": "current_language",      "value": "поточна мова"    },
-    {      "key": "language",      "value": "українська"    },
+    {      "key": "txt_currentLanguage",      "value": "поточна мова"    },
+    {      "key": "txt_language",      "value": "українська"    },
     {      "key": "ui_yes",      "value": "Так"    },
     {      "key": "ui_no",       "value": "Ні"    },
     {      "key": "ui_new",      "value": "Нова гра"    },
@@ -14,6 +14,7 @@
     {      "key": "ui_red", "value": "Червоний"    },
     {      "key": "ui_green", "value": "Зелений"    },
     {      "key": "ui_blue", "value": "Блакитний"    },
-    {      "key": "temp_hint",   "value": "Натиснить ESC для меню" }
+    {      "key": "txt_myGeniusGame", "value": "Моя геніальна гра"    },
+    {      "key": "txt_tempHint",   "value": "Натиснить ESC для меню" }
   ]
 }

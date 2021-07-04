@@ -15,7 +15,7 @@ public class CSettings : CUI
 
     public void ReloadTxt()
     {
-        language_field.text = CLocalisation.GetString(EnumStringID.current_language) + " " + CLocalisation.GetString(EnumStringID.language);
+        language_field.text = CLocalisation.GetString(EnumStringID.txt_currentLanguage) + " " + CLocalisation.GetString(EnumStringID.txt_language);
     }
 
     public void SetLanguageUA()
