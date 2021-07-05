@@ -1,6 +1,6 @@
 public enum EnumStringID 
 { 
-txt_currentLanguage,
+txt_profile,
 txt_language,
 ui_yes,
 ui_no,

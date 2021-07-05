@@ -1,6 +1,6 @@
 {
   "loc": [
-    {      "key": "txt_currentLanguage",      "value": "поточна мова"    },
+    {      "key": "txt_profile",      "value": "Профіль"    },
     {      "key": "txt_language",      "value": "українська"    },
     {      "key": "ui_yes",      "value": "Так"    },
     {      "key": "ui_no",       "value": "Ні"    },

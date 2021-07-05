@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CMenuLogo : CMenu
 {
+    private Button loadButton = null;
     void Start()
     {
         InitMenu();
@@ -11,12 +13,20 @@ public class CMenuLogo : CMenu
         if (appManager.IsGameExist())
             AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
         AddButton(EnumStringID.ui_load).onClick.AddListener(LoadGame);
-        LastButton().interactable = appManager.IsSavedGameExist();
+        loadButton = LastButton();
+        loadButton.interactable = appManager.IsSavedGameExist();
         AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
         AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
 
     }
 
+    private void OnEnable()
+    {
+        if (loadButton != null)
+        {
+            loadButton.interactable = appManager.IsSavedGameExist();
+        }
+    }
     public void NewGame()
     {
         appManager.NewGame();

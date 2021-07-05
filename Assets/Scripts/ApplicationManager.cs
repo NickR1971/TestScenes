@@ -43,8 +43,7 @@ public class ApplicationManager : MonoBehaviour
 			settingsData = new SettingsData();
         }
 		usedLanguage = settingsData.selected;
-		nameProfile = settingsData.profileName;
-		saveFile.SetProfile(nameProfile);
+		SetProfile(settingsData.profileName);
 
 		if (CLocalisation.Init())
 			CLocalisation.LoadLocalPrefab(localData[(int)usedLanguage]);
@@ -74,6 +73,14 @@ public class ApplicationManager : MonoBehaviour
 	public int GetSceneID() => sceneID;
 
 	public uint GetGameID() => gameID;
+
+	public string GetProfile() => nameProfile;
+
+	public void SetProfile(string _name)
+    {
+		nameProfile = _name;
+		saveFile.SetProfile(nameProfile);
+    }
 
 	public bool IsGameExist() => gameID > 0;
 
