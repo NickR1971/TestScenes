@@ -8,11 +8,19 @@ using UnityEngine;
 public class CSaveFile
 {
 	private string saveFileName;
+	private string settingsFileName;
 
 	public CSaveFile()
     {
-		saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
+		//saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
+		SetProfile("Default");
+		settingsFileName = Application.persistentDataPath + "/SettingsData.dat";
 	}
+
+	public void SetProfile(string _name)
+    {
+		saveFileName = Application.persistentDataPath + "/"+_name.Trim()+"_Data.dat";
+    }
 
 	public bool IsSavedFileExist() => File.Exists(saveFileName);
 
@@ -34,7 +42,7 @@ public class CSaveFile
 		if (File.Exists(_name))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(saveFileName, FileMode.Open);
+			FileStream file = File.Open(_name, FileMode.Open);
 			_data = (T)bf.Deserialize(file);
 			file.Close();
 		}
@@ -52,14 +60,31 @@ public class CSaveFile
 		}
 	}
 
-	public void ResetData()
-	{
-		if (File.Exists(saveFileName))
+	public void LoadSettings(out SettingsData _data)
+    {
+		SettingsData data;
+		LoadFile<SettingsData>(out data, settingsFileName);
+		_data = data;
+    }
+
+	public void SaveSettings(SettingsData _data)
+    {
+		SaveFile<SettingsData>(_data, settingsFileName);
+    }
+
+	private void RemoveFile(string _name)
+    {
+		if (File.Exists(_name))
 		{
-			File.Delete(saveFileName);
+			File.Delete(_name);
 		}
 		else
 			Debug.LogError("No save data to delete.");
+    }
+
+	public void ResetData()
+	{
+		RemoveFile(saveFileName);
 	}
 
 }

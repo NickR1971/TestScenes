@@ -15,6 +15,8 @@ public class ApplicationManager : MonoBehaviour
 	private static ApplicationManager thisExemplar;
 
 	[SerializeField] private int sceneID;
+	private UsedLocal usedLanguage=UsedLocal.english;
+	private string nameProfile;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private GameObject[] localData=new GameObject[2];
@@ -24,6 +26,7 @@ public class ApplicationManager : MonoBehaviour
 
     private void Awake()
     {
+		SettingsData settingsData;
 		SaveData data = CGameManager.GetData();
 		
 		thisExemplar = this;
@@ -33,13 +36,21 @@ public class ApplicationManager : MonoBehaviour
 			data = new SaveData();
 			CGameManager.Init(data);
 		}
+		saveFile = new CSaveFile();
+		saveFile.LoadSettings(out settingsData);
+		if(settingsData==null)
+        {
+			settingsData = new SettingsData();
+        }
+		usedLanguage = settingsData.selected;
+		nameProfile = settingsData.profileName;
+		saveFile.SetProfile(nameProfile);
 
 		if (CLocalisation.Init())
-			CLocalisation.LoadLocalPrefab(localData[0]);
+			CLocalisation.LoadLocalPrefab(localData[(int)usedLanguage]);
 
 		UI_manager.Init();
 		menu = mainMenu.GetComponent<CUI>();
-		saveFile = new CSaveFile();
     }
 
     private void OnDestroy()
@@ -122,6 +133,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void SetLanguage(UsedLocal _language)
     {
+		usedLanguage = _language;
 		CLocalisation.LoadLocalPrefab(localData[(int)_language]);
 		reloadText?.Invoke();
     }
@@ -134,6 +146,15 @@ public class ApplicationManager : MonoBehaviour
 	public void CloseSettings()
     {
 		UI_manager.CloseUI();
+    }
+
+	public void SaveSettings()
+    {
+		SettingsData data = new SettingsData();
+		data.profileName = nameProfile;
+		data.selected = usedLanguage;
+		saveFile.SaveSettings(data);
+		CloseSettings();
     }
 
 	public void Quit () 

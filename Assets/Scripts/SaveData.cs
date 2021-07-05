@@ -34,6 +34,12 @@ public class SaveData
 [Serializable]
 public class SettingsData
 {
-    string profileName;
-    UsedLocal selected;
+    public string profileName;
+    public UsedLocal selected;
+
+    public SettingsData()
+    {
+        profileName = "Player";
+        selected = UsedLocal.english;
+    }
 }
