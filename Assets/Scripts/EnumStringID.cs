@@ -15,5 +15,8 @@ ui_red,
 ui_green,
 ui_blue,
 txt_myGeniusGame,
-txt_tempHint 
+txt_tempHint,
+ui_test,
+msg_sure,
+msg_test 
 }

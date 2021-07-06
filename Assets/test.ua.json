@@ -15,6 +15,9 @@
     {      "key": "ui_green", "value": "Зелений"    },
     {      "key": "ui_blue", "value": "Блакитний"    },
     {      "key": "txt_myGeniusGame", "value": "Моя геніальна гра"    },
-    {      "key": "txt_tempHint",   "value": "Натиснить ESC для меню" }
+    {      "key": "txt_tempHint",   "value": "Натиснить ESC для меню" },
+    {      "key": "ui_test", "value": "Тест"    },
+    {      "key": "msg_sure", "value": "Ви впевнені?"    },
+    {      "key": "msg_test", "value": "Тестове повідомлення"    }
   ]
 }

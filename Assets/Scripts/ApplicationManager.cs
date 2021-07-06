@@ -19,6 +19,7 @@ public class ApplicationManager : MonoBehaviour
 	private string nameProfile;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject settingsMenu;
+	[SerializeField] private CDialog dialog;
 	[SerializeField] private GameObject[] localData=new GameObject[2];
 	private CUI menu;
 	private CSaveFile saveFile;
@@ -164,8 +165,29 @@ public class ApplicationManager : MonoBehaviour
 		CloseSettings();
     }
 
-	public void Quit () 
+	public void Message(EnumStringID _strID, Action _onDialogExit=null)
+    {
+		dialog.OpenDialog(EDialog.Warning, CLocalisation.GetString(_strID), _onDialogExit);
+    }
+
+	public void ErrorMessage(EnumStringID _strID, Action _onDialogExit = null)
+    {
+		dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID), _onDialogExit);
+    }
+
+	public void Question(EnumStringID _strID, Action _onDialogExit = null)
+    {
+		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(_strID), _onDialogExit);
+    }
+
+	public void Quit()
+    {
+		Question(EnumStringID.msg_sure, OnQuit);
+	}
+
+	public void OnQuit () 
 	{
+		if (!CDialog.IsResultYes()) return;
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#else
