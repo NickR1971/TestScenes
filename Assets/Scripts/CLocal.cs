@@ -17,38 +17,20 @@ using UnityEngine;
 
 public class CLocal : MonoBehaviour
 {
-    [SerializeField] private TextAsset text_ui;
-    private CTest local_ui;
-#if UNITY_EDITOR
-    private void GenerateScript()
+    [SerializeField] private TextAsset textUI;
+    private CTest localUI;
+
+    public void Init(SortedList<string, string> localStr)
     {
-        const string name = "EnumStringID";
-        string WriteToFileName = $"{Application.dataPath}/Scripts/{name}.cs";
-        
-        var constants = local_ui.loc.Select(item => item.key);
-
-        var content = $"public enum {name} \n{{ \n" +
-            string.Join(",\n",constants) +
-            $" \n}}";
-
-        File.WriteAllText(WriteToFileName, content);
-    }
-#endif
-
-    public void Init(SortedList<string, string> local_str)
-    {
-        if (text_ui == null)
+        if (textUI == null)
         {
             Debug.Log("Localisation file not found!");
             return;
         }
-        local_ui = JsonUtility.FromJson<CTest>(text_ui.text);
-        foreach (CLocalisationData ldata in local_ui.loc)
+        localUI = JsonUtility.FromJson<CTest>(textUI.text);
+        foreach (CLocalisationData ldata in localUI.loc)
         {
-            local_str.Add(ldata.key, ldata.value);
+            localStr.Add(ldata.key, ldata.value);
         }
-#if UNITY_EDITOR
-        GenerateScript();
-#endif
     }
 }
