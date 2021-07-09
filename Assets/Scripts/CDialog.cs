@@ -55,7 +55,7 @@ public class CDialog : CUI
         buttonNo.gameObject.SetActive(_dialogType == EDialog.Question);
         messageText.text = _text;
         isOpen = true;
-        UI_manager.OpenUI(this);
+        UImanager.OpenUI(this);
     }
 
     public void OnYes()
@@ -63,7 +63,7 @@ public class CDialog : CUI
         isOpen = false;
         isResultYes = true;
         isCancel = false;
-        UI_manager.CloseUI();
+        UImanager.CloseUI();
         if (onDialogExit != null) onDialogExit();
         onDialogExit = null;
     }
@@ -73,7 +73,7 @@ public class CDialog : CUI
         isOpen = false;
         isResultYes = false;
         isCancel = false;
-        UI_manager.CloseUI();
+        UImanager.CloseUI();
         if (onDialogExit != null) onDialogExit();
         onDialogExit = null;
     }
@@ -83,7 +83,7 @@ public class CDialog : CUI
         isOpen = false;
         isResultYes = false;
         isCancel = true;
-        UI_manager.CloseUI();
+        UImanager.CloseUI();
         if (onDialogExit != null) onDialogExit();
         onDialogExit = null;
     }

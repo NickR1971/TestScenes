@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UI_manager
+public static class UImanager
 {
     private static Stack<CUI> activeUI = new Stack<CUI>();
     private static CUI currentUI=null;

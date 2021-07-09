@@ -17,8 +17,11 @@ public class CSLocal : ScriptableObject
         //const string name = "EnumStringID";
         string WriteToFileName = $"{Application.dataPath}/Scripts/{enumName}.cs";
         localUI = JsonUtility.FromJson<CTest>(text_ui.text);
-        if (localUI == null) Debug.LogError("localUI is null!");
-        else Debug.Log("localUI is OK");
+        if (localUI == null)
+        {
+            Debug.LogError("localUI is null!");
+            return;
+        }
 
         var constants = localUI.loc.Select(item => item.key);
 
@@ -27,5 +30,6 @@ public class CSLocal : ScriptableObject
             $" \n}}";
 
         File.WriteAllText(WriteToFileName, content);
+        Debug.Log($"File {WriteToFileName} is saved");
     }
 }

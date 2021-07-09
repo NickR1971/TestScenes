@@ -49,19 +49,19 @@ public class ApplicationManager : MonoBehaviour
 		if (CLocalisation.Init())
 			CLocalisation.LoadLocalPrefab(localData[(int)usedLanguage]);
 
-		UI_manager.Init();
+		UImanager.Init();
 		menu = mainMenu.GetComponent<CUI>();
     }
 
     private void OnDestroy()
     {
-		UI_manager.CloseUI();
+		UImanager.CloseUI();
 		thisExemplar = null;
     }
 
     private void Start()
     {
-		UI_manager.OpenUI(menu);
+		UImanager.OpenUI(menu);
     }
 
     public static ApplicationManager GetLink()
@@ -148,12 +148,12 @@ public class ApplicationManager : MonoBehaviour
 
 	public void OpenSettings()
     {
-		UI_manager.OpenUI(settingsMenu.GetComponent<CUI>());
+		UImanager.OpenUI(settingsMenu.GetComponent<CUI>());
     }
 
 	public void CloseSettings()
     {
-		UI_manager.CloseUI();
+		UImanager.CloseUI();
     }
 
 	public void SaveSettings()

@@ -15,7 +15,7 @@ public class CGamePanel : CUI
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (IsActive()) UI_manager.OpenUI(mainMenu.GetComponent<CUI>());
+            if (IsActive()) UImanager.OpenUI(mainMenu.GetComponent<CUI>());
         }
     }
 }

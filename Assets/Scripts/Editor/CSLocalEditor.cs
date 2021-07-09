@@ -9,7 +9,7 @@ public class CSLocalEditor : UnityEditor.Editor
     {
         base.OnInspectorGUI();
 
-        if (GUILayout.Button("Generate"))
+        if (GUILayout.Button("Generate enum file.cs"))
         {
             CSLocal local;
             local = (CSLocal)target;

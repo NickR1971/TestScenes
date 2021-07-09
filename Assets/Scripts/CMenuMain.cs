@@ -25,7 +25,7 @@ public class CMenuMain : CMenu
 
     public void ContinueGame()
     {
-        UI_manager.CloseUI();
+        UImanager.CloseUI();
     }
 
     public void GoMainMenu()
