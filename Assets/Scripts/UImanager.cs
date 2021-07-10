@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UImanager
+public class UImanager : IUI
 {
     private static Stack<CUI> activeUI = new Stack<CUI>();
     private static CUI currentUI=null;
 
-    public static void Init()
+    public void Init()
     {
         activeUI.Clear();
         currentUI = null;
     }
 
-    public static void OpenUI(CUI _ui)
+    public void OpenUI(CUI _ui)
     {
         if (currentUI != null) currentUI.Hide();
         activeUI.Push(currentUI);
@@ -21,7 +21,7 @@ public static class UImanager
         currentUI.Show();
     }
 
-    public static void CloseUI()
+    public void CloseUI()
     {
         if (currentUI == null) return;
 

@@ -6,7 +6,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ApplicationManager : MonoBehaviour
+public interface IUI
+{
+	void OpenUI(CUI _ui);
+	void CloseUI();
+}
+
+public class ApplicationManager : MonoBehaviour //, IUI
 {
 	public event Action reloadText;
 
@@ -23,6 +29,7 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private GameObject[] localData=new GameObject[2];
 	private CUI menu;
 	private CSaveFile saveFile;
+	private UImanager uiManager;
 
 
     private void Awake()
@@ -49,19 +56,20 @@ public class ApplicationManager : MonoBehaviour
 		if (CLocalisation.Init())
 			CLocalisation.LoadLocalPrefab(localData[(int)usedLanguage]);
 
-		UImanager.Init();
+		uiManager = new UImanager();
+		uiManager.Init();
 		menu = mainMenu.GetComponent<CUI>();
     }
 
     private void OnDestroy()
     {
-		UImanager.CloseUI();
+		uiManager.CloseUI();
 		thisExemplar = null;
     }
 
     private void Start()
     {
-		UImanager.OpenUI(menu);
+		uiManager.OpenUI(menu);
     }
 
     public static ApplicationManager GetLink()
@@ -70,6 +78,11 @@ public class ApplicationManager : MonoBehaviour
 
 		return thisExemplar;
 	}
+
+	public IUI GetUImanager()
+    {
+		return uiManager;
+    }
 
 	public int GetSceneID() => sceneID;
 
@@ -148,12 +161,12 @@ public class ApplicationManager : MonoBehaviour
 
 	public void OpenSettings()
     {
-		UImanager.OpenUI(settingsMenu.GetComponent<CUI>());
+		uiManager.OpenUI(settingsMenu.GetComponent<CUI>());
     }
 
 	public void CloseSettings()
     {
-		UImanager.CloseUI();
+		uiManager.CloseUI();
     }
 
 	public void SaveSettings()
@@ -165,19 +178,19 @@ public class ApplicationManager : MonoBehaviour
 		CloseSettings();
     }
 
-	public void Message(EnumStringID _strID, Action _onDialogExit=null)
+	public void Message(EnumStringID _strID, Action _onDialogYes=null)
     {
-		dialog.OpenDialog(EDialog.Warning, CLocalisation.GetString(_strID), _onDialogExit);
+		dialog.OpenDialog(EDialog.Warning, CLocalisation.GetString(_strID), _onDialogYes);
     }
 
-	public void ErrorMessage(EnumStringID _strID, Action _onDialogExit = null)
+	public void ErrorMessage(EnumStringID _strID, Action _onDialogYes = null)
     {
-		dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID), _onDialogExit);
+		dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID), _onDialogYes);
     }
 
-	public void Question(EnumStringID _strID, Action _onDialogExit = null)
+	public void Question(EnumStringID _strID, Action _onDialogYes = null)
     {
-		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(_strID), _onDialogExit);
+		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(_strID), _onDialogYes);
     }
 
 	public void Quit()

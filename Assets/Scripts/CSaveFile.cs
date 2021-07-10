@@ -12,7 +12,6 @@ public class CSaveFile
 
 	public CSaveFile()
     {
-		//saveFileName = Application.persistentDataPath + "/TestSceneSaveData.dat";
 		SetProfile("Default");
 		settingsFileName = Application.persistentDataPath + "/SettingsData.dat";
 	}

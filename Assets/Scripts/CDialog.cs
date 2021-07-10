@@ -31,13 +31,16 @@ public class CDialog : CUI
 
      public void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null, Action _onDialogNo = null, Action _onDialogCancel = null)
     {
+        if (appManager == null) InitUI();
+        if (uiManager == null) Debug.Log("ui manager not found!");
         onDialogYes = _onDialogYes;
         onDialogNo = _onDialogNo;
         onDialogCancel = _onDialogCancel;
         icon.sprite = icons[(int)_dialogType];
         buttonNo.gameObject.SetActive(_dialogType == EDialog.Question);
         messageText.text = _text;
-        UImanager.OpenUI(this);
+        //UImanager.OpenUI(this);
+        uiManager.OpenUI(this);
     }
 
     private void ClearActions()
@@ -49,21 +52,24 @@ public class CDialog : CUI
 
     public void OnYes()
     {
-        UImanager.CloseUI();
+        //UImanager.CloseUI();
+        uiManager.CloseUI();
         onDialogYes?.Invoke();
         ClearActions();
     }
 
     public void OnNo()
     {
-        UImanager.CloseUI();
+        //UImanager.CloseUI();
+        uiManager.CloseUI();
         onDialogNo?.Invoke();
         ClearActions();
     }
 
     public void OnCancel()
     {
-        UImanager.CloseUI();
+        //UImanager.CloseUI();
+        uiManager.CloseUI();
         onDialogCancel?.Invoke();
         ClearActions();
     }
