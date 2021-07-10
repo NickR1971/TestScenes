@@ -14,13 +14,9 @@ public class CMenuMain : CMenu
         AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
     }
 
-    public void SaveGameOK()
-    {
-        if (CDialog.IsResultYes()) appManager.Save();
-    }
     public void SaveGame()
     {
-        appManager.Question(EnumStringID.msg_sure, SaveGameOK);
+        appManager.Question(EnumStringID.msg_sure, appManager.Save);
     }
 
     public void ContinueGame()

@@ -185,9 +185,8 @@ public class ApplicationManager : MonoBehaviour
 		Question(EnumStringID.msg_sure, OnQuit);
 	}
 
-	public void OnQuit () 
+	private void OnQuit () 
 	{
-		if (!CDialog.IsResultYes()) return;
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#else

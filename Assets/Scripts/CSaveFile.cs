@@ -46,7 +46,7 @@ public class CSaveFile
 			_data = (T)bf.Deserialize(file);
 			file.Close();
 		}
-		else _data = default(T);
+		else _data = default;// (T);
     }
 
 	public void Load(out SaveData _data)

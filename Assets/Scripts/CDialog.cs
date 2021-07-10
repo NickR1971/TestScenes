@@ -20,71 +20,51 @@ public class CDialog : CUI
     [SerializeField] private Text messageText;
     [SerializeField] private Sprite[] icons = new Sprite[3];
 
-    private static CDialog thisExemplar = null;
-    private static bool isOpen = false;
-    private static bool isResultYes = false;
-    private static bool isCancel = false;
-
-    private Action onDialogExit = null;
-    private void Awake()
-    {
-        thisExemplar = this;
-    }
+    private Action onDialogYes = null;
+    private Action onDialogNo = null;
+    private Action onDialogCancel = null;
 
     private void Start()
     {
         InitUI();
-        isOpen = false;
     }
 
-    private void OnDestroy()
+     public void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null, Action _onDialogNo = null, Action _onDialogCancel = null)
     {
-        thisExemplar = null;
-    }
-
-    public static CDialog GetLink() => thisExemplar;
-
-    public static bool IsOpen() => isOpen;
-    public static bool IsResultYes() => isResultYes;
-    public static bool IsCancel() => isCancel;
-
-    public void OpenDialog(EDialog _dialogType, string _text, Action _onDialogExit = null)
-    {
-        onDialogExit = _onDialogExit;
+        onDialogYes = _onDialogYes;
+        onDialogNo = _onDialogNo;
+        onDialogCancel = _onDialogCancel;
         icon.sprite = icons[(int)_dialogType];
         buttonNo.gameObject.SetActive(_dialogType == EDialog.Question);
         messageText.text = _text;
-        isOpen = true;
         UImanager.OpenUI(this);
+    }
+
+    private void ClearActions()
+    {
+        onDialogYes = null;
+        onDialogNo = null;
+        onDialogCancel = null;
     }
 
     public void OnYes()
     {
-        isOpen = false;
-        isResultYes = true;
-        isCancel = false;
         UImanager.CloseUI();
-        if (onDialogExit != null) onDialogExit();
-        onDialogExit = null;
+        onDialogYes?.Invoke();
+        ClearActions();
     }
 
     public void OnNo()
     {
-        isOpen = false;
-        isResultYes = false;
-        isCancel = false;
         UImanager.CloseUI();
-        if (onDialogExit != null) onDialogExit();
-        onDialogExit = null;
+        onDialogNo?.Invoke();
+        ClearActions();
     }
 
     public void OnCancel()
     {
-        isOpen = false;
-        isResultYes = false;
-        isCancel = true;
         UImanager.CloseUI();
-        if (onDialogExit != null) onDialogExit();
-        onDialogExit = null;
+        onDialogCancel?.Invoke();
+        ClearActions();
     }
 }
