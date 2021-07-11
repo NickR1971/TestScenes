@@ -8,13 +8,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new local", menuName = "Scriptable/Local")]
 public class CSLocal : ScriptableObject
 {
-    [SerializeField] private TextAsset text_ui;
+    [SerializeField] private TextAsset[] textLocal=new TextAsset[2];
     [SerializeField] private string enumName;
-    private CTest localUI;
 
     public void GenerateScript()
     {
-        //const string name = "EnumStringID";
+        CTest localUI;
+        TextAsset text_ui = textLocal[0];
         string WriteToFileName = $"{Application.dataPath}/Scripts/{enumName}.cs";
         localUI = JsonUtility.FromJson<CTest>(text_ui.text);
         if (localUI == null)

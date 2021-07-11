@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61c65132b8638034c9d7674feee72291, type: 3}
-  m_Name: local_ua
+  m_Name: locals
   m_EditorClassIdentifier: 
-  text_ui: {fileID: 4900000, guid: ca937355fe123a044b16a005130b68aa, type: 3}
+  textLocal:
+  - {fileID: 4900000, guid: 6227e7de6a291294880ed4256ef5f15c, type: 3}
+  - {fileID: 4900000, guid: ca937355fe123a044b16a005130b68aa, type: 3}
   enumName: EnumStringID
