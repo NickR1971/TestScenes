@@ -98,4 +98,13 @@ public class ProfileData
 
         return false;
     }
+
+    public string[] GetSavedList()
+    {
+        string[] rt = new string[savedList.Length];
+
+        for (int i = 0; i < savedList.Length; i++) rt[i] = savedList[i];
+
+        return rt;
+    }
 }

@@ -132,9 +132,13 @@ public class CSaveFile
 			Debug.LogError("No save data to delete.");
     }
 
-	public void ResetData()
+	public void ResetData(string _name="temp")
 	{
-		RemoveFile(saveFileName);
+		if (profileData.RemoveSave(_name))
+        {
+			saveFileName = CreateSaveFileName(_name);
+			RemoveFile(saveFileName);
+        }
 	}
-
+	public string[] GetSavedList() => profileData.GetSavedList();
 }

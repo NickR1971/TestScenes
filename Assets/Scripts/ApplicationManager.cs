@@ -25,6 +25,7 @@ public class ApplicationManager : MonoBehaviour //, IUI
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private CDialog dialog;
+	[SerializeField] private CSaveLoad saveLoadDialog;
 	[SerializeField] private GameObject[] localData=new GameObject[2];
 	private CUI menu;
 	private CSaveFile saveFile;
@@ -124,13 +125,18 @@ public class ApplicationManager : MonoBehaviour //, IUI
 
 	public bool IsSavedGameExist() => saveFile.IsSavedFileExist();
 
-	public void Save(string _name="temp")
+	public void Save(string _name)
 	{
 		CGameManager.OnSave();
 		saveFile.Save(_name, CGameManager.GetData());
 	}
 
-	public void Load(string _name="temp")
+	public void Save()
+    {
+		saveLoadDialog.OpenSaveWindow();
+    }
+
+	public void Load(string _name)
 	{
 		if (IsSavedGameExist())
 		{
@@ -145,9 +151,14 @@ public class ApplicationManager : MonoBehaviour //, IUI
 			Debug.LogError("There is no save data!");
 	}
 
-	public void ResetData()
+	public void Load()
+    {
+		saveLoadDialog.OpenLoadWindow();
+    }
+
+	public void RemoveSave(string _name)
 	{
-		saveFile.ResetData();
+		saveFile.ResetData(_name);
 	}
 
 	public void SetLanguage(UsedLocal _language)
@@ -175,6 +186,8 @@ public class ApplicationManager : MonoBehaviour //, IUI
 		saveFile.SaveSettings(data);
 		CloseSettings();
     }
+
+	public string[] GetSavedList() => saveFile.GetSavedList();
 
 	public void Message(EnumStringID _strID, Action _onDialogYes=null)
     {
