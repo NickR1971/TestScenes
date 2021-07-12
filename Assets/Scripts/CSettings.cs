@@ -32,18 +32,20 @@ public class CSettings : CUI
         if (isEditProfile) return;
         profileField.gameObject.SetActive(false);
         profileInput.gameObject.SetActive(true);
+        profileInput.Select();
+        profileInput.ActivateInputField();
         isEditProfile = true;
     }
     public void OnFinishedEdit()
     {
         string str;
         isEditProfile = false;
-        str = profileInput.text.Trim();
-        if (str.Length > 0)
+        str = profileInput.text.Trim().Replace('.','_').Replace('/','_').Replace('\\','_');
+        if (str.Length > 0 && appManager.SetProfile(str))
         {
             profileField.text = str;
-            appManager.SetProfile(str);
         }
+        else appManager.ErrorMessage(EnumStringID.err_invalidName);
         profileField.gameObject.SetActive(true);
         profileInput.gameObject.SetActive(false);
     }

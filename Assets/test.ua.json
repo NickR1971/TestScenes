@@ -18,6 +18,7 @@
     {      "key": "txt_tempHint",   "value": "Натиснить ESC для меню" },
     {      "key": "ui_test", "value": "Тест"    },
     {      "key": "msg_sure", "value": "Ви впевнені?"    },
-    {      "key": "msg_test", "value": "Тестове повідомлення"    }
+    {      "key": "msg_test", "value": "Тестове повідомлення"    },
+    {      "key": "err_invalidName", "value": "Некоректне ім'я!"    }
   ]
 }

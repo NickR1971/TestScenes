@@ -22,7 +22,6 @@ public class ApplicationManager : MonoBehaviour //, IUI
 
 	[SerializeField] private int sceneID;
 	private UsedLocal usedLanguage=UsedLocal.english;
-	private string nameProfile;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private CDialog dialog;
@@ -88,12 +87,11 @@ public class ApplicationManager : MonoBehaviour //, IUI
 
 	public uint GetGameID() => gameID;
 
-	public string GetProfile() => nameProfile;
+	public string GetProfile() => saveFile.GetProfile();
 
-	public void SetProfile(string _name)
+	public bool SetProfile(string _name)
     {
-		nameProfile = _name;
-		saveFile.SetProfile(nameProfile);
+		return saveFile.SetProfile(_name);
     }
 
 	public bool IsGameExist() => gameID > 0;
@@ -126,18 +124,18 @@ public class ApplicationManager : MonoBehaviour //, IUI
 
 	public bool IsSavedGameExist() => saveFile.IsSavedFileExist();
 
-	public void Save()
+	public void Save(string _name="temp")
 	{
 		CGameManager.OnSave();
-		saveFile.Save(CGameManager.GetData());
+		saveFile.Save(_name, CGameManager.GetData());
 	}
 
-	public void Load()
+	public void Load(string _name="temp")
 	{
 		if (IsSavedGameExist())
 		{
 			SaveData data = CGameManager.GetData();
-			saveFile.Load(out data);
+			saveFile.Load(_name, out data);
 			gameID = data.id;
 			CGameManager.Init(data);
 
@@ -172,7 +170,7 @@ public class ApplicationManager : MonoBehaviour //, IUI
 	public void SaveSettings()
     {
 		SettingsData data = new SettingsData();
-		data.profileName = nameProfile;
+		data.profileName = GetProfile();
 		data.selected = usedLanguage;
 		saveFile.SaveSettings(data);
 		CloseSettings();

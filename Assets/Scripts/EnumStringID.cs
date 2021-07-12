@@ -18,5 +18,6 @@ txt_myGeniusGame,
 txt_tempHint,
 ui_test,
 msg_sure,
-msg_test 
+msg_test,
+err_invalidName 
 }

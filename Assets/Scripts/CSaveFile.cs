@@ -9,6 +9,8 @@ public class CSaveFile
 {
 	private string saveFileName;
 	private string settingsFileName;
+	private string profileName;
+	private ProfileData profileData;
 
 	public CSaveFile()
     {
@@ -16,12 +18,43 @@ public class CSaveFile
 		settingsFileName = Application.persistentDataPath + "/SettingsData.dat";
 	}
 
-	public void SetProfile(string _name)
+	private string CreateProfileName(string _name) => Application.persistentDataPath + "/" + _name.Trim() + ".dat";
+
+	private void SaveProfile()
     {
-		saveFileName = Application.persistentDataPath + "/"+_name.Trim()+"_Data.dat";
+		string fileName = CreateProfileName(profileName);
+		SaveFile<ProfileData>(profileData, fileName);
     }
 
-	public bool IsSavedFileExist() => File.Exists(saveFileName);
+	private bool LoadProfile(string _name)
+    {
+		if (_name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) return false;
+		string fileName = CreateProfileName(_name);
+		if (File.Exists(fileName))
+        {
+			LoadFile<ProfileData>(out profileData, fileName);
+        }
+		else
+        {
+			profileData = new ProfileData();
+			SaveFile<ProfileData>(profileData, fileName);
+        }
+		return true;
+    }
+
+	public bool SetProfile(string _name)
+    {
+		if ( ! LoadProfile(_name)) return false;
+
+		profileName = _name;
+		saveFileName = Application.persistentDataPath + "/" + _name.Trim() + "_Data.dat";
+
+		return true;
+    }
+
+	public string GetProfile() => profileName;
+
+	public bool IsSavedFileExist() => profileData.savedList.Length > 1;
 
 	private void SaveFile<T>(T _data, string _name)
     {
@@ -31,11 +64,21 @@ public class CSaveFile
 		file.Close();
     }
 
-	public void Save(SaveData data)
+	private void Save(SaveData data)
 	{
 		SaveFile<SaveData>(data, saveFileName);
 	}
 
+	public void Save(string _name,SaveData _data)
+    {
+		profileData.RemoveSave(_name);
+		profileData.AddSave(_name);
+		SaveProfile();
+		saveFileName = CreateSaveFileName(_name);
+		Save(_data);
+    }
+
+	private string CreateSaveFileName(string _name) => Application.persistentDataPath + "/" + profileName.Trim() + "_" + _name.Trim() + "_save.dat";
 	private void LoadFile<T>(out T _data, string _name)
     {
 		if (File.Exists(_name))
@@ -48,9 +91,9 @@ public class CSaveFile
 		else _data = default;// (T);
     }
 
-	public void Load(out SaveData _data)
+	private void Load(out SaveData _data)
 	{
-		SaveData data = new SaveData();
+		SaveData data;
 		LoadFile<SaveData>(out data, saveFileName);
 		_data = data;
 		if (_data==null)
@@ -58,6 +101,14 @@ public class CSaveFile
 			Debug.LogError("There is no save data!");
 		}
 	}
+
+	public void Load(string _name,out SaveData _data)
+    {
+		SaveData data;
+		saveFileName = CreateSaveFileName(_name);
+		Load(out data);
+		_data = data;
+    }
 
 	public void LoadSettings(out SettingsData _data)
     {

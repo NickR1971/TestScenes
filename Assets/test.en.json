@@ -18,6 +18,7 @@
     {      "key": "txt_tempHint", "value": "press ESC for menu"    },
     {      "key": "ui_test", "value": "Test"    },
     {      "key": "msg_sure", "value": "Are you sure?"    },
-    {      "key": "msg_test", "value": "Test message"    }
+    {      "key": "msg_test", "value": "Test message"    },
+    {      "key": "err_invalidName", "value": "Invalid name!"    }
   ]
 }
