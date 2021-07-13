@@ -543,7 +543,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialog
       value: 
-      objectReference: {fileID: 1290420660}
+      objectReference: {fileID: 1284657111}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
       propertyPath: mainMenu
@@ -1966,7 +1966,7 @@ RectTransform:
   - {fileID: 1814140895}
   - {fileID: 223974061}
   - {fileID: 1854450135}
-  - {fileID: 1290420659}
+  - {fileID: 1284657110}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1975,7 +1975,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1290420658
+--- !u!1001 &1284657109
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2035,7 +2035,7 @@ PrefabInstance:
     - target: {fileID: 2630454166092254125, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2630454166092254125, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
         type: 3}
@@ -2099,17 +2099,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccd82284ed4e0741ba33fe6fad7737a, type: 3}
---- !u!224 &1290420659 stripped
+--- !u!224 &1284657110 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2630454166092254125, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
     type: 3}
-  m_PrefabInstance: {fileID: 1290420658}
+  m_PrefabInstance: {fileID: 1284657109}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1290420660 stripped
+--- !u!114 &1284657111 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4740972317070065794, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
     type: 3}
-  m_PrefabInstance: {fileID: 1290420658}
+  m_PrefabInstance: {fileID: 1284657109}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

@@ -626,18 +626,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8422890588359581089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8422890589777301263}
-        m_MethodName: OnOK
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8422890588378438642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1331,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 91db9fc33b2d71e409d7dcd2c7a91c87, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -1561,6 +1550,8 @@ MonoBehaviour:
   saveName: {fileID: 8422890589395621812}
   manager: {fileID: 8422890589394209826}
   buttonText: {fileID: 8422890589418029769}
+  ActionButton: {fileID: 8422890588359581090}
+  DeleteButton: {fileID: 8422890589280275023}
 --- !u!1 &8422890589988580510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1563,7 @@ GameObject:
   - component: {fileID: 8422890589988580509}
   - component: {fileID: 8422890589988580499}
   - component: {fileID: 8422890589988580508}
+  - component: {fileID: 5982168606926990474}
   m_Layer: 5
   m_Name: Profile
   m_TagString: Untagged
@@ -1639,6 +1631,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &5982168606926990474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422890589988580510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af3feea642ef724982e7d17b278dd51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8422890590007687086
 GameObject:
   m_ObjectHideFlags: 0

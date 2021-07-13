@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class CSaveFile
 {
-	private string saveFileName;
 	private string settingsFileName;
 	private string profileName;
 	private ProfileData profileData;
@@ -28,7 +27,8 @@ public class CSaveFile
 
 	private bool LoadProfile(string _name)
     {
-		if (_name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) return false;
+		//if (_name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) return false;
+		if (!CUtil.CheckNameForSave(_name)) return false;
 		string fileName = CreateProfileName(_name);
 		if (File.Exists(fileName))
         {
@@ -47,7 +47,6 @@ public class CSaveFile
 		if ( ! LoadProfile(_name)) return false;
 
 		profileName = _name;
-		saveFileName = Application.persistentDataPath + "/" + _name.Trim() + "_Data.dat";
 
 		return true;
     }
@@ -64,18 +63,12 @@ public class CSaveFile
 		file.Close();
     }
 
-	private void Save(SaveData data)
-	{
-		SaveFile<SaveData>(data, saveFileName);
-	}
-
 	public void Save(string _name,SaveData _data)
     {
 		profileData.RemoveSave(_name);
 		profileData.AddSave(_name);
 		SaveProfile();
-		saveFileName = CreateSaveFileName(_name);
-		Save(_data);
+		SaveFile<SaveData>(_data, CreateSaveFileName(_name));
     }
 
 	private string CreateSaveFileName(string _name) => Application.persistentDataPath + "/" + profileName.Trim() + "_" + _name.Trim() + "_save.dat";
@@ -91,23 +84,15 @@ public class CSaveFile
 		else _data = default;// (T);
     }
 
-	private void Load(out SaveData _data)
-	{
+	public void Load(string _name,out SaveData _data)
+    {
 		SaveData data;
-		LoadFile<SaveData>(out data, saveFileName);
+		LoadFile<SaveData>(out data, CreateSaveFileName(_name));
 		_data = data;
 		if (_data==null)
 		{
 			Debug.LogError("There is no save data!");
 		}
-	}
-
-	public void Load(string _name,out SaveData _data)
-    {
-		SaveData data;
-		saveFileName = CreateSaveFileName(_name);
-		Load(out data);
-		_data = data;
     }
 
 	public void LoadSettings(out SettingsData _data)
@@ -132,12 +117,12 @@ public class CSaveFile
 			Debug.LogError("No save data to delete.");
     }
 
-	public void ResetData(string _name="temp")
+	public void ResetData(string _name)
 	{
 		if (profileData.RemoveSave(_name))
         {
-			saveFileName = CreateSaveFileName(_name);
-			RemoveFile(saveFileName);
+			SaveProfile();
+			RemoveFile(CreateSaveFileName(_name));
         }
 	}
 	public string[] GetSavedList() => profileData.GetSavedList();

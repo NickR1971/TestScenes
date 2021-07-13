@@ -12,7 +12,7 @@ public interface IUI
 	void CloseUI();
 }
 
-public class ApplicationManager : MonoBehaviour //, IUI
+public class ApplicationManager : MonoBehaviour
 {
 	public event Action reloadText;
 
@@ -82,6 +82,11 @@ public class ApplicationManager : MonoBehaviour //, IUI
 	public IUI GetUImanager()
     {
 		return uiManager;
+    }
+
+	public IDialog GetDialogManager()
+    {
+		return dialog;
     }
 
 	public int GetSceneID() => sceneID;
@@ -188,7 +193,7 @@ public class ApplicationManager : MonoBehaviour //, IUI
     }
 
 	public string[] GetSavedList() => saveFile.GetSavedList();
-
+	/***************
 	public void Message(EnumStringID _strID, Action _onDialogYes=null)
     {
 		dialog.OpenDialog(EDialog.Warning, CLocalisation.GetString(_strID), _onDialogYes);
@@ -203,10 +208,11 @@ public class ApplicationManager : MonoBehaviour //, IUI
     {
 		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(_strID), _onDialogYes);
     }
-
+	***************/
 	public void Quit()
     {
-		Question(EnumStringID.msg_sure, OnQuit);
+		//Question(EnumStringID.msg_sure, OnQuit);
+		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.msg_sure), OnQuit);
 	}
 
 	private void OnQuit () 

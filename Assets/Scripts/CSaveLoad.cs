@@ -14,12 +14,12 @@ public class CSaveLoad : CUI
     
     public void OpenSaveWindow()
     {
-        OpenSaveLoadWindow(true);
+        OpenSaveLoadWindow(_isSave: true);
     }
 
     public void OpenLoadWindow()
     {
-        OpenSaveLoadWindow(false);
+        OpenSaveLoadWindow(_isSave: false);
     }
 
     public void CloseWindow()

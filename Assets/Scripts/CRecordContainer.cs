@@ -12,13 +12,13 @@ public class CRecordContainer : MonoBehaviour
         records = new GameObject[_saveNames.Length];
         record0.SetActive(true);
         records[0] = record0;
-        record0.GetComponent<CRecord>().Init(CLocalisation.GetString(EnumStringID.ui_new),_isSave);
-
+        record0.GetComponent<CRecord>().ResetTemplate();
         for (int i = 1; i < _saveNames.Length; i++)
         {
             records[i] = Instantiate(record0, Vector3.zero, Quaternion.identity, transform);
             records[i].GetComponent<CRecord>().Init(_saveNames[i],_isSave);
         }
+        record0.GetComponent<CRecord>().Init(CLocalisation.GetString(EnumStringID.ui_newSave), _isSave, true);
         record0.SetActive(_isSave);
     }
 

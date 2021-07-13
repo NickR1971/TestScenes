@@ -45,8 +45,14 @@ public class CSettings : CUI
         {
             profileField.text = str;
         }
-        else appManager.ErrorMessage(EnumStringID.err_invalidName);
+        else ErrorMessage(EnumStringID.err_invalidName);
         profileField.gameObject.SetActive(true);
         profileInput.gameObject.SetActive(false);
+    }
+
+    private void ErrorMessage(EnumStringID _strID)
+    {
+        IDialog dlg = appManager.GetDialogManager();
+        dlg.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID));
     }
 }
