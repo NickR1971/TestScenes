@@ -15,18 +15,28 @@ public class UImanager : IUI
 
     public void OpenUI(CUI _ui)
     {
-        if (currentUI != null) currentUI.Hide();
+        if (currentUI != null) 
+        {
+            currentUI.OnClose();
+            currentUI.Hide();
+        }
         activeUI.Push(currentUI);
         currentUI = _ui;
         currentUI.Show();
+        currentUI.OnOpen();
     }
 
     public void CloseUI()
     {
         if (currentUI == null) return;
-
+        
+        currentUI.OnClose();
         currentUI.Hide();
         currentUI = activeUI.Pop();
-        if (currentUI != null) currentUI.Show();
+        if (currentUI != null)
+        {
+            currentUI.Show();
+            currentUI.OnOpen();
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CUI : MonoBehaviour
 {
@@ -13,6 +11,14 @@ public class CUI : MonoBehaviour
         uiManager = appManager.GetUImanager();
         if (appManager == null) Debug.Log("[CUI] application manager not found!");
         if (uiManager == null) Debug.Log("[CUI] ui manager not found!");
+    }
+
+    public virtual void OnOpen()
+    {
+    }
+
+    public virtual void OnClose()
+    {
     }
 
     public void Hide() => gameObject.SetActive(false);

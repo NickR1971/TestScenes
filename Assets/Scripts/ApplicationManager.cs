@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public interface IUI
@@ -193,22 +189,7 @@ public class ApplicationManager : MonoBehaviour
     }
 
 	public string[] GetSavedList() => saveFile.GetSavedList();
-	/***************
-	public void Message(EnumStringID _strID, Action _onDialogYes=null)
-    {
-		dialog.OpenDialog(EDialog.Warning, CLocalisation.GetString(_strID), _onDialogYes);
-    }
 
-	public void ErrorMessage(EnumStringID _strID, Action _onDialogYes = null)
-    {
-		dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID), _onDialogYes);
-    }
-
-	public void Question(EnumStringID _strID, Action _onDialogYes = null)
-    {
-		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(_strID), _onDialogYes);
-    }
-	***************/
 	public void Quit()
     {
 		//Question(EnumStringID.msg_sure, OnQuit);

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public enum EDialog
 {
     Question=0,
-    Warning=1,
+    Message=1,
     Error=2,
     Input=3
 }
@@ -41,14 +39,19 @@ public class CDialog : CUI, IDialog
     private EDialog currentType;
     private string sText;
 
-    private void Start()
+   private void Start()
     {
         InitUI();
+    }
+
+    public override void OnOpen()
+    {
+        base.OnOpen();
         if(inputText.gameObject.activeSelf)
         {
             inputText.Select();
             inputText.ActivateInputField();
-        }
+        }       
     }
 
     public void OpenDialog(string _text)
@@ -94,7 +97,7 @@ public class CDialog : CUI, IDialog
         ClearActions();
         inputText.text = "";
         sText = "";
-        SetDialog(EDialog.Warning);
+        SetDialog(EDialog.Message);
     }
 
     private void ClearActions()
