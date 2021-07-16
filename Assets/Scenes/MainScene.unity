@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49084842, g: 0.6819127, b: 0.7863716, a: 1}
+  m_IndirectSpecularColor: {r: 0.49081445, g: 0.68197066, b: 0.7863699, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -551,6 +551,11 @@ PrefabInstance:
       objectReference: {fileID: 223974060}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
+      propertyPath: uiCanvas
+      value: 
+      objectReference: {fileID: 1233996858}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
       propertyPath: imageMenu
       value: 
       objectReference: {fileID: 773808413}
@@ -564,6 +569,17 @@ PrefabInstance:
       propertyPath: saveLoadDialog
       value: 
       objectReference: {fileID: 1854450136}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: saveLoadWindow
+      value: 
+      objectReference: {fileID: 1854450136}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: prefabGameConsole
+      value: 
+      objectReference: {fileID: 7266404098576706013, guid: 8fdf9919a77faca4fbd5e9a4157df49d,
+        type: 3}
     - target: {fileID: 7220392528734542225, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
       propertyPath: m_Name
@@ -1788,6 +1804,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68373d3a9027512419f44748aa6126bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorList:
+  - {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 0}
+  - {r: 0.754717, g: 0.13883947, b: 0.13883947, a: 0}
+  - {r: 0.8018868, g: 0.49624664, b: 0.15508187, a: 0}
+  - {r: 0.9339623, g: 0.8942135, b: 0.083704144, a: 0}
+  - {r: 0.2137869, g: 0.9339623, b: 0.16300285, a: 0}
+  - {r: 0.14489143, g: 0.82373816, b: 0.8301887, a: 0}
+  - {r: 0.08699717, g: 0.14142132, b: 0.8018868, a: 0}
+  - {r: 0.823692, g: 0.16967781, b: 0.8773585, a: 0}
 --- !u!1 &1179101410
 GameObject:
   m_ObjectHideFlags: 0

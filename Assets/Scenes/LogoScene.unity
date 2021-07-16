@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -151,7 +151,7 @@ PrefabInstance:
     - target: {fileID: 2630454166092254125, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2630454166092254125, guid: 8ccd82284ed4e0741ba33fe6fad7737a,
         type: 3}
@@ -887,7 +887,7 @@ PrefabInstance:
     - target: {fileID: 5544953563791908082, guid: 5a88c5d0cd625934798068d2b2856593,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5544953563791908082, guid: 5a88c5d0cd625934798068d2b2856593,
         type: 3}
@@ -1287,6 +1287,11 @@ PrefabInstance:
       objectReference: {fileID: 1846320655}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
+      propertyPath: uiCanvas
+      value: 
+      objectReference: {fileID: 486056880}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
       propertyPath: imageMenu
       value: 
       objectReference: {fileID: 1940885780}
@@ -1300,6 +1305,17 @@ PrefabInstance:
       propertyPath: saveLoadDialog
       value: 
       objectReference: {fileID: 500936905}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: saveLoadWindow
+      value: 
+      objectReference: {fileID: 500936905}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: prefabGameConsole
+      value: 
+      objectReference: {fileID: 7266404098576706013, guid: 8fdf9919a77faca4fbd5e9a4157df49d,
+        type: 3}
     - target: {fileID: 7220392528734542225, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
       propertyPath: m_Name
@@ -1447,7 +1463,7 @@ PrefabInstance:
     - target: {fileID: 8422890589394209837, guid: 9bad5a09999ce9c46bc4a7d66d023ac2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8422890589394209837, guid: 9bad5a09999ce9c46bc4a7d66d023ac2,
         type: 3}

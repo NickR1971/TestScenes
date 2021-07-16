@@ -16,10 +16,14 @@
     {      "key": "ui_green", "value": "Зелений"    },
     {      "key": "ui_blue", "value": "Блакитний"    },
     {      "key": "txt_myGeniusGame", "value": "Моя геніальна гра"    },
-    {      "key": "txt_tempHint",   "value": "Натиснить ESC для меню" },
+    {      "key": "txt_tempHint",   "value": "Натиснить ` щоб відкрити консоль" },
     {      "key": "ui_remove", "value": "Видалити"    },
     {      "key": "msg_sure", "value": "Ви впевнені?"    },
     {      "key": "msg_test", "value": "Тестове повідомлення"    },
+    {      "key": "msg_help", "value": "Використайте color=num для змін кольору куба"    },
+    {      "key": "msg_invalidParam", "value": "Помилковий параметер"    },
+    {      "key": "msg_noParam", "value": "Відсутній параметер"    },
+    {      "key": "msg_noCoomand", "value": "Команду не знайдено"    },
     {      "key": "err_invalidName", "value": "Некоректне ім'я!"    }
   ]
 }

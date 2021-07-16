@@ -16,10 +16,14 @@
     {      "key": "ui_green", "value": "Green"    },
     {      "key": "ui_blue", "value": "Blue"    },
     {      "key": "txt_myGeniusGame", "value": "My Genius game"    },
-    {      "key": "txt_tempHint", "value": "press ESC for menu"    },
+    {      "key": "txt_tempHint", "value": "press ` to console"    },
     {      "key": "ui_remove", "value": "Remove"    },
     {      "key": "msg_sure", "value": "Are you sure?"    },
     {      "key": "msg_test", "value": "Test message"    },
+    {      "key": "msg_help", "value": "Use color=num to change cube color"    },
+    {      "key": "msg_invalidParam", "value": "Invalid parameter"    },
+    {      "key": "msg_noParam", "value": "Parameter not found"    },
+    {      "key": "msg_noCoomand", "value": "Command not found"    },
     {      "key": "err_invalidName", "value": "Invalid name!"    }
   ]
 }

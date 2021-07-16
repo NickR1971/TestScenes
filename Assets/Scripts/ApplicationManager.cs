@@ -18,14 +18,17 @@ public class ApplicationManager : MonoBehaviour
 
 	[SerializeField] private int sceneID;
 	private UsedLocal usedLanguage=UsedLocal.english;
+	[SerializeField] Canvas uiCanvas;
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private CDialog dialog;
-	[SerializeField] private CSaveLoad saveLoadDialog;
+    [SerializeField] private CSaveLoad saveLoadWindow;
+	[SerializeField] private GameObject prefabGameConsole;
 	[SerializeField] private GameObject[] localData=new GameObject[2];
 	private CUI menu;
 	private CSaveFile saveFile;
 	private UImanager uiManager;
+	private IGameConsole gameConsole;
 
 
     private void Awake()
@@ -55,6 +58,9 @@ public class ApplicationManager : MonoBehaviour
 		uiManager = new UImanager();
 		uiManager.Init();
 		menu = mainMenu.GetComponent<CUI>();
+
+		GameObject vGameConsole = Instantiate(prefabGameConsole, uiCanvas.transform);
+		gameConsole = vGameConsole.GetComponent<CGameConsole>().GetIGameConsole();
     }
 
     private void OnDestroy()
@@ -83,6 +89,11 @@ public class ApplicationManager : MonoBehaviour
 	public IDialog GetDialogManager()
     {
 		return dialog;
+    }
+
+	public IGameConsole GetGameConsole()
+    {
+		return gameConsole;
     }
 
 	public int GetSceneID() => sceneID;
@@ -134,7 +145,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Save()
     {
-		saveLoadDialog.OpenSaveWindow();
+		saveLoadWindow.OpenSaveWindow();
     }
 
 	public void Load(string _name)
@@ -154,7 +165,7 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Load()
     {
-		saveLoadDialog.OpenLoadWindow();
+		saveLoadWindow.OpenLoadWindow();
     }
 
 	public void RemoveSave(string _name)
@@ -192,7 +203,6 @@ public class ApplicationManager : MonoBehaviour
 
 	public void Quit()
     {
-		//Question(EnumStringID.msg_sure, OnQuit);
 		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.msg_sure), OnQuit);
 	}
 

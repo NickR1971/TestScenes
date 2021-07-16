@@ -20,5 +20,9 @@ txt_tempHint,
 ui_remove,
 msg_sure,
 msg_test,
+msg_help,
+msg_invalidParam,
+msg_noParam,
+msg_noCoomand,
 err_invalidName 
 }
