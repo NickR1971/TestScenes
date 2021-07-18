@@ -72,15 +72,19 @@ public class CGameConsole : MonoBehaviour, IGameConsole
     public void OnTextEnter()
     {
         sText = inputText.text;
+        if (Input.GetKeyDown(KeyCode.Return)) 
+        {
+            if (sText.Trim().Length > 0)
+            {
+                inputParser?.Invoke(sText);
+                inputText.text = "";
+            }
+        }
     }
 
     public void OnPlay()
     {
-        if (sText.Trim().Length > 0)
-        {
-            inputParser?.Invoke(sText);
-            inputText.text = "";
-        }
+        return;
     }
 
     public void OnButton()

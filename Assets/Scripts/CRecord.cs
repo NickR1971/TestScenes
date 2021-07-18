@@ -8,18 +8,39 @@ public class CRecord : MonoBehaviour
     [SerializeField] private CTextLocalize buttonText;
     [SerializeField] private Button ActionButton;
     [SerializeField] private Button DeleteButton;
-    bool isSave;
+    //bool isSave;
 
-    public void Init(string _name, bool _isSave, bool _isZero=false)
+    /*public void Init(string _name, bool _isSave, bool _isZero=false)
     {
         saveName.text = _name;
         isSave = _isSave;
         buttonText.strID = (isSave) ? EnumStringID.ui_save.ToString() : EnumStringID.ui_load.ToString();
         if (_isZero) ActionButton.onClick.AddListener(OnNewSave);
         else ActionButton.onClick.AddListener(OnOK);
-        if (_isZero) DeleteButton.gameObject.SetActive(false);
+        if (_isZero) 
+    }
+    ***/
+    public void InitZero()
+    {
+        saveName.text = CLocalisation.GetString(EnumStringID.ui_newSave);
+        buttonText.strID = EnumStringID.ui_save.ToString();
+        ActionButton.onClick.AddListener(OnNewSave);
+        DeleteButton.gameObject.SetActive(false);
     }
 
+    public void InitSave(string _name)
+    {
+        saveName.text = _name;
+        buttonText.strID = EnumStringID.ui_save.ToString();
+        ActionButton.onClick.AddListener(OnSaveOK);
+    }
+
+    public void InitLoad(string _name)
+    {
+        saveName.text = _name;
+        buttonText.strID = EnumStringID.ui_load.ToString();
+        ActionButton.onClick.AddListener(OnLoadOK);
+    }
     public void ResetTemplate()
     {
         ActionButton.onClick.RemoveAllListeners();
@@ -42,11 +63,14 @@ public class CRecord : MonoBehaviour
         dlg.OpenDialog(EDialog.Input, CLocalisation.GetString(EnumStringID.ui_newSave));
     }
 
-    public void OnOK()
+    public void OnSaveOK()
     {
-        Debug.Log("OnOK");
-        if (isSave) manager.Save(saveName.text);
-        else manager.Load(saveName.text);
+        manager.Save(saveName.text);
+    }
+ 
+    public void OnLoadOK()
+    {
+        manager.Load(saveName.text);
     }
     private void DeleteOk()
     {

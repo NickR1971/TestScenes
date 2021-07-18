@@ -3,21 +3,23 @@
 public class CSaveLoad : CUI
 {
     [SerializeField] private CRecordContainer container;
-    private void OpenSaveLoadWindow(bool _isSave)
+    private void OpenSaveLoadWindow()
     {
-        InitUI();
-        container.CreateList(appManager.GetSavedList(), _isSave);
         uiManager.OpenUI(this);
     }
     
     public void OpenSaveWindow()
     {
-        OpenSaveLoadWindow(_isSave: true);
+        InitUI();
+        container.CreateListSave(appManager.GetSavedList());
+        OpenSaveLoadWindow();
     }
 
     public void OpenLoadWindow()
     {
-        OpenSaveLoadWindow(_isSave: false);
+        InitUI();
+        container.CreateListLoad(appManager.GetSavedList());
+        OpenSaveLoadWindow();
     }
 
     public void CloseWindow()
