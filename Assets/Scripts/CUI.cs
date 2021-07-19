@@ -5,14 +5,13 @@ public class CUI : MonoBehaviour
     protected ApplicationManager appManager;
     protected IUI uiManager;
  
-    protected void InitUI()
+    public void InitUI(ApplicationManager _app)
     {
-        appManager = ApplicationManager.GetLink();
+        appManager = _app;
         uiManager = appManager.GetUImanager();
         if (appManager == null) Debug.Log("[CUI] application manager not found!");
         if (uiManager == null) Debug.Log("[CUI] ui manager not found!");
     }
-
     public virtual void OnOpen()
     {
     }

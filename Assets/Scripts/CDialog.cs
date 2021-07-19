@@ -39,11 +39,6 @@ public class CDialog : CUI, IDialog
     private EDialog currentType;
     private string sText;
 
-   private void Start()
-    {
-        InitUI();
-    }
-
     public override void OnOpen()
     {
         base.OnOpen();
@@ -56,8 +51,6 @@ public class CDialog : CUI, IDialog
 
     public void OpenDialog(string _text)
     {
-        if (appManager == null) InitUI();
-        if (uiManager == null) Debug.Log("ui manager not found!");
         messageText.text = _text;
         uiManager.OpenUI(this);
     }

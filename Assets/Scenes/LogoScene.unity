@@ -325,7 +325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 203}
+  m_AnchoredPosition: {x: 0, y: 203}
   m_SizeDelta: {x: 338.63293, y: 110.539764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &337335141
@@ -1300,6 +1300,11 @@ PrefabInstance:
       propertyPath: settingsMenu
       value: 
       objectReference: {fileID: 1131189874}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
+      propertyPath: startUIobject
+      value: 
+      objectReference: {fileID: 1846320655}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
       propertyPath: saveLoadDialog

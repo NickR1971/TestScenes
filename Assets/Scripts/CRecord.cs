@@ -8,18 +8,7 @@ public class CRecord : MonoBehaviour
     [SerializeField] private CTextLocalize buttonText;
     [SerializeField] private Button ActionButton;
     [SerializeField] private Button DeleteButton;
-    //bool isSave;
 
-    /*public void Init(string _name, bool _isSave, bool _isZero=false)
-    {
-        saveName.text = _name;
-        isSave = _isSave;
-        buttonText.strID = (isSave) ? EnumStringID.ui_save.ToString() : EnumStringID.ui_load.ToString();
-        if (_isZero) ActionButton.onClick.AddListener(OnNewSave);
-        else ActionButton.onClick.AddListener(OnOK);
-        if (_isZero) 
-    }
-    ***/
     public void InitZero()
     {
         saveName.text = CLocalisation.GetString(EnumStringID.ui_newSave);

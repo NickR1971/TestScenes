@@ -9,8 +9,8 @@ public class CGamePanel : CUI
 
     void Start()
     {
-        InitUI();
         gameConsole = appManager.GetGameConsole();
+        mainMenu.GetComponent<CUI>().InitUI(appManager);
     }
 
     void Update()

@@ -12,7 +12,6 @@ public class CSettings : CUI
 
     void Start()
     {
-        InitUI();
         profileField.text = appManager.GetProfile();
         if (appManager.IsGameExist()) editProfileButton.interactable = false;
     }

@@ -19,13 +19,13 @@ public class ApplicationManager : MonoBehaviour
 	[SerializeField] private int sceneID;
 	private UsedLocal usedLanguage=UsedLocal.english;
 	[SerializeField] Canvas uiCanvas;
-	[SerializeField] private GameObject mainMenu;
+	[SerializeField] private GameObject startUIobject;
 	[SerializeField] private GameObject settingsMenu;
 	[SerializeField] private CDialog dialog;
     [SerializeField] private CSaveLoad saveLoadWindow;
 	[SerializeField] private GameObject prefabGameConsole;
 	[SerializeField] private GameObject[] localData=new GameObject[2];
-	private CUI menu;
+	private CUI startUI;
 	private CSaveFile saveFile;
 	private UImanager uiManager;
 	private IGameConsole gameConsole;
@@ -37,7 +37,6 @@ public class ApplicationManager : MonoBehaviour
 		SaveData data = CGameManager.GetData();
 		
 		thisExemplar = this;
-		
 		if (data == null)
 		{
 			data = new SaveData();
@@ -57,7 +56,11 @@ public class ApplicationManager : MonoBehaviour
 
 		uiManager = new UImanager();
 		uiManager.Init();
-		menu = mainMenu.GetComponent<CUI>();
+		startUI = startUIobject.GetComponent<CUI>();
+		startUI.InitUI(this);
+		settingsMenu.GetComponent<CUI>().InitUI(this);
+		dialog.InitUI(this);
+		saveLoadWindow.InitUI(this);
 
 		GameObject vGameConsole = Instantiate(prefabGameConsole, uiCanvas.transform);
 		gameConsole = vGameConsole.GetComponent<CGameConsole>().GetIGameConsole();
@@ -71,7 +74,7 @@ public class ApplicationManager : MonoBehaviour
 
     private void Start()
     {
-		uiManager.OpenUI(menu);
+		uiManager.OpenUI(startUI);
     }
 
     public static ApplicationManager GetLink()

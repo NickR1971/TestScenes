@@ -10,14 +10,12 @@ public class CSaveLoad : CUI
     
     public void OpenSaveWindow()
     {
-        InitUI();
         container.CreateListSave(appManager.GetSavedList());
         OpenSaveLoadWindow();
     }
 
     public void OpenLoadWindow()
     {
-        InitUI();
         container.CreateListLoad(appManager.GetSavedList());
         OpenSaveLoadWindow();
     }

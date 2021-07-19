@@ -566,6 +566,11 @@ PrefabInstance:
       objectReference: {fileID: 1814140896}
     - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
         type: 3}
+      propertyPath: startUIobject
+      value: 
+      objectReference: {fileID: 223974060}
+    - target: {fileID: 7220392528734542224, guid: 6b0af52c5fb576046b9b0a1b46a8802f,
+        type: 3}
       propertyPath: saveLoadDialog
       value: 
       objectReference: {fileID: 1854450136}
