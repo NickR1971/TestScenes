@@ -55,6 +55,11 @@ public class CSaveFile
 
 	public bool IsSavedFileExist() => profileData.savedList.Length > 1;
 
+	public bool IsSavedFileExist(string _name)
+    {
+		return File.Exists(CreateSaveFileName(_name));
+    }
+
 	private void SaveFile<T>(T _data, string _name)
     {
 		BinaryFormatter bf = new BinaryFormatter();

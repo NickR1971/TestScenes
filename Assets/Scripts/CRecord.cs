@@ -8,6 +8,7 @@ public class CRecord : MonoBehaviour
     [SerializeField] private CTextLocalize buttonText;
     [SerializeField] private Button ActionButton;
     [SerializeField] private Button DeleteButton;
+    private string strName;
 
     public void InitZero()
     {
@@ -38,7 +39,7 @@ public class CRecord : MonoBehaviour
 
     private void NewSave(string _name)
     {
-        if (CUtil.CheckNameForSave(_name)) manager.Save(_name.Replace('.','_'));
+        if (CUtil.CheckNameForSave(_name)) OnSaveCheck(_name.Replace('.','_'));
         else
         {
             IDialog dlg = ApplicationManager.GetLink().GetDialogManager();
@@ -54,7 +55,26 @@ public class CRecord : MonoBehaviour
 
     public void OnSaveOK()
     {
-        manager.Save(saveName.text);
+        //manager.Save(saveName.text);
+        OnSaveCheck(saveName.text);
+    }
+
+    private void DoSave()
+    {
+        manager.Save(strName);
+        strName = null;
+    }
+
+    private void OnSaveCheck(string _name)
+    {
+        ApplicationManager app = ApplicationManager.GetLink();
+        if (app.IsSavedGameExist(_name))
+        {
+            IDialog dlg = app.GetDialogManager();
+            strName = _name;
+            dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + saveName.text + "?", DoSave);
+        }
+        else manager.Save(_name);
     }
  
     public void OnLoadOK()

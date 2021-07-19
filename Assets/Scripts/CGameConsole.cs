@@ -72,7 +72,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
     public void OnTextEnter()
     {
         sText = inputText.text;
-        if (Input.GetKeyDown(KeyCode.Return)) 
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if (sText.Trim().Length > 0)
             {

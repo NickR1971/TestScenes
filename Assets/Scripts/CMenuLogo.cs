@@ -52,4 +52,8 @@ public class CMenuLogo : CMenu
     {
         appManager.Quit();
     }
+    public override void OnCancel()
+    {
+        // disable close window on ESC by default
+    }
 }

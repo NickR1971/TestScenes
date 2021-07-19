@@ -139,6 +139,7 @@ public class ApplicationManager : MonoBehaviour
 	}
 
 	public bool IsSavedGameExist() => saveFile.IsSavedFileExist();
+	public bool IsSavedGameExist(string _name) => saveFile.IsSavedFileExist(_name);
 
 	public void Save(string _name)
 	{

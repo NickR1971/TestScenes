@@ -57,7 +57,7 @@ public class CDialog : CUI, IDialog
     public void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null)
     {
         SetDialog(_dialogType, true, (_dialogType == EDialog.Question || _dialogType == EDialog.Input), (_dialogType == EDialog.Input));
-        SetOnYes(_onDialogYes);
+        if (_onDialogYes != null) SetOnYes(_onDialogYes);
         OpenDialog(_text);
     }
     public void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false)
@@ -101,7 +101,7 @@ public class CDialog : CUI, IDialog
         onDialogInput = null;
   }
 
-    public void OnYes()
+    public override void OnYes()
     {
         uiManager.CloseUI();
         if (currentType == EDialog.Input) onDialogInput?.Invoke(sText);
@@ -109,14 +109,14 @@ public class CDialog : CUI, IDialog
         ClearActions();
     }
 
-    public void OnNo()
+    public override void OnNo()
     {
         uiManager.CloseUI();
         onDialogNo?.Invoke();
         ClearActions();
     }
 
-    public void OnCancel()
+    public override void OnCancel()
     {
         uiManager.CloseUI();
         onDialogCancel?.Invoke();
