@@ -51,6 +51,7 @@ public class CDialog : CUI, IDialog
 
     public void OpenDialog(string _text)
     {
+        if (IsActive()) Debug.Log("Reopen dialog! " + _text);
         messageText.text = _text;
         uiManager.OpenUI(this);
     }
@@ -58,6 +59,7 @@ public class CDialog : CUI, IDialog
     {
         SetDialog(_dialogType, true, (_dialogType == EDialog.Question || _dialogType == EDialog.Input), (_dialogType == EDialog.Input));
         if (_onDialogYes != null) SetOnYes(_onDialogYes);
+        else Debug.Log("Dialog: " + _text + " nullyes");
         OpenDialog(_text);
     }
     public void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false)
@@ -103,24 +105,31 @@ public class CDialog : CUI, IDialog
 
     public override void OnYes()
     {
+        var onInput = onDialogInput;
+        var onYes = onDialogYes;
+
         uiManager.CloseUI();
-        if (currentType == EDialog.Input) onDialogInput?.Invoke(sText);
-        else onDialogYes?.Invoke();
         ClearActions();
+        if (inputText.gameObject.activeSelf) onInput?.Invoke(sText);
+        else onYes?.Invoke();
     }
 
     public override void OnNo()
     {
+        var onNo = onDialogNo;
+
         uiManager.CloseUI();
-        onDialogNo?.Invoke();
         ClearActions();
+        onNo?.Invoke();
     }
 
     public override void OnCancel()
     {
+        var onCancel = onDialogCancel;
+
         uiManager.CloseUI();
-        onDialogCancel?.Invoke();
         ClearActions();
+        onCancel?.Invoke();
     }
 
     public void OnInputExit()

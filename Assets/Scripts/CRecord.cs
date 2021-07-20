@@ -53,9 +53,8 @@ public class CRecord : MonoBehaviour
         dlg.OpenDialog(EDialog.Input, CLocalisation.GetString(EnumStringID.ui_newSave));
     }
 
-    public void OnSaveOK()
+    private void OnSaveOK()
     {
-        //manager.Save(saveName.text);
         OnSaveCheck(saveName.text);
     }
 
@@ -68,13 +67,13 @@ public class CRecord : MonoBehaviour
     private void OnSaveCheck(string _name)
     {
         ApplicationManager app = ApplicationManager.GetLink();
+        strName = _name;
         if (app.IsSavedGameExist(_name))
         {
             IDialog dlg = app.GetDialogManager();
-            strName = _name;
-            dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + saveName.text + "?", DoSave);
+            dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + strName + "?", DoSave);
         }
-        else manager.Save(_name);
+        else DoSave();
     }
  
     public void OnLoadOK()
