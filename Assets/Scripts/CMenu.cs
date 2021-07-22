@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CMenu : CUI
 {
-    protected int sceneID;
     protected SortedList<EnumStringID,Button> buttons = new SortedList<EnumStringID,Button>();
     
     [SerializeField] private Button btnPrefab;
@@ -13,14 +12,13 @@ public class CMenu : CUI
 
     private void OnDestroy()
     {
-        appManager.reloadText -= RefreshText;
+        CLocalisation.reloadText -= RefreshText;
     }
 
     protected void InitMenu()
     {
-        sceneID = appManager.GetSceneID();
         lastButton = null;
-        appManager.reloadText += RefreshText;
+        CLocalisation.reloadText += RefreshText;
     }
 
     public int GetNumButtons() => buttons.Count;

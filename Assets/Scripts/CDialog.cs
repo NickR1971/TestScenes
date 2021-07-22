@@ -2,26 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum EDialog
-{
-    Question=0,
-    Message=1,
-    Error=2,
-    Input=3
-}
-
-public interface IDialog
-{
-    void SetOnYes(Action _onDialogEnd);
-    void SetOnNo(Action _onDialogEnd);
-    void SetOnCancel(Action _onDialogEnd);
-    void SetOnInput(Action<string> _onDialogEnd);
-    void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false);
-    void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null);
-    void OpenDialog(string _text);
-    void ResetToDefault();
-}
-
 public class CDialog : CUI, IDialog
 {
     [SerializeField] private Image icon;
@@ -39,19 +19,13 @@ public class CDialog : CUI, IDialog
     private EDialog currentType;
     private string sText;
 
-    public override void OnOpen()
-    {
-        base.OnOpen();
-        if(inputText.gameObject.activeSelf)
-        {
-            inputText.Select();
-            inputText.ActivateInputField();
-        }       
-    }
+    //----------------------
+    // IDialog
+    //----------------------
 
     public void OpenDialog(string _text)
     {
-        if (IsActive()) Debug.Log("Reopen dialog! " + _text);
+        if (IsActive()) Debug.LogError("Reopen dialog! " + _text);
         messageText.text = _text;
         uiManager.OpenUI(this);
     }
@@ -101,7 +75,10 @@ public class CDialog : CUI, IDialog
         onDialogNo = null;
         onDialogCancel = null;
         onDialogInput = null;
-  }
+    }
+    //----------------------
+    // IDialog end
+    //----------------------
 
     public override void OnYes()
     {
@@ -135,5 +112,15 @@ public class CDialog : CUI, IDialog
     public void OnInputExit()
     {
         sText = inputText.text;
+    }
+
+    public override void OnOpen()
+    {
+        base.OnOpen();
+        if(inputText.gameObject.activeSelf)
+        {
+            inputText.Select();
+            inputText.ActivateInputField();
+        }       
     }
 }

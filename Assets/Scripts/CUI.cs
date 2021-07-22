@@ -2,32 +2,28 @@
 
 public class CUI : MonoBehaviour
 {
-    protected ApplicationManager appManager;
     protected IUI uiManager;
+    protected IMainMenu iMainMenu;
  
-    public void InitUI(ApplicationManager _app)
+    public void InitUI()
     {
-        appManager = _app;
-        uiManager = appManager.GetUImanager();
-        if (appManager == null) Debug.Log("[CUI] application manager not found!");
-        if (uiManager == null) Debug.Log("[CUI] ui manager not found!");
+        uiManager = ApplicationManager.GetUImanager();
+        iMainMenu = ApplicationManager.GetIMainMenu();
     }
+
     public void Hide() => gameObject.SetActive(false);
-
     public void Show() => gameObject.SetActive(true);
-
     public bool IsActive() => gameObject.activeSelf;
 
     public virtual void OnOpen() { }
-
     public virtual void OnClose() { }
-
     public virtual void OnYes() { }
     public virtual void OnNo() { }
     public virtual void OnCancel() 
     {
         uiManager.CloseUI();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))

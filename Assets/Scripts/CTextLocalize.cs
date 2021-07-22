@@ -6,20 +6,18 @@ using UnityEngine.UI;
 public class CTextLocalize : MonoBehaviour
 {
     private Text textField;
-    private ApplicationManager appManager;
     [SerializeField] public string strID;
 
     private void Start()
     {
-        appManager = ApplicationManager.GetLink();
         textField = GetComponent<Text>();
         RefreshText();
-        appManager.reloadText += RefreshText;
+        CLocalisation.reloadText += RefreshText;
     }
 
     private void OnDestroy()
     {
-        appManager.reloadText -= RefreshText;
+        CLocalisation.reloadText -= RefreshText;
     }
 
     public void RefreshText()

@@ -6,7 +6,6 @@ public class CCubeRotation : MonoBehaviour
 {
     private int angle;
     private Material mtrl;
-    private ApplicationManager appManager;
     private IGameConsole gameConsole;
     private const int maxColors = 8;
     [SerializeField] private Color[] colorList = new Color[maxColors];
@@ -18,8 +17,7 @@ public class CCubeRotation : MonoBehaviour
         mtrl = GetComponent<Renderer>().material;
         mtrl.color = data.GetColor();
         CGameManager.onSave += OnSave;
-        appManager = ApplicationManager.GetLink();
-        gameConsole = appManager.GetGameConsole();
+        gameConsole = ApplicationManager.GetGameConsole();
         gameConsole.SetInputParser(OnConsole);
     }
 
@@ -46,7 +44,7 @@ public class CCubeRotation : MonoBehaviour
         }
         else if (_cmd.Contains("quit"))
         {
-            appManager.Quit();
+            ApplicationManager.GetIMainMenu().Quit();
         }
         else if (_cmd.Contains("color"))
         {

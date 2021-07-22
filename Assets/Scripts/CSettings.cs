@@ -12,18 +12,18 @@ public class CSettings : CUI
 
     void Start()
     {
-        profileField.text = appManager.GetProfile();
-        if (appManager.IsGameExist()) editProfileButton.interactable = false;
+        profileField.text = ApplicationManager.GatISaveLoad().GetProfile();
+        if (iMainMenu.IsGameExist()) editProfileButton.interactable = false;
     }
 
     public void SetLanguageUA()
     {
-        appManager.SetLanguage(UsedLocal.ukrainian);
+        iMainMenu.SetLanguage(UsedLocal.ukrainian);
     }
 
     public void SetLanguageEN()
     {
-        appManager.SetLanguage(UsedLocal.english);
+        iMainMenu.SetLanguage(UsedLocal.english);
     }
 
     public void EditProfile()
@@ -40,7 +40,7 @@ public class CSettings : CUI
         string str;
         isEditProfile = false;
         str = profileInput.text.Trim().Replace('.','_').Replace('/','_').Replace('\\','_');
-        if (str.Length > 0 && appManager.SetProfile(str))
+        if (str.Length > 0 && ApplicationManager.GatISaveLoad().SetProfile(str))
         {
             profileField.text = str;
         }
@@ -51,7 +51,12 @@ public class CSettings : CUI
 
     private void ErrorMessage(EnumStringID _strID)
     {
-        IDialog dlg = appManager.GetDialogManager();
+        IDialog dlg = ApplicationManager.GetDialogManager();
         dlg.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID));
+    }
+
+    public override void OnYes()
+    {
+        iMainMenu.SaveSettings();
     }
 }

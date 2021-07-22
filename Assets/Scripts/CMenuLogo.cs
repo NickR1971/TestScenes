@@ -10,11 +10,11 @@ public class CMenuLogo : CMenu
     {
         InitMenu();
         AddButton(EnumStringID.ui_new).onClick.AddListener(NewGame);
-        if (appManager.IsGameExist())
+        if (iMainMenu.IsGameExist())
             AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
         AddButton(EnumStringID.ui_load).onClick.AddListener(LoadGame);
         loadButton = LastButton();
-        loadButton.interactable = appManager.IsSavedGameExist();
+        loadButton.interactable = ApplicationManager.GatISaveLoad().IsSavedGameExist();
         AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
         AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
 
@@ -24,33 +24,33 @@ public class CMenuLogo : CMenu
     {
         if (loadButton != null)
         {
-            loadButton.interactable = appManager.IsSavedGameExist();
+            loadButton.interactable = ApplicationManager.GatISaveLoad().IsSavedGameExist();
         }
     }
+
     public void NewGame()
     {
-        appManager.NewGame();
+        iMainMenu.NewGame();
     }
 
     public void ContinueGame()
     {
-        appManager.GoToMainScene();
+        iMainMenu.GoToMainScene();
     }
 
     public void LoadGame()
     {
-        appManager.Load();
+        iMainMenu.Load();
     }
 
     public void SetSettings()
     {
-        //appManager.ResetData();
-        appManager.OpenSettings();
+        iMainMenu.OpenSettings();
     }
 
     public void ExitGame()
     {
-        appManager.Quit();
+        iMainMenu.Quit();
     }
     public override void OnCancel()
     {

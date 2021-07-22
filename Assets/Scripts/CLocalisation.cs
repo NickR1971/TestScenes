@@ -7,10 +7,13 @@ public enum UsedLocal { english = 0, ukrainian = 1 }
 
 public static class CLocalisation
 {
+    public static event Action reloadText;
+
     private static SortedList<string, string> uiString;
 
     public static bool Init()
     {
+        reloadText = null;
         if (uiString != null) return false;
         
         uiString = new SortedList<string, string>();
@@ -25,6 +28,7 @@ public static class CLocalisation
         local = loc.GetComponent<CLocal>();
         local.Init(uiString);
         MonoBehaviour.Destroy(loc);
+        reloadText?.Invoke();
     }
 
     public static string GetString(string _key)

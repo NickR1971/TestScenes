@@ -3,6 +3,14 @@
 public class CSaveLoad : CUI
 {
     [SerializeField] private CRecordContainer container;
+    private ISaveLoad iSaveLoad;
+
+    public void InittInterface()
+    {
+        InitUI();
+        iSaveLoad = ApplicationManager.GatISaveLoad();
+    }
+
     private void OpenSaveLoadWindow()
     {
         uiManager.OpenUI(this);
@@ -10,13 +18,13 @@ public class CSaveLoad : CUI
     
     public void OpenSaveWindow()
     {
-        container.CreateListSave(appManager.GetSavedList());
+        container.CreateListSave(iSaveLoad.GetSavedList());
         OpenSaveLoadWindow();
     }
 
     public void OpenLoadWindow()
     {
-        container.CreateListLoad(appManager.GetSavedList());
+        container.CreateListLoad(iSaveLoad.GetSavedList());
         OpenSaveLoadWindow();
     }
 
@@ -29,18 +37,18 @@ public class CSaveLoad : CUI
     public void Save(string _name)
     {
         CloseWindow();
-        appManager.Save(_name);
+        iSaveLoad.Save(_name);
     }
 
     public void Load(string _name)
     {
         CloseWindow();
-        appManager.Load(_name);
+        iSaveLoad.Load(_name);
     }
 
     public void Remove(string _name)
     {
         CloseWindow();
-        appManager.RemoveSave(_name);
+        iSaveLoad.RemoveSave(_name);
     }
 }

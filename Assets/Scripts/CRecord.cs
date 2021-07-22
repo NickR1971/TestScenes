@@ -42,13 +42,13 @@ public class CRecord : MonoBehaviour
         if (CUtil.CheckNameForSave(_name)) OnSaveCheck(_name.Replace('.','_'));
         else
         {
-            IDialog dlg = ApplicationManager.GetLink().GetDialogManager();
+            IDialog dlg = ApplicationManager.GetDialogManager();
             dlg.OpenDialog(EDialog.Error, CLocalisation.GetString(EnumStringID.err_invalidName) + " " + _name);
         }
     }
     public void OnNewSave()
     {
-        IDialog dlg = ApplicationManager.GetLink().GetDialogManager();
+        IDialog dlg = ApplicationManager.GetDialogManager();
         dlg.SetOnInput(NewSave);
         dlg.OpenDialog(EDialog.Input, CLocalisation.GetString(EnumStringID.ui_newSave));
     }
@@ -66,11 +66,10 @@ public class CRecord : MonoBehaviour
 
     private void OnSaveCheck(string _name)
     {
-        ApplicationManager app = ApplicationManager.GetLink();
         strName = _name;
-        if (app.IsSavedGameExist(_name))
+        if (ApplicationManager.GatISaveLoad().IsSavedGameExist(_name))
         {
-            IDialog dlg = app.GetDialogManager();
+            IDialog dlg = ApplicationManager.GetDialogManager();
             dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + strName + "?", DoSave);
         }
         else DoSave();
@@ -86,7 +85,7 @@ public class CRecord : MonoBehaviour
     }
     public void OnDelete()
     {
-        IDialog dlg = ApplicationManager.GetLink().GetDialogManager();
+        IDialog dlg = ApplicationManager.GetDialogManager();
         dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_remove) + " " + saveName.text + "?", DeleteOk);
     }
 }

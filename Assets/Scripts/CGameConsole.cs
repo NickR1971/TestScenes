@@ -4,14 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IGameConsole
-{
-    void ShowMessage(string _msg);
-    void SetInputParser(Action<string> _inputParser);
-    void Show();
-    void Hide();
-}
-
 public class CGameConsole : MonoBehaviour, IGameConsole
 {
     [SerializeField] private InputField inputText;

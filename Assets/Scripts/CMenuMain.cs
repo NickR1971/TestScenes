@@ -16,7 +16,7 @@ public class CMenuMain : CMenu
 
     public void SaveGame()
     {
-        appManager.Save();
+        iMainMenu.Save();
     }
 
     public void ContinueGame()
@@ -26,15 +26,15 @@ public class CMenuMain : CMenu
 
     public void GoMainMenu()
     {
-        appManager.MainMenuScene();
+        iMainMenu.MainMenuScene();
     }
     public void SetSettings()
     {
-        appManager.OpenSettings();
+        iMainMenu.OpenSettings();
     }
 
     public void ExitGame()
     {
-        appManager.Quit();
+        iMainMenu.Quit();
     }
 }

@@ -2,16 +2,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public interface IUI
-{
-	void OpenUI(CUI _ui);
-	void CloseUI();
-}
 
-public class ApplicationManager : MonoBehaviour
+public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 {
-	public event Action reloadText;
-
 	private static uint gameID;
 
 	private static ApplicationManager thisExemplar;
@@ -57,10 +50,10 @@ public class ApplicationManager : MonoBehaviour
 		uiManager = new UImanager();
 		uiManager.Init();
 		startUI = startUIobject.GetComponent<CUI>();
-		startUI.InitUI(this);
-		settingsMenu.GetComponent<CUI>().InitUI(this);
-		dialog.InitUI(this);
-		saveLoadWindow.InitUI(this);
+		startUI.InitUI();
+		settingsMenu.GetComponent<CUI>().InitUI();
+		dialog.InitUI();
+		saveLoadWindow.InittInterface();
 
 		GameObject vGameConsole = Instantiate(prefabGameConsole, uiCanvas.transform);
 		gameConsole = vGameConsole.GetComponent<CGameConsole>().GetIGameConsole();
@@ -77,66 +70,44 @@ public class ApplicationManager : MonoBehaviour
 		uiManager.OpenUI(startUI);
     }
 
-    public static ApplicationManager GetLink()
+	//----------------------------------------
+	// static interface getters
+	//----------------------------------------
+    private static ApplicationManager GetLink()
 	{
 		if (thisExemplar == null) Debug.LogError("No created application manager!");
 
 		return thisExemplar;
 	}
 
-	public IUI GetUImanager()
+	public static IUI GetUImanager()
     {
-		return uiManager;
+		return GetLink().uiManager;
     }
 
-	public IDialog GetDialogManager()
+	public static IDialog GetDialogManager()
     {
-		return dialog;
+		return GetLink().dialog;
     }
 
-	public IGameConsole GetGameConsole()
+	public static IGameConsole GetGameConsole()
     {
-		return gameConsole;
+		return GetLink().gameConsole;
     }
 
-	public int GetSceneID() => sceneID;
+	public static IMainMenu GetIMainMenu() => GetLink();
 
-	public uint GetGameID() => gameID;
+	public static ISaveLoad GatISaveLoad() => GetLink();
 
+	//-----------------------------------------------------
+	// ISaveLoad
+	//-----------------------------------------------------
 	public string GetProfile() => saveFile.GetProfile();
 
 	public bool SetProfile(string _name)
     {
 		return saveFile.SetProfile(_name);
     }
-
-	public bool IsGameExist() => gameID > 0;
-
-	public void GoToMainScene()
-    {
-		SceneManager.LoadScene("MainScene");
-	}
-
-	public void NewGame()
-    {
-		SaveData data = CGameManager.GetData();
-		gameID = (uint)UnityEngine.Random.Range(100, 10000000);
-		if(data==null)
-        {
-			data = new SaveData();
-			CGameManager.Init(data);
-        }
-
-		data.id = gameID;
-        data.SetColor(Color.gray);
-		GoToMainScene();
-    }
-
-	public void MainMenuScene()
-	{
-		CGameManager.OnSave();
-		SceneManager.LoadScene("LogoScene");
-	}
 
 	public bool IsSavedGameExist() => saveFile.IsSavedFileExist();
 	public bool IsSavedGameExist(string _name) => saveFile.IsSavedFileExist(_name);
@@ -146,11 +117,6 @@ public class ApplicationManager : MonoBehaviour
 		CGameManager.OnSave();
 		saveFile.Save(_name, CGameManager.GetData());
 	}
-
-	public void Save()
-    {
-		saveLoadWindow.OpenSaveWindow();
-    }
 
 	public void Load(string _name)
 	{
@@ -167,31 +133,22 @@ public class ApplicationManager : MonoBehaviour
 			Debug.LogError("There is no save data!");
 	}
 
-	public void Load()
-    {
-		saveLoadWindow.OpenLoadWindow();
-    }
-
 	public void RemoveSave(string _name)
 	{
 		saveFile.ResetData(_name);
 	}
 
+	public string[] GetSavedList() => saveFile.GetSavedList();
+
+	//--------------------------------------------------------------
+	// IMainMenu interface
+	//--------------------------------------------------------------
+	public bool IsGameExist() => gameID > 0;
+
 	public void SetLanguage(UsedLocal _language)
     {
 		usedLanguage = _language;
 		CLocalisation.LoadLocalPrefab(localData[(int)_language]);
-		reloadText?.Invoke();
-    }
-
-	public void OpenSettings()
-    {
-		uiManager.OpenUI(settingsMenu.GetComponent<CUI>());
-    }
-
-	public void CloseSettings()
-    {
-		uiManager.CloseUI();
     }
 
 	public void SaveSettings()
@@ -200,10 +157,49 @@ public class ApplicationManager : MonoBehaviour
 		data.profileName = GetProfile();
 		data.selected = usedLanguage;
 		saveFile.SaveSettings(data);
-		CloseSettings();
+		uiManager.CloseUI();
     }
 
-	public string[] GetSavedList() => saveFile.GetSavedList();
+	public void NewGame()
+	{
+		SaveData data = CGameManager.GetData();
+		gameID = (uint)UnityEngine.Random.Range(100, 10000000);
+		if (data == null)
+		{
+			data = new SaveData();
+			CGameManager.Init(data);
+		}
+
+		data.id = gameID;
+		data.SetColor(Color.gray);
+		GoToMainScene();
+	}
+
+	public void GoToMainScene()
+	{
+		SceneManager.LoadScene("MainScene");
+	}
+
+	public void MainMenuScene()
+	{
+		CGameManager.OnSave();
+		SceneManager.LoadScene("LogoScene");
+	}
+
+	public void Save()
+	{
+		saveLoadWindow.OpenSaveWindow();
+	}
+
+	public void Load()
+	{
+		saveLoadWindow.OpenLoadWindow();
+	}
+
+	public void OpenSettings()
+    {
+		uiManager.OpenUI(settingsMenu.GetComponent<CUI>());
+    }
 
 	public void Quit()
     {
