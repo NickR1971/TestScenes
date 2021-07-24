@@ -1,5 +1,6 @@
 {
   "loc": [
+    {      "key": "txt_empty",      "value": ""    },
     {      "key": "txt_profile",      "value": "Profile"    },
     {      "key": "txt_language",      "value": "english"    },
     {      "key": "ui_yes",      "value": "Yes"    },

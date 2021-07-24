@@ -3,7 +3,7 @@
 public interface IGameConsole
 {
     void ShowMessage(string _msg);
-    void SetInputParser(Action<string> _inputParser);
+    void AddCommand(CGameConsoleCommand _command);
     void Show();
     void Hide();
 }

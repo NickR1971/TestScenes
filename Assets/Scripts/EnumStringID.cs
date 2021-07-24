@@ -1,5 +1,6 @@
 public enum EnumStringID 
 { 
+txt_empty,
 txt_profile,
 txt_language,
 ui_yes,

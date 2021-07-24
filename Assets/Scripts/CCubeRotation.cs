@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ public class CCubeRotation : MonoBehaviour
         mtrl.color = data.GetColor();
         CGameManager.onSave += OnSave;
         gameConsole = ApplicationManager.GetGameConsole();
-        gameConsole.SetInputParser(OnConsole);
+        CGameConsoleCommand cmd = new CGameConsoleCommand("color",OnConsole,EnumStringID.msg_help);
+        gameConsole.AddCommand(cmd);
     }
 
     private void OnDestroy()
@@ -38,37 +40,25 @@ public class CCubeRotation : MonoBehaviour
 
     public void OnConsole(string _cmd)
     {
-        if (_cmd.Contains("help"))
+        string str;
+        int i;
+
+        str = _cmd;
+        if (str.Length > 1 && str[0] == '=')
         {
-            gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_help));
-        }
-        else if (_cmd.Contains("quit"))
-        {
-            ApplicationManager.GetIMainMenu().Quit();
-        }
-        else if (_cmd.Contains("color"))
-        {
-            string str;
-            int i = _cmd.IndexOf("color");
-            i += 5;
-            str = _cmd.Substring(i, _cmd.Length - i).Trim();
-            if (str.Length > 1 && str[0] == '=')
+            str = str.Substring(1, str.Length - 1).Trim();
+            if (int.TryParse(str, out i))
             {
-                str = str.Substring(1, str.Length - 1).Trim();
-                if (int.TryParse(str, out i))
+                if (i >= maxColors || i < 0) gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_invalidParam) + " " + i.ToString());
+                else
                 {
-                    if (i >= maxColors || i < 0) gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_invalidParam) + " " + i.ToString());
-                    else
-                    {
-                        mtrl.color = colorList[i];
-                        gameConsole.ShowMessage("color=" + colorList[i].ToString());
-                    }
+                    mtrl.color = colorList[i];
+                    gameConsole.ShowMessage("color=" + colorList[i].ToString());
                 }
-                else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " [" + str + "]");
             }
-            else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam));
+            else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " [" + str + "]");
         }
-        else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noCoomand) + " [" + _cmd + "]");
+        else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " [" + str + "]");
     }
 
     public void OnRed()

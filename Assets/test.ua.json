@@ -1,5 +1,6 @@
 {
   "loc": [
+    {      "key": "txt_empty",      "value": ""    },
     {      "key": "txt_profile",      "value": "Профіль"    },
     {      "key": "txt_language",      "value": "українська"    },
     {      "key": "ui_yes",      "value": "Так"    },
@@ -22,7 +23,7 @@
     {      "key": "msg_test", "value": "Тестове повідомлення"    },
     {      "key": "msg_help", "value": "Використайте color=num для змін кольору куба"    },
     {      "key": "msg_invalidParam", "value": "Помилковий параметер"    },
-    {      "key": "msg_noParam", "value": "Відсутній параметер"    },
+    {      "key": "msg_noParam", "value": "Невірний параметер"    },
     {      "key": "msg_noCoomand", "value": "Команду не знайдено"    },
     {      "key": "err_invalidName", "value": "Некоректне ім'я!"    }
   ]
