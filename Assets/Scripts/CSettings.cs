@@ -12,7 +12,7 @@ public class CSettings : CUI
 
     void Start()
     {
-        profileField.text = ApplicationManager.GatISaveLoad().GetProfile();
+        profileField.text = ApplicationManager.GatSaveLoad().GetProfile();
         if (iMainMenu.IsGameExist()) editProfileButton.interactable = false;
     }
 
@@ -40,7 +40,7 @@ public class CSettings : CUI
         string str;
         isEditProfile = false;
         str = profileInput.text.Trim().Replace('.','_').Replace('/','_').Replace('\\','_');
-        if (str.Length > 0 && ApplicationManager.GatISaveLoad().SetProfile(str))
+        if (str.Length > 0 && ApplicationManager.GatSaveLoad().SetProfile(str))
         {
             profileField.text = str;
         }

@@ -89,7 +89,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
 
     private void Quit(string _str)
     {
-        ApplicationManager.GetIMainMenu().Quit();
+        ApplicationManager.GetMainMenu().Quit();
     }
 
     private void Help(string _str)

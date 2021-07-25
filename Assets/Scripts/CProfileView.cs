@@ -12,6 +12,6 @@ public class CProfileView : MonoBehaviour
     void Start()
     {
         textField = GetComponent<Text>();
-        textField.text = ApplicationManager.GatISaveLoad().GetProfile();
+        textField.text = ApplicationManager.GatSaveLoad().GetProfile();
     }
 }

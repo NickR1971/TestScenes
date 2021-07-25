@@ -14,7 +14,7 @@ public class CMenuLogo : CMenu
             AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
         AddButton(EnumStringID.ui_load).onClick.AddListener(LoadGame);
         loadButton = LastButton();
-        loadButton.interactable = ApplicationManager.GatISaveLoad().IsSavedGameExist();
+        loadButton.interactable = ApplicationManager.GatSaveLoad().IsSavedGameExist();
         AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
         AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
 
@@ -24,7 +24,7 @@ public class CMenuLogo : CMenu
     {
         if (loadButton != null)
         {
-            loadButton.interactable = ApplicationManager.GatISaveLoad().IsSavedGameExist();
+            loadButton.interactable = ApplicationManager.GatSaveLoad().IsSavedGameExist();
         }
     }
 

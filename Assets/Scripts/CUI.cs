@@ -8,7 +8,7 @@ public class CUI : MonoBehaviour
     public void InitUI()
     {
         uiManager = ApplicationManager.GetUImanager();
-        iMainMenu = ApplicationManager.GetIMainMenu();
+        iMainMenu = ApplicationManager.GetMainMenu();
     }
 
     public void Hide() => gameObject.SetActive(false);

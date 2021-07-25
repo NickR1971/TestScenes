@@ -95,9 +95,9 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		return GetLink().gameConsole;
     }
 
-	public static IMainMenu GetIMainMenu() => GetLink();
+	public static IMainMenu GetMainMenu() => GetLink();
 
-	public static ISaveLoad GatISaveLoad() => GetLink();
+	public static ISaveLoad GatSaveLoad() => GetLink();
 
 	//-----------------------------------------------------
 	// ISaveLoad
