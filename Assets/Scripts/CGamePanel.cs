@@ -9,7 +9,7 @@ public class CGamePanel : CUI
 
     void Start()
     {
-        gameConsole = ApplicationManager.GetGameConsole();
+        gameConsole = AllServices.Container.Get<IGameConsole>();
         mainMenu.GetComponent<CUI>().InitUI();
     }
 

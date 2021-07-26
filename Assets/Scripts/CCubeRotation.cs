@@ -18,7 +18,7 @@ public class CCubeRotation : MonoBehaviour
         mtrl = GetComponent<Renderer>().material;
         mtrl.color = data.GetColor();
         CGameManager.onSave += OnSave;
-        gameConsole = ApplicationManager.GetGameConsole();
+        gameConsole = AllServices.Container.Get<IGameConsole>();
         CGameConsoleCommand cmd = new CGameConsoleCommand("color",OnConsole,EnumStringID.msg_help);
         gameConsole.AddCommand(cmd);
     }

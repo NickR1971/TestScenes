@@ -7,8 +7,6 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 {
 	private static uint gameID;
 
-	private static ApplicationManager thisExemplar;
-
 	[SerializeField] private int sceneID;
 	private UsedLocal usedLanguage=UsedLocal.english;
 	[SerializeField] Canvas uiCanvas;
@@ -29,7 +27,10 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		SettingsData settingsData;
 		SaveData data = CGameManager.GetData();
 		
-		thisExemplar = this;
+		AllServices.Container.Register<IDialog>(dialog);
+		AllServices.Container.Register<IMainMenu>(this);
+		AllServices.Container.Register<ISaveLoad>(this);
+
 		if (data == null)
 		{
 			data = new SaveData();
@@ -48,6 +49,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 			CLocalisation.LoadLocalPrefab(localData[(int)usedLanguage]);
 
 		uiManager = new UImanager();
+		AllServices.Container.Register<IUI>(uiManager);
 		uiManager.Init();
 		startUI = startUIobject.GetComponent<CUI>();
 		startUI.InitUI();
@@ -57,47 +59,18 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 		GameObject vGameConsole = Instantiate(prefabGameConsole, uiCanvas.transform);
 		gameConsole = vGameConsole.GetComponent<CGameConsole>().GetIGameConsole();
-    }
+		AllServices.Container.Register<IGameConsole>(gameConsole);
+	}
 
-    private void OnDestroy()
+	private void OnDestroy()
     {
 		uiManager.CloseUI();
-		thisExemplar = null;
     }
 
     private void Start()
     {
 		uiManager.OpenUI(startUI);
     }
-
-	//----------------------------------------
-	// static interface getters
-	//----------------------------------------
-    private static ApplicationManager GetLink()
-	{
-		if (thisExemplar == null) Debug.LogError("No created application manager!");
-
-		return thisExemplar;
-	}
-
-	public static IUI GetUImanager()
-    {
-		return GetLink().uiManager;
-    }
-
-	public static IDialog GetDialogManager()
-    {
-		return GetLink().dialog;
-    }
-
-	public static IGameConsole GetGameConsole()
-    {
-		return GetLink().gameConsole;
-    }
-
-	public static IMainMenu GetMainMenu() => GetLink();
-
-	public static ISaveLoad GatSaveLoad() => GetLink();
 
 	//-----------------------------------------------------
 	// ISaveLoad

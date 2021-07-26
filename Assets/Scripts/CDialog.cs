@@ -33,7 +33,6 @@ public class CDialog : CUI, IDialog
     {
         SetDialog(_dialogType, true, (_dialogType == EDialog.Question || _dialogType == EDialog.Input), (_dialogType == EDialog.Input));
         if (_onDialogYes != null) SetOnYes(_onDialogYes);
-        else Debug.Log("Dialog: " + _text + " nullyes");
         OpenDialog(_text);
     }
     public void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false)

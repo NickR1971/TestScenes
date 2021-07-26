@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISaveLoad
+public interface ISaveLoad : IService
 {
 	string GetProfile();
 	bool SetProfile(string _name);

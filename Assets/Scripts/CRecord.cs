@@ -8,12 +8,14 @@ public class CRecord : MonoBehaviour
     [SerializeField] private CTextLocalize buttonText;
     [SerializeField] private Button ActionButton;
     [SerializeField] private Button DeleteButton;
-    private IDialog dlg;
+    private IDialog dialog;
+    private ISaveLoad saveLoad;
     private string strName;
 
     private void Start()
     {
-        dlg = ApplicationManager.GetDialogManager();
+        dialog = AllServices.Container.Get<IDialog>();
+        saveLoad = AllServices.Container.Get<ISaveLoad>();
     }
     public void InitZero()
     {
@@ -47,13 +49,13 @@ public class CRecord : MonoBehaviour
         if (CUtil.CheckNameForSave(_name)) OnSaveCheck(_name.Replace('.','_'));
         else
         {
-            dlg.OpenDialog(EDialog.Error, CLocalisation.GetString(EnumStringID.err_invalidName) + " " + _name);
+            dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(EnumStringID.err_invalidName) + " " + _name);
         }
     }
     public void OnNewSave()
     {
-        dlg.SetOnInput(NewSave);
-        dlg.OpenDialog(EDialog.Input, CLocalisation.GetString(EnumStringID.ui_newSave));
+        dialog.SetOnInput(NewSave);
+        dialog.OpenDialog(EDialog.Input, CLocalisation.GetString(EnumStringID.ui_newSave));
     }
 
     private void OnSaveOK()
@@ -70,9 +72,9 @@ public class CRecord : MonoBehaviour
     private void OnSaveCheck(string _name)
     {
         strName = _name;
-        if (ApplicationManager.GatSaveLoad().IsSavedGameExist(_name))
+        if (saveLoad.IsSavedGameExist(_name))
         {
-            dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + strName + "?", DoSave);
+            dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + strName + "?", DoSave);
         }
         else DoSave();
     }
@@ -87,6 +89,6 @@ public class CRecord : MonoBehaviour
     }
     public void OnDelete()
     {
-        dlg.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_remove) + " " + saveName.text + "?", DeleteOk);
+        dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_remove) + " " + saveName.text + "?", DeleteOk);
     }
 }

@@ -9,10 +9,14 @@ public class CSettings : CUI
     [SerializeField] private InputField profileInput;
     [SerializeField] private Button editProfileButton;
     private bool isEditProfile = false;
+    private ISaveLoad saveLoad;
+    private IDialog dialog;
 
     void Start()
     {
-        profileField.text = ApplicationManager.GatSaveLoad().GetProfile();
+        saveLoad = AllServices.Container.Get<ISaveLoad>();
+        dialog = AllServices.Container.Get<IDialog>();
+        profileField.text = saveLoad.GetProfile();
         if (iMainMenu.IsGameExist()) editProfileButton.interactable = false;
     }
 
@@ -40,7 +44,7 @@ public class CSettings : CUI
         string str;
         isEditProfile = false;
         str = profileInput.text.Trim().Replace('.','_').Replace('/','_').Replace('\\','_');
-        if (str.Length > 0 && ApplicationManager.GatSaveLoad().SetProfile(str))
+        if (str.Length > 0 && saveLoad.SetProfile(str))
         {
             profileField.text = str;
         }
@@ -51,8 +55,8 @@ public class CSettings : CUI
 
     private void ErrorMessage(EnumStringID _strID)
     {
-        IDialog dlg = ApplicationManager.GetDialogManager();
-        dlg.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID));
+        //IDialog dlg = ApplicationManager.GetDialogManager();
+        dialog.OpenDialog(EDialog.Error, CLocalisation.GetString(_strID));
     }
 
     public override void OnYes()

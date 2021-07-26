@@ -6,25 +6,28 @@ using UnityEngine.UI;
 public class CMenuLogo : CMenu
 {
     private Button loadButton = null;
+    private ISaveLoad saveLoad;
+
     void Start()
     {
         InitMenu();
+        saveLoad = AllServices.Container.Get<ISaveLoad>();
         AddButton(EnumStringID.ui_new).onClick.AddListener(NewGame);
         if (iMainMenu.IsGameExist())
             AddButton(EnumStringID.ui_continue).onClick.AddListener(ContinueGame);
         AddButton(EnumStringID.ui_load).onClick.AddListener(LoadGame);
         loadButton = LastButton();
-        loadButton.interactable = ApplicationManager.GatSaveLoad().IsSavedGameExist();
+        loadButton.interactable = saveLoad.IsSavedGameExist();
         AddButton(EnumStringID.ui_settings).onClick.AddListener(SetSettings);
         AddButton(EnumStringID.ui_quit).onClick.AddListener(ExitGame);
-
     }
 
     private void OnEnable()
     {
+        saveLoad = AllServices.Container.Get<ISaveLoad>();
         if (loadButton != null)
         {
-            loadButton.interactable = ApplicationManager.GatSaveLoad().IsSavedGameExist();
+            loadButton.interactable = saveLoad.IsSavedGameExist();
         }
     }
 

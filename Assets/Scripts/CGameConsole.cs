@@ -34,6 +34,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
     private int currentMsg = 0;
     private GameObject[] msgList = new GameObject[maxMsgList];
     private SortedList<string, CGameConsoleCommand> commandsList = new SortedList<string, CGameConsoleCommand>();
+    private IMainMenu mainMenu;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
         }
         AddCommand(new CGameConsoleCommand("help", Help));
         AddCommand(new CGameConsoleCommand("quit", Quit,EnumStringID.ui_quit));
+        mainMenu = AllServices.Container.Get<IMainMenu>();
     }
 
     private void OnDestroy()
@@ -89,7 +91,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
 
     private void Quit(string _str)
     {
-        ApplicationManager.GetMainMenu().Quit();
+            mainMenu.Quit();
     }
 
     private void Help(string _str)

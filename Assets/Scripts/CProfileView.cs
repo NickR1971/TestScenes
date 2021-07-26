@@ -8,10 +8,12 @@ using UnityEngine.UI;
 public class CProfileView : MonoBehaviour
 {
     private Text textField;
+    private ISaveLoad saveLoad;
 
     void Start()
     {
         textField = GetComponent<Text>();
-        textField.text = ApplicationManager.GatSaveLoad().GetProfile();
+        saveLoad = AllServices.Container.Get<ISaveLoad>();
+        textField.text = saveLoad.GetProfile();
     }
 }

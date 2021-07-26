@@ -8,7 +8,7 @@ public enum EDialog
     Input = 3
 }
 
-public interface IDialog
+public interface IDialog : IService
 {
     void SetOnYes(Action _onDialogEnd);
     void SetOnNo(Action _onDialogEnd);

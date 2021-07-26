@@ -8,7 +8,7 @@ public class CSaveLoad : CUI
     public void InittInterface()
     {
         InitUI();
-        iSaveLoad = ApplicationManager.GatSaveLoad();
+        iSaveLoad = AllServices.Container.Get<ISaveLoad>();
     }
 
     private void OpenSaveLoadWindow()

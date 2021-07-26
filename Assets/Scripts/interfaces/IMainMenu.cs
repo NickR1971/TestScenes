@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMainMenu
+public interface IMainMenu : IService
 {
 	bool IsGameExist();
 	void SetLanguage(UsedLocal _language);
