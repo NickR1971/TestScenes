@@ -74,7 +74,7 @@ public class CRecord : MonoBehaviour
         strName = _name;
         if (saveLoad.IsSavedGameExist(_name))
         {
-            dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_save) + " " + strName + "?", DoSave);
+            dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_overwrite) + " " + strName + "?", DoSave);
         }
         else DoSave();
     }

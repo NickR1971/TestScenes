@@ -13,6 +13,7 @@
     {      "key": "ui_save",     "value": "Save game"    },
     {      "key": "ui_mainmenu", "value": "Main menu"    },
     {      "key": "ui_newSave",      "value": "New save"    },
+    {      "key": "ui_overwrite",      "value": "Overwrite"    },
     {      "key": "ui_red", "value": "Red"    },
     {      "key": "ui_green", "value": "Green"    },
     {      "key": "ui_blue", "value": "Blue"    },

@@ -13,6 +13,7 @@
     {      "key": "ui_save",     "value": "Зберегти"    },
     {      "key": "ui_mainmenu", "value": "Головне меню"    },
     {      "key": "ui_newSave",      "value": "Нове збереження"    },
+    {      "key": "ui_overwrite",      "value": "Перезаписати"    },
     {      "key": "ui_red", "value": "Червоний"    },
     {      "key": "ui_green", "value": "Зелений"    },
     {      "key": "ui_blue", "value": "Блакитний"    },

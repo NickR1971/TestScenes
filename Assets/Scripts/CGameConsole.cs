@@ -30,7 +30,7 @@ public class CGameConsole : MonoBehaviour, IGameConsole
     [SerializeField] private Transform containerTransform;
     [SerializeField] private GameObject consoleString;
     [SerializeField] private Scrollbar scroll;
-    private const int maxMsgList = 20;
+    private const int maxMsgList = 50;
     private int currentMsg = 0;
     private GameObject[] msgList = new GameObject[maxMsgList];
     private SortedList<string, CGameConsoleCommand> commandsList = new SortedList<string, CGameConsoleCommand>();
