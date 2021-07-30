@@ -15,7 +15,7 @@ public class CSLocal : ScriptableObject
     {
         CTest localUI;
         TextAsset text_ui = textLocal[0];
-        string WriteToFileName = $"{Application.dataPath}/Scripts/{enumName}.cs";
+        string WriteToFileName = $"{Application.dataPath}/Scripts/Localization/{enumName}.cs";
         localUI = JsonUtility.FromJson<CTest>(text_ui.text);
         if (localUI == null)
         {
