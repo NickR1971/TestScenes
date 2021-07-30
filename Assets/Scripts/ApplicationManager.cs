@@ -20,21 +20,25 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 	private CSaveFile saveFile;
 	private UImanager uiManager;
 	private IGameConsole gameConsole;
+	private IGame game;
 
 
     private void Awake()
     {
 		SettingsData settingsData;
-		SaveData data = CGameManager.GetData();
+
+		game = GetComponent<IGame>();
+		SaveData data = game.GetData();
 		
 		AllServices.Container.Register<IDialog>(dialog);
 		AllServices.Container.Register<IMainMenu>(this);
 		AllServices.Container.Register<ISaveLoad>(this);
+		AllServices.Container.Register<IGame>(game);
 
 		if (data == null)
 		{
 			data = new SaveData();
-			CGameManager.Init(data);
+			game.Init(data);
 		}
 		saveFile = new CSaveFile();
 		saveFile.LoadSettings(out settingsData);
@@ -51,6 +55,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		uiManager = new UImanager();
 		AllServices.Container.Register<IUI>(uiManager);
 		uiManager.Init();
+
 		startUI = startUIobject.GetComponent<CUI>();
 		startUI.InitUI();
 		settingsMenu.GetComponent<CUI>().InitUI();
@@ -98,7 +103,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 			SaveData data = CGameManager.GetData();
 			saveFile.Load(_name, out data);
 			gameID = data.id;
-			CGameManager.Init(data);
+			CGameManager.SetGameData(data);
 
 			GoToMainScene();
 		}
@@ -140,7 +145,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		if (data == null)
 		{
 			data = new SaveData();
-			CGameManager.Init(data);
+			CGameManager.SetGameData(data);
 		}
 
 		data.id = gameID;

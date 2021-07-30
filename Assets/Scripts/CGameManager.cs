@@ -8,7 +8,7 @@ public static class CGameManager
 	public static event Action onSave;
     private static SaveData gameData = null;
 
-	public static void Init(SaveData _data)
+	public static void SetGameData(SaveData _data)
     {
         gameData = _data;
     }

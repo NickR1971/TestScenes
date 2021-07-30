@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CCubeRotation : MonoBehaviour
 {
+    private IGame game;
     private int angle;
     private Material mtrl;
     private IGameConsole gameConsole;
@@ -13,12 +14,14 @@ public class CCubeRotation : MonoBehaviour
 
     void Start()
     {
-        SaveData data = CGameManager.GetData();
+        game = AllServices.Container.Get<IGame>();
+        gameConsole = AllServices.Container.Get<IGameConsole>();
+        SaveData data = game.GetData();
+        CGameManager.onSave += OnSave;
+ 
         angle = 0;
         mtrl = GetComponent<Renderer>().material;
         mtrl.color = data.GetColor();
-        CGameManager.onSave += OnSave;
-        gameConsole = AllServices.Container.Get<IGameConsole>();
         CGameConsoleCommand cmd = new CGameConsoleCommand("color",OnConsole,EnumStringID.msg_help);
         gameConsole.AddCommand(cmd);
     }
@@ -81,7 +84,7 @@ public class CCubeRotation : MonoBehaviour
 
     public void OnSave()
     {
-        SaveData data = CGameManager.GetData();
+        SaveData data = game.GetData();
 
         data.SetColor(mtrl.color);
     }
