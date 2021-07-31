@@ -23,6 +23,7 @@
     {      "key": "msg_sure", "value": "Ви впевнені?"    },
     {      "key": "msg_test", "value": "Тестове повідомлення"    },
     {      "key": "msg_help", "value": "Використайте color=num для змін кольору куба"    },
+    {      "key": "msg_calc", "value": "Розраховує вираз типу (3+2)*(4-1)"    },
     {      "key": "msg_invalidParam", "value": "Помилковий параметер"    },
     {      "key": "msg_noParam", "value": "Невірний параметер"    },
     {      "key": "msg_noCoomand", "value": "Команду не знайдено"    },
