@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CGameRun : MonoBehaviour, IGame
+public class CGameRun : CGame
 {
     private CCubeRotation cube;
 
@@ -11,22 +11,4 @@ public class CGameRun : MonoBehaviour, IGame
         cube = FindObjectOfType<CCubeRotation>();
     }
 
-    //----------------------------
-    // IGame
-    //----------------------------
-    public void Init(SaveData _data)
-    {
-        CGameManager.SetGameData(_data);
-    }
-
-    public SaveData GetData()
-    {
-        return CGameManager.GetData();
-    }
-
-    public void OnSave()
-    {
-        CGameManager.OnSave();
-    }
-    //----------------------------
 }

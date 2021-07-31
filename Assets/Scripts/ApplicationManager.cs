@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 {
 	private static uint gameID;
+	private static CGameManager gameManager = null;
 
 	[SerializeField] private int sceneID;
 	private UsedLocal usedLanguage=UsedLocal.english;
@@ -28,6 +29,8 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		SettingsData settingsData;
 
 		game = GetComponent<IGame>();
+		if (gameManager == null) gameManager = new CGameManager();
+		game.Init(gameManager);
 		SaveData data = game.GetData();
 		
 		AllServices.Container.Register<IDialog>(dialog);
@@ -37,8 +40,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 		if (data == null)
 		{
-			data = new SaveData();
-			game.Init(data);
+			Debug.LogError("Save data not created");
 		}
 		saveFile = new CSaveFile();
 		saveFile.LoadSettings(out settingsData);
@@ -92,19 +94,18 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 	public void Save(string _name)
 	{
-		CGameManager.OnSave();
-		saveFile.Save(_name, CGameManager.GetData());
+		game.OnSave();
+		saveFile.Save(_name, game.GetData());
 	}
 
 	public void Load(string _name)
 	{
 		if (IsSavedGameExist())
 		{
-			SaveData data = CGameManager.GetData();
+			SaveData data = game.GetData();
 			saveFile.Load(_name, out data);
 			gameID = data.id;
-			CGameManager.SetGameData(data);
-
+			gameManager.SetGameData(data); //-----??
 			GoToMainScene();
 		}
 		else
@@ -140,12 +141,12 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 	public void NewGame()
 	{
-		SaveData data = CGameManager.GetData();
+		SaveData data = game.GetData();
 		gameID = (uint)UnityEngine.Random.Range(100, 10000000);
 		if (data == null)
 		{
 			data = new SaveData();
-			CGameManager.SetGameData(data);
+			gameManager.SetGameData(data); // ??
 		}
 
 		data.id = gameID;
@@ -160,7 +161,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 	public void MainMenuScene()
 	{
-		CGameManager.OnSave();
+		game.OnSave();
 		SceneManager.LoadScene("LogoScene");
 	}
 

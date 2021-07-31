@@ -2,25 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CGamePrepare : MonoBehaviour, IGame
+public class CGamePrepare : CGame
 {
-    void Start()
-    {
-        
-    }
-
-    public void Init(SaveData _data)
-    {
-        CGameManager.SetGameData(_data);
-    }
-
-    public SaveData GetData()
-    {
-        return CGameManager.GetData();
-    }
-
-    public void OnSave()
-    {
-        CGameManager.OnSave();
-    }
 }

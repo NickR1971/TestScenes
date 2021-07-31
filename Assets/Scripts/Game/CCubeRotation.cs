@@ -17,7 +17,8 @@ public class CCubeRotation : MonoBehaviour
         game = AllServices.Container.Get<IGame>();
         gameConsole = AllServices.Container.Get<IGameConsole>();
         SaveData data = game.GetData();
-        CGameManager.onSave += OnSave;
+        //CGameManager.onSave += OnSave;
+        game.AddOnSaveAction(OnSave);
  
         angle = 0;
         mtrl = GetComponent<Renderer>().material;
@@ -28,7 +29,8 @@ public class CCubeRotation : MonoBehaviour
 
     private void OnDestroy()
     {
-        CGameManager.onSave -= OnSave;
+        //CGameManager.onSave -= OnSave;
+        game.RemoveOnSaveAction(OnSave);
     }
 
     private void FixedUpdate()
