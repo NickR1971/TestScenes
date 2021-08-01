@@ -161,7 +161,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 	public void MainMenuScene()
 	{
-		game.OnSave();
+        game.OnSave();
 		SceneManager.LoadScene("LogoScene");
 	}
 
