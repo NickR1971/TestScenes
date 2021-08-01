@@ -2,22 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCalc : MonoBehaviour
+public interface ICalc : IService
+{
+    bool DoCalc(string _expression, out float _result);
+    string GetErrorMessage();
+}
+
+public class CCalc : MonoBehaviour, ICalc
 {
     private enum Ops { nop=0, staple=1, plus=2, minus=3, mult=4, div=5 };
     private IGameConsole gameConsole;
     private Stack<float> result = new Stack<float>();
     private Stack<Ops> ops = new Stack<Ops>();
     private char currentChar;
+    private bool isError;
+    private string msgError;
 
-    private int[] t0 = { 0, -1, 4, 4, 4, 4 };
-    private int[] t1 = { 1, 1, 1, 1, 1, 1 };
-    private int[] t2 = { 1, 1, 2, 2, 4, 4 };
-    private int[] t3 = { 1, 1, 2, 2, 4, 4 };
-    private int[] t4 = { 1, 1, 1, 1, 2, 2 };
-    private int[] t5 = { 1, 1, 1, 1, 2, 2 };
-    private int[] t6 = { -1, 3, 4, 4, 4, 4 };
+    private int[] onEnd = { 0, -1, 4, 4, 4, 4 };
+    private int[] onStapleOpen = { 1, 1, 1, 1, 1, 1 };
+    private int[] onPlus = { 1, 1, 2, 2, 4, 4 };
+    private int[] onMinus = { 1, 1, 2, 2, 4, 4 };
+    private int[] onMult = { 1, 1, 1, 1, 2, 2 };
+    private int[] onDiv = { 1, 1, 1, 1, 2, 2 };
+    private int[] onStapleClose = { -1, 3, 4, 4, 4, 4 };
 
+    private void Awake()
+    {
+        AllServices.Container.Register<ICalc>(this);
+    }
     private void Start()
     {
         gameConsole = AllServices.Container.Get<IGameConsole>();
@@ -92,7 +104,12 @@ public class CCalc : MonoBehaviour
                 f = _f2 * _f1;
                 break;
             case Ops.div:
-                f = _f2 / _f1;
+                if (_f1 != 0) f = _f2 / _f1;
+                else
+                {
+                    isError = true;
+                    msgError = "divide by zero";
+                }
                 break;
             default:
                 Debug.LogError("calculation ops undefined");
@@ -102,7 +119,7 @@ public class CCalc : MonoBehaviour
         return f;
     }
 
-    private bool act(int[] _t)
+    private bool act(int[] _doIt)
     {
         bool r;
         int n;
@@ -114,11 +131,11 @@ public class CCalc : MonoBehaviour
         if (ops.Count == 0) n = 0;
         else n = ((int)ops.Peek());
 
-        switch(_t[n])
+        switch(_doIt[n])
         {
             case 0:
-                f1 = result.Pop();
-                gameConsole.ShowMessage($"={f1}");
+                //f1 = result.Pop();
+                //gameConsole.ShowMessage($"={f1}");
                 break;
             case 2:
                 o = ops.Pop();
@@ -141,13 +158,16 @@ public class CCalc : MonoBehaviour
                 r = true;
                 break;
             default:
-                Debug.LogError($"Error detected :{currentChar}:");
+                //Debug.LogError($"Error detected :{currentChar}:");
+                isError = true;
+                msgError = "invalid expression";
                 break;
         }
         return r;
     }
 
-    private void OnCalc(string _str)
+    public string GetErrorMessage() => msgError;
+    public bool DoCalc(string _expression, out float _result)
     {
         int i;
         float f;
@@ -155,46 +175,66 @@ public class CCalc : MonoBehaviour
 
         result.Clear();
         ops.Clear();
-        gameConsole.ShowMessage($">>{_str}");
+        _result = 0;
+        isError = false;
+        msgError = "";
+
         i = 0;
-        while (i < _str.Length)
+        while (i < _expression.Length)
         {
             b = false;
-            switch(currentChar = _str[i])
+            switch(currentChar = _expression[i])
             {
                 case '0':              case '1':                case '2':                case '3':                case '4':
                 case '5':              case '6':                case '7':                case '8':                case '9':
                 case ',':
                     int j;
                     j = i;
-                    while (j < _str.Length && isFloatChar(_str[j])) j++;
-                    f = float.Parse(_str.Substring(i,j-i));
+                    while (j < _expression.Length && isFloatChar(_expression[j])) j++;
+                    f = float.Parse(_expression.Substring(i,j-i));
                     result.Push(f);
                     i = j-1;
                     break;
                 case ')':
-                    b = act(t6);
+                    b = act(onStapleClose);
                     break;
                 case '(':
-                    b = act(t1);
+                    b = act(onStapleOpen);
                     break;
                 case '+':
-                    b = act(t2);
+                    b = act(onPlus);
                     break;
                 case '-':
-                    b = act(t3);
+                    b = act(onMinus);
                     break;
                 case '*':
-                    b = act(t4);
+                    b = act(onMult);
                     break;
                 case '/':
-                    b = act(t5);
+                    b = act(onDiv);
                     break;
             }
             if (b) continue;
+            if (isError) break;
             i++;
         }
+
+        if (isError) return false;
         currentChar = ' ';
-        while (act(t0)) ;
+        while (act(onEnd)) ;
+        if (isError) return false;
+        
+        _result = result.Pop();
+
+        return true;
+    }
+
+    private void OnCalc(string _str)
+    {
+        float f;
+
+        gameConsole.ShowMessage($">>{_str}");
+        if (DoCalc(_str, out f)) gameConsole.ShowMessage($"={f}");
+        else gameConsole.ShowMessage($"Calculation error: {msgError}");
     }
 }
