@@ -182,7 +182,7 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 
 	public void Quit()
     {
-		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_quit) + " " + CLocalisation.GetString(EnumStringID.msg_sure), OnQuit);
+		dialog.OpenDialog(EDialog.Question, CLocalisation.GetString(EnumStringID.ui_quit) + "\n" + CLocalisation.GetString(EnumStringID.msg_sure), OnQuit);
 	}
 
 	private void OnQuit () 

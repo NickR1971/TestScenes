@@ -9,15 +9,16 @@ public class CCubeRotation : MonoBehaviour
     private int angle;
     private Material mtrl;
     private IGameConsole gameConsole;
+    private ICamera mainCamera;
     private const int maxColors = 8;
     [SerializeField] private Color[] colorList = new Color[maxColors];
 
     void Start()
     {
+        mainCamera = AllServices.Container.Get<ICamera>();
         game = AllServices.Container.Get<IGame>();
         gameConsole = AllServices.Container.Get<IGameConsole>();
         SaveData data = game.GetData();
-        //CGameManager.onSave += OnSave;
         game.AddOnSaveAction(OnSave);
  
         angle = 0;
@@ -29,7 +30,6 @@ public class CCubeRotation : MonoBehaviour
 
     private void OnDestroy()
     {
-        //CGameManager.onSave -= OnSave;
         game.RemoveOnSaveAction(OnSave);
     }
 
@@ -40,6 +40,14 @@ public class CCubeRotation : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            mainCamera.SetViewPoint(transform.position);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            mainCamera.SetViewPoint(Vector3.zero);
+        }
         transform.rotation = Quaternion.Euler(angle, angle, 0);
     }
 
