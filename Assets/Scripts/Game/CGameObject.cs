@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CGameObject : MonoBehaviour
+public abstract class CGameObject : MonoBehaviour
 {
-    private CPositionControl positionControl;
+    protected CPositionControl positionControl;
 
-    private void Start()
+    protected void InitGameObject()
     {
         positionControl = new CPositionControl(transform);
-        positionControl.MoveForward();
-    }
-    private void Update()
-    {
-        positionControl.Update();
     }
 }

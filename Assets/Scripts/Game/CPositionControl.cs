@@ -9,7 +9,7 @@ public class CPositionControl
     private CTimer rotationTimer;
     private float direction = 0;
     private float moveSpeed = 1.0f;
-    private float rotationTime = 1.0f; // скільки секунд потрібно для повороту на 90 градусів
+    private float rotationTime = 0.20f; // скільки секунд потрібно для повороту на 90 градусів
     private float startDirection;
     private float rotationAngle;
 
