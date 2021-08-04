@@ -51,6 +51,7 @@ public class CPositionControl
 
         startDirection = direction;
         rotationAngle = _angle;
+        if (_angle < 0) _angle = -_angle;
         rotationTimer.SetActionTime(rotationTime * _angle / 90.0f);
         rotationTimer.StartAction();
     }

@@ -9,13 +9,23 @@ public class CCubeRotation : MonoBehaviour
     private int angle;
     private Material mtrl;
     private IGameConsole gameConsole;
-    private ICamera mainCamera;
     private const int maxColors = 8;
-    [SerializeField] private Color[] colorList = new Color[maxColors];
+    private Color[] colorList = new Color[maxColors];
+
+    private void Awake()
+    {
+        colorList[0] = Color.white;
+        colorList[1] = Color.red;
+        colorList[2] = new Color(1.0f,0.5f,0);
+        colorList[3] = Color.yellow;
+        colorList[4] = Color.green;
+        colorList[5] = Color.cyan;
+        colorList[6] = Color.blue;
+        colorList[7] = Color.magenta;
+    }
 
     void Start()
     {
-        mainCamera = AllServices.Container.Get<ICamera>();
         game = AllServices.Container.Get<IGame>();
         gameConsole = AllServices.Container.Get<IGameConsole>();
         SaveData data = game.GetData();
@@ -40,14 +50,6 @@ public class CCubeRotation : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            mainCamera.SetViewPoint(transform.position);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            mainCamera.SetViewPoint(Vector3.zero);
-        }
         transform.rotation = Quaternion.Euler(angle, angle, 0);
     }
 
@@ -57,9 +59,9 @@ public class CCubeRotation : MonoBehaviour
         int i;
 
         str = _cmd;
-        if (str.Length > 1 && str[0] == '=')
+        if (str.Length > 0)
         {
-            str = str.Substring(1, str.Length - 1).Trim();
+            str = str.Trim();
             if (int.TryParse(str, out i))
             {
                 if (i >= maxColors || i < 0) gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_invalidParam) + " " + i.ToString());
@@ -69,27 +71,24 @@ public class CCubeRotation : MonoBehaviour
                     gameConsole.ShowMessage("color=" + colorList[i].ToString());
                 }
             }
-            else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " [" + str + "]");
+            else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " <" + str + ">");
         }
         else gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.msg_noParam) + " [" + str + "]");
     }
 
     public void OnRed()
     {
-        mtrl.color = Color.red;
-        gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.ui_red));
+        OnConsole("1");
     }
 
     public void OnGreen()
     {
-        mtrl.color = Color.green;
-        gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.ui_green));
+        OnConsole("4");
     }
 
     public void OnBlue()
     {
-        mtrl.color = Color.blue;
-        gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.ui_blue));
+        OnConsole("6");
     }
 
     public void OnSave()

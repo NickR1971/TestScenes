@@ -13,11 +13,7 @@ public static class CUtil
 
         for(i=0; i<_str.Length;i++)
         {
-            char c;
-            c = _str[i];
-            if (c <= ' ') break;
-            if (c >= '0' && c <= '9') continue;
-            if (c < 'a' && c < 'A') break;
+            if (_str[i] <= ' ') break;
         }
         return _str.Substring(0, i);
     }
