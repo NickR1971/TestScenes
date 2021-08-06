@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CalcError { divZzero, undefinedOperation, invalidExpression }
+
 public interface ICalc : IService
 {
     bool DoCalc(string _expression, out float _result);
-    string GetErrorMessage();
+    CalcError GetErrorCode();
 }
 
 public class CCalc : MonoBehaviour, ICalc
@@ -16,7 +18,7 @@ public class CCalc : MonoBehaviour, ICalc
     private Stack<Ops> ops = new Stack<Ops>();
     private char currentChar;
     private bool isError;
-    private string msgError;
+    private CalcError errorCode;
 
     private int[] onEnd = { 0, -1, 4, 4, 4, 4 };
     private int[] onStapleOpen = { 1, 1, 1, 1, 1, 1 };
@@ -33,7 +35,7 @@ public class CCalc : MonoBehaviour, ICalc
     private void Start()
     {
         gameConsole = AllServices.Container.Get<IGameConsole>();
-        CGameConsoleCommand cmd = new CGameConsoleCommand("calc", OnCalc, EnumStringID.msg_calc);
+        CGameConsoleCommand cmd = new CGameConsoleCommand("=", OnCalc, EnumStringID.msg_calc);
         gameConsole.AddCommand(cmd);
     }
 
@@ -43,17 +45,9 @@ public class CCalc : MonoBehaviour, ICalc
 
         switch(_c)
         {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case ',':
+            case '0':            case '1':            case '2':            case '3':
+            case '4':            case '5':            case '6':            case '7':
+            case '8':            case '9':            case ',':
                 r = true;
                 break;
             default:
@@ -108,11 +102,12 @@ public class CCalc : MonoBehaviour, ICalc
                 else
                 {
                     isError = true;
-                    msgError = "divide by zero";
+                    errorCode = CalcError.divZzero;
                 }
                 break;
             default:
-                Debug.LogError("calculation ops undefined");
+                isError = true;
+                errorCode = CalcError.undefinedOperation;
                 break;
         }
 
@@ -134,8 +129,6 @@ public class CCalc : MonoBehaviour, ICalc
         switch(_doIt[n])
         {
             case 0:
-                //f1 = result.Pop();
-                //gameConsole.ShowMessage($"={f1}");
                 break;
             case 2:
                 o = ops.Pop();
@@ -158,15 +151,15 @@ public class CCalc : MonoBehaviour, ICalc
                 r = true;
                 break;
             default:
-                //Debug.LogError($"Error detected :{currentChar}:");
                 isError = true;
-                msgError = "invalid expression";
+                errorCode = CalcError.invalidExpression;
                 break;
         }
         return r;
     }
 
-    public string GetErrorMessage() => msgError;
+    public CalcError GetErrorCode() => errorCode;
+
     public bool DoCalc(string _expression, out float _result)
     {
         int i;
@@ -177,7 +170,6 @@ public class CCalc : MonoBehaviour, ICalc
         ops.Clear();
         _result = 0;
         isError = false;
-        msgError = "";
 
         i = 0;
         while (i < _expression.Length)
@@ -235,6 +227,24 @@ public class CCalc : MonoBehaviour, ICalc
 
         gameConsole.ShowMessage($">>{_str}");
         if (DoCalc(_str, out f)) gameConsole.ShowMessage($"={f}");
-        else gameConsole.ShowMessage($"Calculation error: {msgError}");
+        else
+        {
+            switch(GetErrorCode())
+            {
+                case CalcError.invalidExpression:
+                    gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.err_error) + ": " + CLocalisation.GetString(EnumStringID.err_invalidExpression));
+                    break;
+                case CalcError.divZzero:
+                    gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.err_error) + ": " + CLocalisation.GetString(EnumStringID.err_divZero));
+                    break;
+                case CalcError.undefinedOperation:
+                    gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.err_error) + ": " + CLocalisation.GetString(EnumStringID.err_undefinedOperation));
+                    break;
+                default:
+                    gameConsole.ShowMessage(CLocalisation.GetString(EnumStringID.err_error) + ": " + CLocalisation.GetString(EnumStringID.err_unknown));
+                    break;
+            }
+
+        }
     }
 }

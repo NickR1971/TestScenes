@@ -28,6 +28,11 @@
     {      "key": "msg_invalidParam", "value": "Invalid parameter"    },
     {      "key": "msg_noParam", "value": "Parameter not found"    },
     {      "key": "msg_noCoomand", "value": "Command not found"    },
-    {      "key": "err_invalidName", "value": "Invalid name!"    }
+    {      "key": "err_unknown", "value": "Unknown error!"    },
+    {      "key": "err_error", "value": "Error"    },
+    {      "key": "err_invalidExpression", "value": "Invalid expression"    },
+    {      "key": "err_divZero", "value": "Divide by zero"    },
+    {      "key": "err_undefinedOperation", "value": "Undefined operation"    },
+    {      "key": "err_invalidName", "value": "Invalid name"    }
   ]
 }

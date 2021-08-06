@@ -6,8 +6,15 @@ public abstract class CGameObject : MonoBehaviour
 {
     protected CPositionControl positionControl;
 
+    void Update()
+    {
+        positionControl.Update();
+    }
+
     protected void InitGameObject()
     {
         positionControl = new CPositionControl(transform);
     }
+
+    public Vector3 GetPosition() => transform.position;
 }

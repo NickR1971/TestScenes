@@ -28,5 +28,10 @@ msg_light,
 msg_invalidParam,
 msg_noParam,
 msg_noCoomand,
+err_unknown,
+err_error,
+err_invalidExpression,
+err_divZero,
+err_undefinedOperation,
 err_invalidName 
 }

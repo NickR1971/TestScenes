@@ -14,11 +14,6 @@ public class CZombie : CActor
         runSpeed = 2.0f;
     }
 
-    void Update()
-    {
-        positionControl.Update();
-    }
-
     public override void SetState(ActorState _state)
     {
         state = _state;

@@ -28,6 +28,11 @@
     {      "key": "msg_invalidParam", "value": "Помилковий параметер"    },
     {      "key": "msg_noParam", "value": "Невірний параметер"    },
     {      "key": "msg_noCoomand", "value": "Команду не знайдено"    },
+    {      "key": "err_error", "value": "Помилка"    },
+    {      "key": "err_unknown", "value": "Невідома помилка!"    },
+    {      "key": "err_invalidExpression", "value": "Помилкова строка!"    },
+    {      "key": "err_divZero", "value": "Поділ на нуль!"    },
+    {      "key": "err_undefinedOperation", "value": "Невизначена операція!"    },
     {      "key": "err_invalidName", "value": "Некоректне ім'я!"    }
   ]
 }
