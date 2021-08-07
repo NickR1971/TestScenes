@@ -66,7 +66,11 @@ public class CGameConsole : MonoBehaviour, IGameConsole
 
     public void AddCommand(CGameConsoleCommand _command)
     {
-        if (commandsList.ContainsKey(_command.command)) commandsList.Remove(_command.command);
+        if (commandsList.ContainsKey(_command.command))
+        {
+            commandsList.Remove(_command.command);
+            Debug.Log($"Command {_command.command} replaced");
+        }
         commandsList.Add(_command.command, _command);
     }
 
