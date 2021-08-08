@@ -44,4 +44,14 @@ public class CGamePanel : CUI
     {
         actor.Turn(90);
     }
+
+    public void OnAttack()
+    {
+        actor.SetState(ActorState.melee);
+    }
+
+    public void OnDie()
+    {
+        actor.SetState(ActorState.die);
+    }
 }

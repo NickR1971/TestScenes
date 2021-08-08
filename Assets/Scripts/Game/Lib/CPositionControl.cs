@@ -19,6 +19,7 @@ public class CPositionControl
         transform = _transform;
         move = new CMove();
         rotationTimer = new CTimer();
+        waitTimer = new CTimer();
     }
 
     public void MoveTo(Vector3 _target, float _speed = 0)
@@ -77,6 +78,10 @@ public class CPositionControl
         {
             rotationTimer.UpdateState();
             SetDirection(startDirection + rotationAngle * rotationTimer.GetState());
+        }
+        if(waitTimer.IsActive())
+        {
+            waitTimer.UpdateState();
         }
     }
 

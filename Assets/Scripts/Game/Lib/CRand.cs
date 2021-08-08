@@ -5,10 +5,10 @@ using UnityEngine;
 // используется линейный конгруэнтный метод генерации 
 public class CRand
 {
-	protected	 ulong m;
-	protected	 ulong a;
-	protected	 ulong c;
-	protected	 ulong x;
+	private	 ulong m;
+	private	 ulong a;
+	private	 ulong c;
+	private	 ulong x;
 
 	// значения предложенные по умолчанию показывают неплохие характеристики
 	// (например величина цикла равна m), но ничего не мешает их переопределить

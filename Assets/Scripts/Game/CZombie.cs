@@ -28,6 +28,9 @@ public class CZombie : CActor
             case ActorState.melee:
                 animator.SetBool("attack", true);
                 break;
+            case ActorState.die:
+                animator.SetBool("die1",true);
+                break;
             default:
                 animator.SetBool("attack", false);
                 animator.SetBool("run", false);
