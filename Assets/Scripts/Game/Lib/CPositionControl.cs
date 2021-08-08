@@ -7,6 +7,7 @@ public class CPositionControl
     private Transform transform;
     private CMove move;
     private CTimer rotationTimer;
+    private CTimer waitTimer;
     private float direction = 0;
     private float moveSpeed = 1.0f;
     private float rotationTime = 0.20f; // скільки секунд потрібно для повороту на 90 градусів
@@ -37,6 +38,15 @@ public class CPositionControl
 
     public bool IsMoving() => move.IsActive();
     public bool IsRotating() => rotationTimer.IsActive();
+    public bool IsWaiting() => waitTimer.IsActive();
+
+    public void Wait(float _time)
+    {
+        if (IsWaiting()) return;
+
+        waitTimer.SetActionTime(_time);
+        waitTimer.StartAction();
+    }
 
     public void SetDirection(float _angle)
     {
@@ -77,5 +87,5 @@ public class CPositionControl
 
     public float GetDirection() => direction;
 
-    public bool IsBusy() => (IsMoving() || IsRotating());
+    public bool IsBusy() => (IsMoving() || IsRotating() || IsWaiting());
 }

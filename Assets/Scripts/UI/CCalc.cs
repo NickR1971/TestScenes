@@ -22,10 +22,10 @@ public class CCalc : MonoBehaviour
 
     private void OnCalc(string _str)
     {
-        float f;
+        float resultCalc;
 
         gameConsole.ShowMessage($">>{_str}");
-        if (calculator.DoCalc(_str, out f)) gameConsole.ShowMessage($"={f}");
+        if (calculator.DoCalc(_str.Replace('.',','), out resultCalc)) gameConsole.ShowMessage($"={resultCalc}");
         else
         {
             switch(calculator.GetErrorCode())
