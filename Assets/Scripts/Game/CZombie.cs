@@ -21,40 +21,41 @@ public class CZombie : CActor
         {
             case ActorState.walk:
                 animator.SetBool("walk", true);
+                positionControl.MoveForward(walkSpeed);
                 break;
             case ActorState.run:
+                animator.SetBool("walk", true);
                 animator.SetBool("run", true);
+                positionControl.MoveForward(runSpeed);
                 break;
             case ActorState.melee:
+                animator.SetBool("run", false);
+                animator.SetBool("walk", false);
                 animator.SetBool("attack", true);
+                positionControl.Wait(1);
                 break;
             case ActorState.die:
+                animator.SetBool("run", false);
+                animator.SetBool("walk", false);
+                animator.SetBool("attack", false);
                 animator.SetBool("die2",true);
+                positionControl.Wait(1);
                 break;
-            default:
+            case ActorState.idle:
                 animator.SetBool("attack", false);
                 animator.SetBool("run", false);
                 animator.SetBool("walk", false);
+                break;
+            default:
                 animator.SetBool("die1",false);
                 animator.SetBool("die2",false);
                 break;
         }
     }
 
-    public override void Walk()
-    {
-        SetState(ActorState.walk);
-        positionControl.MoveForward(walkSpeed);
-    }
-
     public override void Turn(float _angle)
     {
         positionControl.Rotate(_angle);
-    }
-
-    public override void Melee()
-    {
-        SetState(ActorState.melee);
     }
 
     public override void Idle()

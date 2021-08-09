@@ -30,28 +30,34 @@ public class CGamePanel : CUI
 
     public void OnUp()
     {
-        actor.Walk();
+        actor.AddCommand(ActorCommand.walk);
+        //actor.Walk();
     }
     public void OnDown()
     {
-        actor.Idle();
+        actor.AddCommand(ActorCommand.wait);
+        //actor.Idle();
     }
     public void OnLeft()
     {
-        actor.Turn(-90);
+        actor.AddCommand(ActorCommand.turnleft);
+        //actor.Turn(-90);
     }
     public void OnRight()
     {
-        actor.Turn(90);
+        actor.AddCommand(ActorCommand.turnright);
+        //actor.Turn(90);
     }
 
     public void OnAttack()
     {
-        actor.SetState(ActorState.melee);
+        actor.AddCommand(ActorCommand.melee);
+        //actor.SetState(ActorState.melee);
     }
 
     public void OnDie()
     {
-        actor.SetState(ActorState.die);
+        actor.AddCommand(ActorCommand.die);
+        //actor.SetState(ActorState.die);
     }
 }

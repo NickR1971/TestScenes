@@ -8,9 +8,13 @@ public abstract class CGameObject : MonoBehaviour
 
     void Update()
     {
-        positionControl.Update();
+        DoUpdate();
     }
 
+    protected virtual void DoUpdate()
+    {
+        positionControl.Update();
+    }
     protected void InitGameObject()
     {
         positionControl = new CPositionControl(transform);
