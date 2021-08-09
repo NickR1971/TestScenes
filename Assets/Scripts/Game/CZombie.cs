@@ -29,12 +29,14 @@ public class CZombie : CActor
                 animator.SetBool("attack", true);
                 break;
             case ActorState.die:
-                animator.SetBool("die1",true);
+                animator.SetBool("die2",true);
                 break;
             default:
                 animator.SetBool("attack", false);
                 animator.SetBool("run", false);
                 animator.SetBool("walk", false);
+                animator.SetBool("die1",false);
+                animator.SetBool("die2",false);
                 break;
         }
     }
