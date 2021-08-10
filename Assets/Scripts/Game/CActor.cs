@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ActorState { idle, walk, run, melee, die }
+public enum ActorState { idle, walk, run, melee, range, die }
 
-public enum ActorCommand { wait, walk, run, turnleft, turnright, crouch, melee, range, interact, use, die }
+public enum ActorCommand { wait, walk, run, turnleft, turnright, jump, crouch, melee, range, interact, use, die }
 
 public abstract class CActor : CGameObject
 {

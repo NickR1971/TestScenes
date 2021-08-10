@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public enum CalcError { divZzero, undefinedOperation, invalidExpression }
 public interface ICalc : IService
 {
-    bool DoCalc(string _expression, out float _result);
+    bool TryCalc(string _expression, out float _result);
     CalcError GetErrorCode();
 }
 
@@ -18,15 +18,15 @@ public class CCalculator : ICalc
     private bool isError;
     private CalcError errorCode;
 
-    private int[] onEnd = { 0, -1, 4, 4, 4, 4 };
-    private int[] onStapleOpen = { 1, 1, 1, 1, 1, 1 };
-    private int[] onPlus = { 1, 1, 2, 2, 4, 4 };
-    private int[] onMinus = { 1, 1, 2, 2, 4, 4 };
-    private int[] onMult = { 1, 1, 1, 1, 2, 2 };
-    private int[] onDiv = { 1, 1, 1, 1, 2, 2 };
-    private int[] onStapleClose = { -1, 3, 4, 4, 4, 4 };
+    private readonly int[] onEnd = { 0, -1, 4, 4, 4, 4 };
+    private readonly int[] onStapleOpen = { 1, 1, 1, 1, 1, 1 };
+    private readonly int[] onPlus = { 1, 1, 2, 2, 4, 4 };
+    private readonly int[] onMinus = { 1, 1, 2, 2, 4, 4 };
+    private readonly int[] onMult = { 1, 1, 1, 1, 2, 2 };
+    private readonly int[] onDiv = { 1, 1, 1, 1, 2, 2 };
+    private readonly int[] onStapleClose = { -1, 3, 4, 4, 4, 4 };
 
-    private bool isFloatChar(char _c)
+    private bool IsFloatChar(char _c)
     {
         bool r;
 
@@ -70,7 +70,7 @@ public class CCalculator : ICalc
         return Ops.nop;
     }
 
-    private float calculate(Ops _o, float _f1, float _f2)
+    private float Calculate(Ops _o, float _f1, float _f2)
     {
         float f = 0;
 
@@ -102,7 +102,7 @@ public class CCalculator : ICalc
         return f;
     }
 
-    private bool act(int[] _doIt)
+    private bool Act(int[] _doIt)
     {
         bool r;
         int n;
@@ -122,7 +122,7 @@ public class CCalculator : ICalc
                 o = ops.Pop();
                 f1 = result.Pop();
                 f2 = result.Pop();
-                result.Push(calculate(o, f1, f2));
+                result.Push(Calculate(o, f1, f2));
                 ops.Push(GetOps());
                 break;
             case 1:
@@ -135,7 +135,7 @@ public class CCalculator : ICalc
                 o = ops.Pop();
                 f1 = result.Pop();
                 f2 = result.Pop();
-                result.Push(calculate(o, f1, f2));
+                result.Push(Calculate(o, f1, f2));
                 r = true;
                 break;
             default:
@@ -148,7 +148,7 @@ public class CCalculator : ICalc
 
     public CalcError GetErrorCode() => errorCode;
 
-    public bool DoCalc(string _expression, out float _result)
+    public bool TryCalc(string _expression, out float _result)
     {
         int i;
         float f;
@@ -178,28 +178,28 @@ public class CCalculator : ICalc
                 case ',':
                     int j;
                     j = i;
-                    while (j < _expression.Length && isFloatChar(_expression[j])) j++;
+                    while (j < _expression.Length && IsFloatChar(_expression[j])) j++;
                     f = float.Parse(_expression.Substring(i, j - i));
                     result.Push(f);
                     i = j - 1;
                     break;
                 case ')':
-                    b = act(onStapleClose);
+                    b = Act(onStapleClose);
                     break;
                 case '(':
-                    b = act(onStapleOpen);
+                    b = Act(onStapleOpen);
                     break;
                 case '+':
-                    b = act(onPlus);
+                    b = Act(onPlus);
                     break;
                 case '-':
-                    b = act(onMinus);
+                    b = Act(onMinus);
                     break;
                 case '*':
-                    b = act(onMult);
+                    b = Act(onMult);
                     break;
                 case '/':
-                    b = act(onDiv);
+                    b = Act(onDiv);
                     break;
             }
             if (b) continue;
@@ -209,7 +209,7 @@ public class CCalculator : ICalc
 
         if (isError) return false;
         currentChar = ' ';
-        while (act(onEnd)) ;
+        while (Act(onEnd)) ;
         if (isError) return false;
 
         _result = result.Pop();
