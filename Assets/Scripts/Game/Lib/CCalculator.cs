@@ -1,13 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public enum CalcError { divZzero, undefinedOperation, invalidExpression }
+public enum CalcError { noErrorCode, divZzero, undefinedOperation, invalidExpression }
 public interface ICalc : IService
 {
     bool TryCalc(string _expression, out float _result);
+    float Calc(string _expression);
     CalcError GetErrorCode();
 }
 
+class CalculationException : Exception
+{
+    private CalcError errorType;
+    public CalculationException(CalcError _err)
+    {
+        errorType = _err;
+    }
+    public CalcError GetErrorType() => errorType;
+}
 
 public class CCalculator : ICalc
 {
@@ -15,7 +27,6 @@ public class CCalculator : ICalc
     private Stack<float> result = new Stack<float>();
     private Stack<Ops> ops = new Stack<Ops>();
     private char currentChar;
-    private bool isError;
     private CalcError errorCode;
 
     private readonly int[] onEnd = { 0, -1, 4, 4, 4, 4 };
@@ -28,8 +39,6 @@ public class CCalculator : ICalc
 
     private bool IsFloatChar(char _c)
     {
-        bool r;
-
         switch (_c)
         {
             case '0':
@@ -42,14 +51,10 @@ public class CCalculator : ICalc
             case '7':
             case '8':
             case '9':
-            case ',':
-                r = true;
-                break;
-            default:
-                r = false;
-                break;
+            case '.':
+                return true;
         }
-        return r;
+        return false;
     }
 
     private Ops GetOps()
@@ -89,14 +94,11 @@ public class CCalculator : ICalc
                 if (_f1 != 0) f = _f2 / _f1;
                 else
                 {
-                    isError = true;
-                    errorCode = CalcError.divZzero;
+                    throw new CalculationException(CalcError.divZzero);
                 }
                 break;
             default:
-                isError = true;
-                errorCode = CalcError.undefinedOperation;
-                break;
+                throw new CalculationException(CalcError.undefinedOperation);
         }
 
         return f;
@@ -119,9 +121,12 @@ public class CCalculator : ICalc
             case 0:
                 break;
             case 2:
-                o = ops.Pop();
-                f1 = result.Pop();
-                f2 = result.Pop();
+                if (ops.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else o = ops.Pop();
+                if (result.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else f1 = result.Pop();
+                if (result.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else f2 = result.Pop();
                 result.Push(Calculate(o, f1, f2));
                 ops.Push(GetOps());
                 break;
@@ -129,19 +134,21 @@ public class CCalculator : ICalc
                 ops.Push(GetOps());
                 break;
             case 3:
-                ops.Pop();
+                if (ops.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else ops.Pop();
                 break;
             case 4:
-                o = ops.Pop();
-                f1 = result.Pop();
-                f2 = result.Pop();
+                if (ops.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else o = ops.Pop();
+                if (result.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else f1 = result.Pop();
+                if (result.Count == 0) throw new CalculationException(CalcError.invalidExpression);
+                else f2 = result.Pop();
                 result.Push(Calculate(o, f1, f2));
                 r = true;
                 break;
             default:
-                isError = true;
-                errorCode = CalcError.invalidExpression;
-                break;
+                throw new CalculationException(CalcError.invalidExpression);
         }
         return r;
     }
@@ -150,39 +157,46 @@ public class CCalculator : ICalc
 
     public bool TryCalc(string _expression, out float _result)
     {
+        try
+        {
+            _result = Calc(_expression);
+        }
+        catch (CalculationException ce)
+        {
+            errorCode = ce.GetErrorType();
+            _result = 0;
+            return false;
+        }
+        return true;
+    }
+
+    public float Calc(string _expression)
+    {
         int i;
         float f;
-        bool b = false;
 
+        errorCode = CalcError.noErrorCode;
         result.Clear();
         ops.Clear();
-        _result = 0;
-        isError = false;
 
         i = 0;
         while (i < _expression.Length)
         {
-            b = false;
-            switch (currentChar = _expression[i])
+            bool b = false;
+            currentChar = _expression[i];
+            if (IsFloatChar(currentChar))
             {
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                case ',':
-                    int j;
-                    j = i;
-                    while (j < _expression.Length && IsFloatChar(_expression[j])) j++;
-                    f = float.Parse(_expression.Substring(i, j - i));
-                    result.Push(f);
-                    i = j - 1;
-                    break;
+                int j;
+                j = i;
+                while (j < _expression.Length && IsFloatChar(_expression[j])) j++;
+                f = CUtil.StringToFloat(_expression.Substring(i, j - i));
+                result.Push(f);
+                i = j;
+                continue;
+            }
+
+            switch (currentChar)
+            {
                 case ')':
                     b = Act(onStapleClose);
                     break;
@@ -203,18 +217,13 @@ public class CCalculator : ICalc
                     break;
             }
             if (b) continue;
-            if (isError) break;
             i++;
         }
 
-        if (isError) return false;
         currentChar = ' ';
         while (Act(onEnd)) ;
-        if (isError) return false;
 
-        _result = result.Pop();
-
-        return true;
+        return result.Pop();
     }
 
 }

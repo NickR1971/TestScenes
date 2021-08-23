@@ -25,7 +25,7 @@ public class CCalc : MonoBehaviour
         float resultCalc;
 
         gameConsole.ShowMessage($">>{_str}");
-        if (calculator.TryCalc(_str.Replace('.',','), out resultCalc)) gameConsole.ShowMessage($"={resultCalc}");
+        if (calculator.TryCalc(_str, out resultCalc)) gameConsole.ShowMessage($"={resultCalc}");
         else
         {
             switch(calculator.GetErrorCode())

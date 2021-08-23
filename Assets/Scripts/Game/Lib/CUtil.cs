@@ -17,4 +17,9 @@ public static class CUtil
         }
         return _str.Substring(0, i);
     }
+
+    public static float StringToFloat(string _str)
+    {
+        return float.Parse(_str.Replace('.', ','));
+    }
 }
