@@ -77,7 +77,7 @@ public class CCalculator : ICalc
 
     private float Calculate(Ops _o, float _f1, float _f2)
     {
-        float f = 0;
+        float f;
 
         switch (_o)
         {
@@ -173,7 +173,6 @@ public class CCalculator : ICalc
     public float Calc(string _expression)
     {
         int i;
-        float f;
 
         errorCode = CalcError.noErrorCode;
         result.Clear();
@@ -189,8 +188,7 @@ public class CCalculator : ICalc
                 int j;
                 j = i;
                 while (j < _expression.Length && IsFloatChar(_expression[j])) j++;
-                f = CUtil.StringToFloat(_expression.Substring(i, j - i));
-                result.Push(f);
+                result.Push(CUtil.StringToFloat(_expression.Substring(i, j - i)));
                 i = j;
                 continue;
             }
