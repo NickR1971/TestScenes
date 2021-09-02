@@ -14,7 +14,6 @@ public interface IDialog : IService
     void SetOnNo(Action _onDialogEnd);
     void SetOnCancel(Action _onDialogEnd);
     void SetOnInput(Action<string> _onDialogEnd);
-    void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false);
     void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null);
     void ResetToDefault();
 }

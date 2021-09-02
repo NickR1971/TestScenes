@@ -16,7 +16,6 @@ public class CDialog : CUI, IDialog
     private Action onDialogNo = null;
     private Action onDialogCancel = null;
     private Action<string> onDialogInput = null;
-    private EDialog currentType;
     private string sText;
 
     private void OpenDialog(string _text)
@@ -24,6 +23,14 @@ public class CDialog : CUI, IDialog
         if (IsActive()) Debug.LogError("Reopen dialog! " + _text);
         messageText.text = _text;
         uiManager.OpenUI(this);
+    }
+
+    private void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false)
+    {
+        icon.sprite = icons[(int)_type];
+        buttonYes.gameObject.SetActive(_enableOKbutton);
+        buttonNo.gameObject.SetActive(_enableNoButton);
+        inputText.gameObject.SetActive(_enableInputField);
     }
 
     //----------------------
@@ -36,14 +43,6 @@ public class CDialog : CUI, IDialog
         SetDialog(_dialogType, true, (_dialogType == EDialog.Question || _dialogType == EDialog.Input), (_dialogType == EDialog.Input));
         if (_onDialogYes != null) SetOnYes(_onDialogYes);
         OpenDialog(_text);
-    }
-    public void SetDialog(EDialog _type, bool _enableOKbutton = true, bool _enableNoButton = false, bool _enableInputField = false)
-    {
-        currentType = _type;
-        icon.sprite = icons[(int)_type];
-        buttonYes.gameObject.SetActive(_enableOKbutton);
-        buttonNo.gameObject.SetActive(_enableNoButton);
-        inputText.gameObject.SetActive(_enableInputField);
     }
     public void SetOnYes(Action _onDialogEnd)
     {
