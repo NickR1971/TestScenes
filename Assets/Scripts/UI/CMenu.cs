@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class CMenu : CUI
 {
     protected SortedList<EnumStringID,Button> buttons = new SortedList<EnumStringID,Button>();
-    
+    protected IMainMenu iMainMenu;
+
     [SerializeField] private Button btnPrefab;
     private Button lastButton;
 
@@ -17,6 +18,8 @@ public class CMenu : CUI
 
     protected void InitMenu()
     {
+        InitUI();
+        iMainMenu = AllServices.Container.Get<IMainMenu>();
         lastButton = null;
         CLocalisation.reloadText += RefreshText;
     }

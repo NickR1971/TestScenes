@@ -19,18 +19,20 @@ public class CDialog : CUI, IDialog
     private EDialog currentType;
     private string sText;
 
-    //----------------------
-    // IDialog
-    //----------------------
-
-    public void OpenDialog(string _text)
+    private void OpenDialog(string _text)
     {
         if (IsActive()) Debug.LogError("Reopen dialog! " + _text);
         messageText.text = _text;
         uiManager.OpenUI(this);
     }
+
+    //----------------------
+    // IDialog
+    //----------------------
+
     public void OpenDialog(EDialog _dialogType, string _text, Action _onDialogYes = null)
     {
+        if (uiManager == null) InitUI();
         SetDialog(_dialogType, true, (_dialogType == EDialog.Question || _dialogType == EDialog.Input), (_dialogType == EDialog.Input));
         if (_onDialogYes != null) SetOnYes(_onDialogYes);
         OpenDialog(_text);

@@ -10,8 +10,8 @@ public class CGamePanel : CUI
 
     void Start()
     {
+        InitUI();
         gameConsole = AllServices.Container.Get<IGameConsole>();
-        mainMenu.GetComponent<CUI>().InitUI();
         actor = FindObjectOfType<CActor>();
         if (actor == null) Debug.LogError("Actor not found");
     }

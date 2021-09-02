@@ -11,9 +11,12 @@ public class CSettings : CUI
     private bool isEditProfile = false;
     private ISaveLoad saveLoad;
     private IDialog dialog;
+    private IMainMenu iMainMenu;
 
     void Start()
     {
+        InitUI();
+        iMainMenu = AllServices.Container.Get<IMainMenu>();
         saveLoad = AllServices.Container.Get<ISaveLoad>();
         dialog = AllServices.Container.Get<IDialog>();
         profileField.text = saveLoad.GetProfile();

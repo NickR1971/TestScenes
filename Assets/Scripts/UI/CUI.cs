@@ -3,12 +3,10 @@
 public class CUI : MonoBehaviour
 {
     protected IUI uiManager;
-    protected IMainMenu iMainMenu;
  
-    public void InitUI()
+    protected void InitUI()
     {
         uiManager = AllServices.Container.Get<IUI>();
-        iMainMenu = AllServices.Container.Get<IMainMenu>();
     }
 
     public void Hide() => gameObject.SetActive(false);

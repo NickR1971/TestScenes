@@ -59,9 +59,6 @@ public class ApplicationManager : MonoBehaviour, IMainMenu, ISaveLoad
 		uiManager.Init();
 
 		startUI = startUIobject.GetComponent<CUI>();
-		startUI.InitUI();
-		settingsMenu.GetComponent<CUI>().InitUI();
-		dialog.InitUI();
 		saveLoadWindow.InittInterface();
 
 		GameObject vGameConsole = Instantiate(prefabGameConsole, uiCanvas.transform);
