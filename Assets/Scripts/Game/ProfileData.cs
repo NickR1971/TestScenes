@@ -30,29 +30,37 @@ public class ProfileData
         savedList = newList;
     }
 
+    public bool IsSaveExist(string _name)
+    {
+        return GetSaveIndex(_name) > -1;
+    }
+    private int GetSaveIndex(string _name)
+    {
+        int i;
+
+        for (i = 0; i < savedList.Length; i++)
+        {
+            if (savedList[i] == _name) return i;
+        }
+
+        return -1;
+    }
+
     public bool RemoveSave(string _name)
     {
+        int removeIndex = GetSaveIndex(_name);
+        if (removeIndex < 0) return false;
+
         int n = savedList.Length;
         string[] newList = new string[n - 1];
+        int i = 0;
 
-        int i1 = 0, i2 = 0;
-        while (i1 < n)
-        {
-            if (savedList[i1] == _name)
-            {
-                i1++;
-                continue;
-            }
-            if (i2 < (n - 1)) newList[i2++] = savedList[i1++];
-            else break;
-        }
-        if (i2 < i1)
-        {
-            savedList = newList;
-            return true;
-        }
+        for (; i < removeIndex; i++) newList[i] = savedList[i];
+        for (i++; i < n; i++) newList[i - 1] = savedList[i];
 
-        return false;
+        savedList = newList;
+
+        return true;
     }
 
     public string[] GetSavedList()
